@@ -1,0 +1,114 @@
+{% extends "admin_folder/base.html" %}
+{% block main %}
+        <!-- page content -->
+        <div class="right_col pb-4" role="main">
+          <div class="row">
+
+            <div class="col-md-12">
+                <div class="submit-page">
+                    <!-- Section -->
+                    <div class="utf-submit-page-inner-box">
+                        <h3>Properties</h3>
+                        <div class="content with-padding">
+                            <div class="col-md-12" align="right">
+                                <a href="/add-property" class="btn btn-success btn-lg">Add New</a>
+                            </div>
+                            <div class="col-md-12">
+                                <table id="datatablex" class="table table-striped table-bordered" style="max-width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>City</th>
+                                            <th>Builder</th>
+                                            <th>Status</th>
+                                            <th>Is Featured</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>City</th>
+                                            <th>Builder</th>
+                                            <th>Status</th>
+                                            <th>Is Featured</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                      {% for i in projects %}
+                                        <tr>
+                                            <td>{{i.title}}</td>
+                                            <td>{{i.city}}</td>
+                                            <td>{{i.builder}}</td>
+                                            <td>{{i.project_status}}</td>
+                                            <td>{{i.is_featured}}</td>
+                                            <td>
+                                                <div style="display: inline-flex;">
+                                                    <a href="/properties/{{i.slug}}" target="_blank" class="btn btn-primary">View</a>
+                                                    <form action="/edit-property" method="POST" enctype="multipart/form-data">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="id" value="{{i.id}}">
+                                                        <button class="btn btn-success">Edit</button>
+                                                    </form>
+                                                    <form action="/delete-property" method="POST" enctype="multipart/form-data">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="id" value="{{i.id}}">
+                                                        <button class="btn btn-danger" onclick="return confirmm();">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Section / End -->
+
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- /page content -->
+
+<!-- Add New -->
+<div class="modal fade" id="add_new" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="AddNewAmenities">Add New Amenity</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row">
+                  <div class="col-md-12 form-group">
+                      <label for="img">Image</label>
+                      <input type="file" class="form-control" name="img" id="img">
+                  </div>
+                  <div class="col-md-12 form-group">
+                      <label for="name">Name</label>
+                      <input type="text" class="form-control" name="name" id="name">
+                  </div>
+                  <div class="col-md-12 form-group" align="center">
+                      <input type="submit" class="form-control btn-primary">
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+

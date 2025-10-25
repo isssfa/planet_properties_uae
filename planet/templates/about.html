@@ -1,0 +1,145 @@
+{% extends 'website_base.html' %}
+{% load static %}
+{% load i18n %}
+{% block main %}
+
+  <!-- Titlebar -->
+    <div class="parallax titlebar" data-background="{% static 'front/images/listings-parallax.jpg' %}" data-color="rgba(48, 48, 48, 1)"
+         data-color-opacity="0.8" data-img-height="505" data-img-width="800">
+        <div id="titlebar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>
+                            {% trans "About Us" %}
+                        </h2>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs">
+                            <ul>
+                                <li><a href="/">{% trans "Home" %}</a></li>
+                                <li>{% trans "About" %}</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+  <!-- Contact -->
+  <div class="margin-top-65 padding-bottom-55">
+	  <div class="container">
+		<div class="row">
+		  <div class="col-xl-12 col-md-12">
+			<p style="text-align: justify;">
+                {% trans "Buying a house is a special feeling. It is a mixed feeling of excitement, nervousness & anxiousness. Buying a property is perhaps the single biggest investment made by a person during his lifetime. Thus, one needs to exert due caution in buying a house, lest your precious savings goes down the drain. After zeroing in on the desired property, you still would have to wade through a formidable maze of tedious legalities and endless paperwork. Therefore, in order to cruise home in style, either you have to acquaint yourself with various legal jargon's and other technicalities, devote a lot of your busy time in the lengthy & tiresome processes & do a lot of leg work roaming around several offices & banks or else you can entrust us for the same. Similar complex issues are involved in buying as well." %}
+            </p>
+		  </div>
+		</div>
+	  </div>
+  </div>
+  <!-- Container / End -->
+
+  <!-- Fullwidth Section -->
+  <section class="fullwidth" data-background-color="#fbfbfb">
+    <div class="container">
+      <div class="row">
+		<div class="col-md-12">
+			<div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">
+			  <h3 class="headline">{% trans 'PLANETS PROPERTIES "Dream, Desired Properties".' %}</h3>
+            </div>
+		</div>
+        <div class="col-xl-12 col-md-12">
+            {{website.about_dream|safe}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fullwidth" data-background-color="#fff">
+    <div class="container">
+      <div class="row">
+		<div class="col-md-12">
+			<div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">
+			  <h3 class="headline">{% trans "FOR NRI CLIENTS" %}</h3>
+            </div>
+		</div>
+        <div class="col-md-12">
+            {{website.about_nri|safe}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fullwidth" data-background-color="#fbfbfb">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="utf-icon-box-item-area">
+                <div class="icon-container"><i class="fa fa-eye"></i></div>
+                <h3>{% trans "Vision" %}</h3>
+                <p>{% trans "To be the" %} <b>{% trans "Realtor of first choice" %}</b> {% trans "for anyone considering buying, or renting a property in Bangalore." %}</p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fullwidth Section -->
+  <section class="fullwidth" data-background-color="#fff">
+    <div class="container">
+      <div class="row">
+		<div class="col-md-12">
+			<div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">
+			  <h3 class="headline">{% trans "Mission" %}</h3>
+            </div>
+		</div>
+        <div class="col-xl-4 col-md-4" style="padding: 5px;" align="center">
+            <div style="border: 1px solid #000; border-radius: 30px; padding: 10px;">
+                <h4 style="font-weight: 900;">{% trans "OUR CLIENTS" %}</h4>
+                <h6 style="margin-top: -5px;">{% trans "(the most valued part of our business)" %}</h6>
+                <p style="text-align: justify;">
+                    {% trans "Our mission is to provide an outstanding level of service to our clients, making each property transaction a hassle-free & pleasurable experience & build a loyal customer base who we believe will advertise our services by word of mouth." %}
+                </p>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-4" style="padding: 5px;" align="center">
+            <div style="border: 1px solid #000; border-radius: 30px; padding: 10px;">
+                <h4 style="font-weight: 900;">{% trans "OUR TEAM" %}</h4>
+                <h6 style="margin-top: -5px;">{% trans "(our most valuable asset)" %}</h6>
+                <p style="text-align: justify;">
+                    {% trans "Our mission is to work together in an atmosphere of fun and respect towards each other by adhering to strict code of conduct & high ethics and to support each other to deliver exceptional customer service and thereby achieve our personal goals." %}
+                </p>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-4" style="padding: 5px;" align="center">
+            <div style="border: 1px solid #000; border-radius: 30px; padding: 10px;">
+                <h4 style="font-weight: 900;">{% trans "OUR BUSINESS" %}</h4>
+                <h6 style="margin-top: -5px;">{% trans "(our vehicle)" %}</h6>
+                <p style="text-align: justify;">
+                    {% trans "Our mission is to conduct business in the most professional, ethical & transparent manner. We perpetually strive to uphold strong ethical principles and clearly defined standard operating procedures with no or very minimal deviations allowing maximum productivity." %}
+                </p>
+            </div>
+        </div>
+        <div class="col-xl-12 col-md-12" style="padding: 5px;" align="center">
+            <div style="border: 1px solid #000; border-radius: 30px; padding: 10px;">
+                <h4 style="font-weight: 900;">{% trans "OUR CORE VALUES" %}</h4>
+                <p style="text-align: center;">
+                    {% blocktrans %}What we are and what we stand for is indicated in the acronym of <b>P L A N E T S</b>  below:{% endblocktrans %}<br>
+                    <b>P</b> - {% trans "Professional" %}<br>
+                    <b>L</b> - {% trans "Law-abiding" %}<br>
+                    <b>A</b> – {% trans "Accountable & Accessible" %}<br>
+                    <b>N</b> - {% trans "Nice and courteous" %}<br>
+                    <b>E</b> – {% trans "Ethical & Efficient" %}<br>
+                    <b>T</b> - {% trans "Transparent" %}<br>
+                    <b>S</b> - {% trans "Supportive" %}<br>
+                </p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

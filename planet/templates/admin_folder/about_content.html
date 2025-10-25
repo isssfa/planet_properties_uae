@@ -1,0 +1,84 @@
+{% extends "admin_folder/base.html" %}
+{% load static %}
+
+{% block style %}
+<style>
+
+    </style>
+{% endblock %}
+
+{% block main %}
+        <!-- page content -->
+        <div class="right_col pb-4" role="main">
+          <div class="row">
+
+            <div class="col-md-12">
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="submit-page">
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <div class="content with-padding">
+                                <div class="col-md-12">
+                                    <h5 align="center">About Us - PLANETS PROPERTIES "Dream, Desired Properties".</h5>
+                                    <textarea name="about_dream">{% if website.about_dream %}{{website.about_dream}}{% endif %}</textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <h5 align="center">About Us - FOR NRI CLIENTS.</h5>
+                                    <textarea name="about_nri">{% if website.about_nri %}{{website.about_nri}}{% endif %}</textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <hr>
+                                </div>
+                                <div class="col-md-12">
+                                    <h5 align="center">Why Us - RERA Approved</h5>
+                                    <textarea name="why_rera">{% if website.why_rera %}{{website.why_rera}}{% endif %}</textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <h5 align="center">Why Us - Discounts and Best Deals</h5>
+                                    <textarea name="why_deals">{% if website.why_deals %}{{website.why_deals}}{% endif %}</textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <h5 align="center">Why Us - Helping You to Find Best Location</h5>
+                                    <textarea name="why_location">{% if website.why_location %}{{website.why_location}}{% endif %}</textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <h5 align="center">Why Us - Providing End to End Real Estate Service</h5>
+                                    <textarea name="why_providing">{% if website.why_providing %}{{website.why_providing}}{% endif %}</textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <hr>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <h5 align="center">Disclaimer & Privacy Policy</h5>
+                                    <textarea name="disclaimer">{% if website.disclaimer %}{{website.disclaimer}}{% endif %}</textarea>
+                                </div>
+                            </div>
+                        <!-- Section / End -->
+
+                        <div class="content with-padding">
+                            <div class="col-md-12">
+                                <input type="hidden" name="id" value="{{website.id}}">
+                                <button type="submit" class="utf-centered-button button" style="background: #e33324">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- /page content -->
+{% endblock %}
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        $('textarea').summernote({
+            height: 300,
+        });
+    });
+</script>
+{% endblock %}

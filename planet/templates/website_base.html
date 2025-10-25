@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load honeypot %}
+    {% load i18n %}
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Gowebkart.com">
+    <meta name="theme-color" content="#e33324">
+    <meta name="description" content="{% if page_description %}{{page_description}}{% else %}{% trans 'Prime Planets Properties mark the coming together of the best of minds from the Indian real estate industry, With a high level of innovative and creative ideas in real estate industry to solve buyers problems' %}{% endif %}">
+    <meta name="keywords" content="{% if page_keywords %}{{page_keywords}}{% else %}{% trans 'Apartment, Estate Agency, Housing, Real Estate, Real Estate Broker, Real Estate Property, Single Property, Prime Planets Properties, PlanetsProperties.com, Planet Properties, real estate bangalore, Prime Planets Properties bangalore' %}{% endif %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if title %}{{title}}{% else %}{% trans 'Prime Planets Properties' %}{% endif %}</title>
+
+    <!--  Favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/logo.jpg' %}">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'front/css/stylesheet.css' %}">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11022112375"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-11022112375');
+    </script>
+
+    <!-- Event snippet for Submit lead form conversion page -->
+    <script>
+      gtag('event', 'conversion', {'send_to': 'AW-11022112375/2W1xCOHN0IEYEPes4Icp'});
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+    
+    
+    <!-- Google Translate Widget Styles -->
+    <style>
+        #google_translate_element {
+            display: inline-block !important;
+            margin: 0 10px !important;
+            visibility: visible !important;
+            position: relative !important;
+            z-index: 9999 !important;
+        }
+        
+        #google_translate_element_footer {
+            display: inline-block !important;
+            visibility: visible !important;
+            position: relative !important;
+            z-index: 9999 !important;
+        }
+        
+        /* Ensure Google Translate widgets are always visible */
+        .goog-te-gadget {
+            display: inline-block !important;
+            visibility: visible !important;
+        }
+        
+        .goog-te-gadget-simple {
+            display: inline-block !important;
+            visibility: visible !important;
+        }
+        
+        
+        #header.cloned.sticky {
+            padding-top: 50px;
+        }
+        
+        .goog-te-gadget {
+            font-family: inherit !important;
+            font-size: 14px !important;
+        }
+        
+        .goog-te-gadget-simple {
+            background-color: transparent !important;
+            border: 1px solid #ccc !important;
+            padding: 5px 10px !important;
+            border-radius: 4px !important;
+            font-size: 14px !important;
+        }
+        
+        .goog-te-gadget-simple:hover {
+            border-color: #e33324 !important;
+        }
+        
+        .goog-te-gadget-icon {
+            display: none !important;
+        }
+        
+        .goog-te-menu-value span {
+            color: #333 !important;
+        }
+        
+        .goog-te-menu-value span:hover {
+            color: #e33324 !important;
+        }
+        
+        /* Footer Google Translate Styles */
+        #footer #google_translate_element_footer .goog-te-gadget-simple {
+            background-color: #fff !important;
+        }
+        
+        #footer #google_translate_element_footer .goog-te-menu-value span {
+            color: #333 !important;
+        }
+        
+        @media (max-width: 768px) {
+            #google_translate_element {
+                display: block;
+                margin: 10px 0;
+                text-align: center;
+            }
+        }
+    </style>
+    
+    {% if website.header_script %}{{website.header_script|safe}}{% endif %}
+
+{% block style %}
+{% endblock %}
+</head>
+
+<body>
+<!-- Preloader Start -->
+<!--<div class="preloader">-->
+<!--    <div class="utf-preloader">-->
+<!--        <img src="{% static 'assets/images/logo.jpg' %}" style="height:">-->
+<!--&lt;!&ndash;        <span></span>&ndash;&gt;-->
+<!--&lt;!&ndash;        <span></span>&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="logo-text">&ndash;&gt;-->
+<!--&lt;!&ndash;         Prime Planets Properties&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--    </div>-->
+<!--</div>-->
+<!--&lt;!&ndash; Preloader End &ndash;&gt;-->
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header Container -->
+    <header id="header-container">
+        <!-- Header -->
+        <div id="header">
+            <div class="container">
+                <div class="left-side">
+
+                    <!-- Mobile Navigation -->
+                    <div class="mmenu-trigger">
+                        <button class="hamburger hamburger--collapse" type="button"><span class="hamburger-box"> <span
+                                class="hamburger-inner"></span> </span></button>
+                    </div>
+                    <!-- Main Navigation -->
+                    <div id="logo">
+                        <a href="/">
+                            {% if project.builder %}
+                            <img alt="{{project.builder.name}} {% trans 'logo' %}" src="/media/{{project.builder.img}}">
+                            {% else %}
+                            <img alt="{% trans 'Prime Planets Properties logo' %}" src="{% static 'assets/images/logo.jpg' %}">
+                            <span class="logo-text">{% trans 'Prime Planets Properties' %}</span>
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>
+                <!-- Left Side Content / End -->
+
+                <!-- Right Side Content / End -->
+                <div class="right-side">
+                    <nav class="style-1" id="navigation">
+                        <ul id="responsive">
+                            <li><a class="{% if current == 'home' %}current{% endif %}" href="/">{% trans "Home" %}</a></li>
+                            <li><a class="{% if current == 'properties' %}current{% endif %}" href="/properties/">{% trans "Properties" %}</a>
+                                <ul>
+                                    <li><a href="/search?city=any&builder=any&type=any&type_2=New+Property&status=any">{% trans "New Property" %}</a></li>
+                                    <li><a href="/search?city=any&builder=any&type=any&type_2=Rental&status=any">{% trans "Rental" %}</a></li>
+                                    <li><a href="/search?city=any&builder=any&type=any&type_2=Resale&status=any">{% trans "Resale" %}</a></li>
+                                    <li><a href="/search?city=any&builder=any&type=any&type_2=Commercial&status=any">{% trans "Commercial" %}</a></li>
+                                    <li><a href="/search?city=any&builder=any&type=any&type_2=Land&status=any">{% trans "Land" %}</a></li>
+                                    <li><a href="/search?city=any&builder=any&type=any&type_2=Agricultural&status=any">{% trans "Agricultural" %}</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="{% if current == 'blogs' %}current{% endif %}" href="/blogs">{% trans "Blogs" %}</a></li>
+                            <li><a class="{% if current == 'about' %}current{% endif %}" href="#">{% trans "About" %}</a>
+                                <ul>
+                                    <li><a href="/about-us">{% trans "About Us" %}</a></li>
+                                    <li><a href="/why-planets-properties">{% trans "Why Us" %}</a></li>
+                                    <li><a href="/awards-and-recognitions">{% trans "Awards & Recognitions" %}</a></li>
+                                    <li><a href="/events">{% trans "Events & Campaigns" %}</a></li>
+                                    <li><a href="/our-team">{% trans "Our Team" %}</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="{% if current == 'contact' %}current{% endif %}" href="/contact-us">{% trans "Contact" %}</a></li>
+                            <!-- Google Translate Widget in Header -->
+                            <li>
+                                <div id="google_translate_element"></div>
+                            </li>
+<!--                            <li>-->
+<!--                                <form action="{% url 'set_language' %}" method="post">-->
+<!--                                    {% csrf_token %}-->
+<!--                                    <select name="language" onchange="this.form.submit()" class="form-control">-->
+<!--                                        <option value="">Select Language</option>-->
+<!--                                        <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>{% trans "English" %}</option>-->
+<!--                                        <option value="ar" {% if LANGUAGE_CODE == 'ar' %}selected{% endif %}>{% trans "Arabic" %}</option>-->
+<!--                                    </select>-->
+<!--                                </form>-->
+<!--                            </li>-->
+
+                            <li class="menu-item-has-children">
+                              <a href="#">
+                                {% trans "Currency" %}: {{ chosen_currency|default:"AED" }}
+                              </a>
+                              <ul class="dropdown-nav">
+                                <li>
+                                  <form method="post" action="{% url 'set_currency' %}" style="margin:0; padding:0;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="currency" value="AED">
+                                    <button type="submit" class="btn btn-link" style="padding:6px 15px; text-align:left; width:100%;">AED</button>
+                                  </form>
+                                </li>
+                                <li>
+                                  <form method="post" action="{% url 'set_currency' %}" style="margin:0; padding:0;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="currency" value="USD">
+                                    <button type="submit" class="btn btn-link" style="padding:6px 15px; text-align:left; width:100%;">USD</button>
+                                  </form>
+                                </li>
+                                <li>
+                                  <form method="post" action="{% url 'set_currency' %}" style="margin:0; padding:0;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="currency" value="EUR">
+                                    <button type="submit" class="btn btn-link" style="padding:6px 15px; text-align:left; width:100%;">EUR</button>
+                                  </form>
+                                </li>
+                                <li>
+                                  <form method="post" action="{% url 'set_currency' %}" style="margin:0; padding:0;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="currency" value="INR">
+                                    <button type="submit" class="btn btn-link" style="padding:6px 15px; text-align:left; width:100%;">INR</button>
+                                  </form>
+                                </li>
+                              </ul>
+                            </li>
+
+
+
+                        </ul>
+
+                    </nav>
+                    <div class="clearfix"></div>
+                    <!-- Main Navigation / End -->
+                </div>
+            </div>
+        </div>
+        <!-- Header / End -->
+    </header>
+    <div class="clearfix"></div>
+    <!-- Header Container / End -->
+
+  {% block main %}
+  {% endblock %}
+
+  <!-- Footer -->
+  <div id="footer"> 
+    <div class="container">
+      <div class="row">
+	    <div class="col-md-4 col-sm-12 col-xs-12">
+
+            <a href="/">
+                <img alt="{% trans 'Prime Planets Properties Logo' %}" style="height: 100px;" src="{% static 'assets/images/logo.jpg' %}">
+                <span class="logo-text" style="font-size: 24px;">{% trans 'Prime Planets Properties' %}</span>
+            </a>
+<!--          <a href="index.html"><img class="footer-logo" src="{% static 'front/images/footer_logo.png' %}" alt=""></a>-->
+          <p>{{website.footer_about|safe}}</p>
+        </div>
+        <div class="col-md-2 col-sm-6 col-xs-6">
+          <h4>{% trans "Cities" %}</h4>
+          <ul class="utf-footer-links-item">
+            {% for i in city %}
+            <li><a href="/cities/{{i.slug}}">{{i.name}}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-6">
+          <h4>{% trans "Quick Links" %}</h4>
+          <ul class="utf-footer-links-item">
+            <li><a href="/">{% trans "Home" %}</a></li>
+            <li><a href="/about-us">{% trans "About" %}</a></li>
+            <li><a href="/why-planets-properties">{% trans "Why Us" %}</a></li>
+            <li><a href="/awards-and-recognitions">{% trans "Awards & Recognitions" %}</a></li>
+            <li><a href="/our-team">{% trans "Our Team" %}</a></li>
+            <li><a href="/properties">{% trans "Properties" %}</a></li>
+            <li><a href="/events">{% trans "Events & Campaigns" %}</a></li>
+			<li><a href="/contact-us">{% trans "Contact Us" %}</a></li>
+			<li><a href="/sitemap">{% trans "Sitemap" %}</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 col-sm-12 col-xs-12">
+          <h4>{% trans "Contact Us" %}</h4>
+        {% if project.builder %}
+            <p><a href="{% url 'contact_us' %}" class="btn btn-primary btn-lg button">{% trans "Contact Us" %}</a></p>
+        {% else %}
+          <b>{% trans "Corporate Office" %}</b>
+          <p>{{website.address}}</p>
+        {% endif %}
+                <div class="row" style="">
+                    <div class="col-md-12" align="center" style="display: block;">
+                        <h3>{% trans "Follow Us" %}</h3>
+                    </div>
+                    <div class="col-md-2 col-xs-2">
+                        <a href="https://www.facebook.com/planetsprop" target="_blank">
+                            <img alt="{% trans 'facebook' %}" src="{% static 'front/images/facebook_circle_color-512.webp' %}" style="height: 25px; width: 25px;">
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-xs-2">
+                        <a href="https://instagram.com/planetsproperties" target="_blank">
+                            <img alt="{% trans 'instagram' %}" src="{% static 'front/images/Instagram_icon.png' %}" style="height: 25px; width: 25px;">
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-xs-2">
+                        <a href="https://twitter.com/PlanetsProp" target="_blank">
+                            <img alt="{% trans 'twitter' %}" src="{% static 'front/images/twitter_circle-512.webp' %}" style="height: 25px; width: 25px;">
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-xs-2">
+                        <a href="https://www.youtube.com/@planetsproperties2838" target="_blank">
+                            <img alt="{% trans 'Youtube' %}" src="{% static 'front/images/Youtube_logo.png' %}" style="height: 25px; width: 25px;">
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-xs-2">
+                        <a href="https://www.linkedin.com/in/planets-properties-4b1250148" target="_blank">
+                            <img alt="{% trans 'Linkedin' %}" src="{% static 'front/images/LinkedIn_logo_initials.png' %}" style="height: 25px; width: 25px;">
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-xs-2">
+                        <a href="http://t.me/planets_properties" target="_blank">
+                            <img alt="{% trans 'Telegram' %}" src="{% static 'front/images/Telegram_logo.svg.webp' %}" style="height: 25px; width: 25px;">
+                        </a>
+                    </div>
+                </div>
+        </div>
+      </div>
+      
+      <!-- Google Translate Widget in Footer -->
+      <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+        <div class="col-md-12" align="center">
+          <div id="google_translate_element_footer"></div>
+        </div>
+      </div>
+      
+    {% if project.builder.disclaimer %}
+      <div class="row">
+        <div class="col-md-12">
+          <div class="copyrights">{{project.builder.disclaimer|safe}}</a></div>
+        </div>
+      </div>
+    {% endif %}
+      <div class="row">
+        <div class="col-md-12" style="" align="center">
+            <a href="{% url 'disclaimer' %}" style="color: red"><b>{% trans "Disclaimer & Privacy Policy" %}</b></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="copyrights" style="margin-top: 10px;">{% trans "Copyright © 2022 Prime Planets Properties All Rights Reserved." %}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div id="backtotop"><a href="#"></a></div>
+</div>
+
+<a href="tel:{{website.call_number}}" class="floating-button">
+<i class="fa fa-phone my-float"></i>
+</a>
+
+
+{% if '/properties/' in request.path and request.path != '/properties/' %}
+    <a id="whatsapp-button" href='https://api.whatsapp.com/send?phone={{website.call_number}}&text={{ message|default:"Hi%2C" }}' target="_blank" class="floating-button whatsapp">
+        <i class="fa fa-whatsapp my-float"></i>
+    </a>
+{% else %}
+    <a id="whatsapp-button" href='https://api.whatsapp.com/send?phone={{website.call_number}}&text=Hi%2C' target="_blank" class="floating-button whatsapp">
+        <i class="fa fa-whatsapp my-float"></i>
+    </a>
+{% endif %}
+
+<!-- Sign In Popup -->
+<div id="utf-signin-dialog-block" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+  <div class="utf-signin-form-part">
+    <div class="utf-popup-container-part-tabs">
+      <!-- Register -->
+      <div class="utf-popup-tab-content-item" id="register"> 
+        <div class="utf-welcome-text-item">
+          <h3>{% trans "Fill the form and we'll get back to you." %}</h3>
+        </div>
+        <form method="POST" action="/send-email" id="utf-register-account-form">
+            {% csrf_token %}
+            {% render_honeypot_field "check_field" %}
+		  <div class="utf-no-border">
+            <input type="text" name="name" id="name" placeholder="{% trans 'Your Name' %}" required/>
+          </div>
+		  <div class="utf-no-border">
+            <input type="email" name="email" id="emailaddress-register" placeholder="{% trans 'Email Address' %}" required/>
+          </div>
+		  <div class="utf-no-border">
+            <input type="text" name="phone" id="mob_no" placeholder="{% trans 'Mobile Number' %}" required/>
+          </div>
+          <div class="utf-no-border">
+              <textarea name="message" id="message_pop_up" placeholder="{% trans 'Your Message' %}" >{% trans "I'm interest in" %}
+              </textarea>
+          </div>
+          <div class="utf-no-border">
+              {% trans "What's" %} <span class="num1">{{num1}}</span> + <span class="num2">{{num2}}</span> ?
+              <input type="number" name="answer_quiz" placeholder="{% trans 'Type answer here' %}" required>
+              <input type="hidden" name="num1" value="{{num1}}">
+              <input type="hidden" value="{{num2}}" name="num2">
+              <input type="hidden" value="" name="property_id" id="property_id_main">
+          </div>
+          <button class="margin-top-10 button full-width utf-button-sliding-icon ripple-effect" type="submit" form="utf-register-account-form">{% trans "Submit" %} <i class="icon-feather-chevrons-right"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Sign In Popup / End -->
+
+<!-- Scripts --> 
+<script src="{% static 'front/scripts/jquery-3.3.1.min.js' %}"></script> 
+<script src="{% static 'front/scripts/bootstrap.min.js' %}"></script>
+<script src="{% static 'front/scripts/chosen.min.js' %}"></script> 
+<script src="{% static 'front/scripts/magnific-popup.min.js' %}"></script> 
+<script src="{% static 'front/scripts/owl.carousel.min.js' %}"></script> 
+<script src="{% static 'front/scripts/rangeSlider.js' %}"></script> 
+<script src="{% static 'front/scripts/sticky-kit.min.js' %}"></script> 
+<script src="{% static 'front/scripts/slick.min.js' %}"></script> 
+<script src="{% static 'front/scripts/masonry.min.js' %}"></script> 
+<script src="{% static 'front/scripts/mmenu.min.js' %}"></script> 
+<script src="{% static 'front/scripts/tooltips.min.js' %}"></script> 
+<script src="{% static 'front/scripts/typed.js' %}"></script>
+<script src="{% static 'front/scripts/custom_jquery.js' %}"></script>
+
+<!-- Google Translate Widget Script -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  // Header translate widget
+  new google.translate.TranslateElement(
+    {
+        pageLanguage: 'en',
+        includedLanguages: 'en,ar',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+    },
+    'google_translate_element'
+  );
+  
+  
+  // Footer translate widget  
+  new google.translate.TranslateElement(
+    {
+        pageLanguage: 'en',
+        includedLanguages: 'en,ar',
+        layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+        autoDisplay: false
+    },
+    'google_translate_element_footer'
+  );
+  
+}
+
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+
+    function getThePropertyName(e) {
+        var builder = e.getAttribute("data-builder");
+        var property_id = e.getAttribute("data-projectid");
+        $('#property_id_main').val(property_id);
+        {% if message %}
+            var messagee = "{{message}}";
+            messagee = messagee.replace(/%20/g, " ");
+            messagee = messagee.replace(/%2C/g, ",");
+            messagee = messagee.replace(/%2E/g, ".");
+            messagee = messagee.replace("[[property]]", e.title);
+            messagee = messagee.replace("[[builder]]", builder);
+            $('#message_pop_up').html(messagee);
+        {% else %}
+            $('#message_pop_up').html("I'm interest in "+e.title+", by "+builder+" builders.");
+        {% endif %}
+    }
+
+    function changewhatsappURL(e) {
+        var builder = e.getAttribute("data-builder");
+        current_url = e.getAttribute('href');
+        console.log(current_url);
+        var new_url = current_url.replace("[[property]]", e.title)
+        new_url = new_url.replace("[[builder]]", builder)
+        console.log(new_url);
+        e.setAttribute('href', new_url);
+    }
+
+    const observer = lozad();
+    observer.observe();
+
+</script>
+<script src="https://www.kenyt.ai/botapp/ChatbotUI/dist/js/bot-loader.js" type="text/javascript" data-bot="292206216"></script>
+{% if messages %}
+	<script>
+			{% for m in messages %}
+				alert("{{m}}");
+			{% endfor %}
+	</script>
+{% endif %}
+{% block scripts %}
+{% endblock %}
+</body>
+</html>

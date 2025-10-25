@@ -1,0 +1,506 @@
+{% extends 'website_base.html' %}
+{% load static %}
+{% load i18n %}
+{% load honeypot %}
+{% load embed_video_tags %}
+{% block style %}
+<style>
+    @media (max-width: 992px) {
+        .display_only_phone {
+            display: block !important;
+        }
+    }
+    .parallax #titlebar {
+        padding: 60px 0 !important;
+    }
+
+
+    .planets-logo-single {
+        max-height: 140px;
+    }
+    @media (min-width: 992px) {
+        .display_only_phone {
+            display: none !important;
+        }
+
+        .planets-logo-single {
+            margin-top: -60px;
+        }
+    }
+    @media screen and (max-width: 992px) {
+        .planets-logo {
+            margin-top: 0px;
+        }
+    }
+
+</style>
+{% endblock %}
+{% block main %}
+
+
+    <!-- Titlebar -->
+    <div class="parallax titlebar" data-background="{% static 'front/images/listings-parallax.jpg' %}" data-color="rgba(48, 48, 48, 1)"
+         data-color-opacity="0.8" data-img-height="505" data-img-width="800">
+        <div id="titlebar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h2>{{project.title}}</h2>
+                            </div>
+                            <div class="col-md-4" align="center">
+                                <img alt="{% trans 'planets properties logo' %}" class="planets-logo-single" src="{% static 'assets/images/planets_properties_logo.png' %}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container">
+        <div class="row margin-bottom-50">
+            <div class="col-md-12">
+                <!-- Slider -->
+                <div class="property-slider default">
+                    {% for i in images %}
+                    <a class="item mfp-gallery" data-background-image="/media/{{i.img}}"
+                       href="/media/{{i.img}}"></a>
+                    {% endfor %}
+                </div>
+                <!-- Slider Thumbs -->
+                <div class="property-slider-nav">
+                    {% for i in images %}
+                    <div class="item"><img alt="banner_{{i.id}} {{i.project.title}}" class="lozad" src="/media/{{i.img}}"></div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="margin-bottom: 50px;" >
+        <div class="row">
+
+            <!-- Property Description -->
+            <div class="col-lg-8 col-md-7">
+                <!-- Titlebar -->
+                <div class="property-titlebar margin-bottom-0" id="titlebar-dtl-item">
+                    <div class="property-title">
+                        <div class="property-pricing">{{project_price_display}}</div>
+                        <h2>{{project.title}} <span class="property-badge-sale">{{project.project_status}}</span>{% if project.project_status_1 %}<span class="property-badge-sale">{{project.project_status_1}}</span>{% endif %}</h2>
+                        {% if project.rera_no %}
+                            <p style="padding: 0px; margin: 0px; word-wrap: break-word;">{% trans "RERA No" %}: {{project.rera_no}}</p>
+                        {% endif %}
+                        {% if project.dld_permit_number %}
+                            <div style="background-color: white; border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin: 10px 0; text-align: center;">
+                                <p style="margin: 0 0 10px 0; color: #666; font-size: 14px;">{% trans "DLD Permit Number" %} <i class="fa fa-info-circle" style="color: #007bff;"></i></p>
+                                <p style="margin: 0 0 15px 0; font-size: 18px; font-weight: bold; color: #000;">{{project.dld_permit_number}}</p>
+                                <div id="qrcode" style="display: flex; justify-content: center; align-items: center;"></div>
+                            </div>
+                        {% endif %}
+                        {% if project.possession %}
+                            <p style="padding: 0px; margin: 0px;">{{project.possession}}</p>
+                        {% endif %}
+                        <span class="utf-listing-address"><i class="icon-material-outline-location-on"></i>{% if project.location %}{{project.location}}, {% endif %}{{project.city.name}}</span>
+                    </div>
+                </div>
+
+                <div class="property-description">
+
+                    <!-- Details -->
+                    <div class="utf-desc-headline-item display_only_phone">
+                        <h3><i class="sl sl-icon-person-rolodex"></i>{% trans "Contact us for more details" %}</h3>
+                    </div>
+                    <div class="display_only_phone">
+                        <form action="/send-email" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input name="name" placeholder="{% trans 'Name' %}" type="text" required>
+                            {% render_honeypot_field "check_field" %}
+                            <input name="email" placeholder="{% trans 'Email' %}" type="email" required>
+                            <input name="phone" placeholder="{% trans 'Phone' %}" type="text" required>
+                            <textarea name="message">{% blocktrans with title=project.title %}I'm interested in {{title}}{% endblocktrans %}</textarea>
+                              <div class="utf-no-border">
+                                  {% blocktrans with num1=num1 num2=num2 %}What's <span class="num1">{{num1}}</span> + <span class="num2">{{num2}}</span> ?{% endblocktrans %}
+                                  <input type="number" name="answer_quiz" placeholder="{% trans 'Type answer here' %}" required>
+                                  <input type="hidden" name="num1" value="{{num1}}">
+                                  <input type="hidden" value="{{num2}}" name="num2">
+                                  <input type="hidden" value="{{project.id}}" name="property_id">
+                              </div>
+                            <button class="button fullwidth margin-top-5">{% trans "Send Message" %}</button>
+                        </form>
+                    </div>
+                    <!-- Description -->
+                    <div class="utf-desc-headline-item">
+                        <h3><i class="icon-material-outline-description"></i>{% trans "Highlights" %}</h3>
+                    </div>
+
+                    <ul class="property-features margin-top-0">
+                        <li>{% trans "Project Area" %}: <span>{{project.project_area}}</span></li>
+                        <li>{% trans "Type" %}: <span>{{project.project_type}}</span></li>
+                        <li>{% trans "No. of Unit" %}: <span>{{project.project_units}}</span></li>
+                        <li>{% trans "Builtup Area" %}: <span>{{project.project_buildup}}</span></li>
+                        <li>{% trans "Price" %}: <span>₹ {{project.project_price}}</span></li>
+                        <li>{% trans "Status" %}: <span>{{project.project_status}}{% if project.project_status_1 %}<br>{{project.project_status_1}}{% endif %}</span></li>
+                    </ul>
+
+                    <!-- Details -->
+                    <div class="utf-desc-headline-item">
+                        <h3><i class="sl sl-icon-briefcase"></i> {% trans "Overview" %}</h3>
+                    </div>
+                    <div class="">
+                        <p> {{project.description|safe}}</p>
+                    </div>
+
+                    <div class="utf-desc-headline-item">
+                        <h3><i class="sl sl-icon-briefcase"></i> {% trans "Pricing" %}</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped table-bordered table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>{% trans "Property" %}</th>
+                                        <th>{% trans "Super Builtup Area" %}</th>
+                                        <th>{% trans "Carpet Area" %}</th>
+                                        <th>{% trans "Basic Price" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in pricing %}
+                                    <tr>
+                                        <td>{{i.obj.property}}</td>
+                                        <td>{{i.obj.builtup}}</td>
+                                        <td>{{i.obj.carpet}}</td>
+                                        <td>{{i.price_display}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="utf-desc-headline-item">
+                        <h3><i class="sl sl-icon-briefcase"></i> {% trans "Amenities" %}</h3>
+                    </div>
+                    <div class="row">
+                        {% for i in amenities %}
+                        <div class="col-md-2 col-xs-6" style="height: 100px;">
+                            <div align="center">
+                                <img alt="amenities_{{i.id}} {{i.project.title}}" src="/media/{{i.amenity.img}}" style="height: 60px; width: 60px; border-radius: 50%;">
+                                <label style="font-size: 14px; line-height:14px;">{{i.amenity.name}}</label>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    {% if floors %}
+                    <!-- Floorplans -->
+                    <div class="utf-desc-headline-item">
+                        <h3><i class="icon-line-awesome-paper-plane"></i> {% trans "Property Floor Plans" %}</h3>
+                    </div>
+                    <!-- Accordion -->
+                    <div class="style-1 fp-accordion">
+                        <div class="accordion">
+                            {% for i in floors %}
+                            <h3>{{i.name}} {% if i.tag1 %}<span>{{i.tag1}}</span>{% endif %}
+                                {% if i.tag2 %}<span>{{i.tag2}}</span>{% endif %}
+                                {% if i.tag3 %}<span>{{i.tag3}}</span>{% endif %}
+                                {% if i.tag4 %}<span>{{i.tag4}}</span>{% endif %} <i class="sl sl-icon-plus"></i></h3>
+                            <div>
+                                <a class="floor-pic mfp-image" href="/media/{{i.img}}">
+                                    <img alt="floor_{{i.name}} {{i.project.title}}" src="/media/{{i.img}}" style="max-height: 350px; width: unset;"> </a>
+                                {% if i.pdf %}
+                                <a href="/media/{{i.pdf}}" target="_blank" class="button align-center" download>
+                                {% trans "Download PDF" %}</a>
+                                {% endif %}
+                                <p>{{i.description}}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Master Plan -->
+                    {% if project.master_plan %}
+                    <div class="utf-desc-headline-item">
+                        <h3><i class="icon-feather-video"></i> {% trans "Master Plan" %}</h3>
+                    </div>
+                    <div class="" align="center">
+                        <a class="floor-pic mfp-image" href="/media/{{project.master_plan}}">
+                            <img alt="{% trans 'Master Plan' %} {{project.title}}" src="/media/{{project.master_plan}}">
+                        </a>
+                        {% if project.master_plan_pdf %}
+                        <a class="button" style="margin-top: 30px;" href="/media/{{project.master_plan_pdf}}" download>{% trans "Download PDF" %}</a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Video -->
+                    {% if project.video_link %}
+                    <div class="utf-desc-headline-item">
+                        <h3><i class="icon-feather-video"></i> {% trans "Property Video" %}</h3>
+                    </div>
+                    <div class="responsive-iframe">
+                        {% video project.video_link as my_video %}
+                            <iframe src="{{ my_video.url }}" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                        {% endvideo %}
+                    </div>
+                    {% endif %}
+
+
+                    <!-- Location -->
+                    {% if project.map_link %}
+                    <div class="utf-desc-headline-item">
+                        <h3><i class="icon-material-outline-location-on"></i> {% trans "Property Location" %}</h3>
+                    </div>
+                    <div id="propertyMap-container">
+                        {{project.map_link|safe}}
+                    </div>
+                    {% endif %}
+
+                    <!-- Location -->
+                    <div class="utf-desc-headline-item">
+                        <h3><i class="icon-material-outline-location-on"></i>{% trans "Location Advantages" %}</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped table-bordered table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>{% trans "Location" %}</th>
+                                        <th>{% trans "Distance" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in location %}
+                                    <tr>
+                                        <td>{{i.title}}</td>
+                                        <td>{{i.distance}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="margin-top-35"></div>
+                </div>
+            </div>
+            <!-- Property Description / End -->
+
+            <!-- Sidebar -->
+            <div class="col-lg-4 col-md-5">
+                <div class="sidebar">
+                    {% if project.brochure %}
+                    <!-- Widget -->
+                    <div class="widget utf-sidebar-widget-item">
+                        <div class="utf-boxed-list-headline-item">
+                            <h3>Property Details</h3>
+                        </div>
+                        <div align="center">
+                            <a href="/media/{{project.brochure}}" target="_blank" class="button align-center" download>
+                                Download Brochure
+                            </a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- Widget / End -->
+                    {% endif %}
+
+                    <!-- Widget -->
+                    <div class="widget utf-sidebar-widget-item">
+                        <div class="agent-widget">
+                            <div class="utf-boxed-list-headline-item">
+                                <h3>Contact us for more details</h3>
+                            </div>
+                            <form action="/send-email" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input name="name" placeholder="Name" type="text" required>
+                                {% render_honeypot_field "check_field" %}
+                                <input name="email" placeholder="Email" type="email" required>
+                                <input name="phone" placeholder="Phone" type="text" required>
+                                <textarea name="message">I'm interest in {{project.title}}</textarea>
+                                  <div class="utf-no-border">
+                                      What's <span class="num1">{{num1}}</span> + <span class="num2">{{num2}}</span> ?
+                                      <input type="number" name="answer_quiz" placeholder="Type answer here" required>
+                                      <input type="hidden" name="num1" value="{{num1}}">
+                                      <input type="hidden" value="{{num2}}" name="num2">
+                                      <input type="hidden" value="{{project.id}}" name="property_id">
+                                  </div>
+                                <button class="button fullwidth margin-top-5">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Widget / End -->
+
+                    <!-- Widget -->
+                    <div class="widget utf-sidebar-widget-item">
+                        <div class="utf-boxed-list-headline-item">
+                            <h3>Featured Properties</h3>
+                        </div>
+                        <div class="utf-listing-carousel-item outer">
+                            {% for i in featured %}
+                            <!-- Listing Item -->
+                            <div class="col-md-12">
+                              <div class="utf-listing-item">
+                                <a href="/properties/{{i.project.slug}}" class="utf-smt-listing-img-container">
+                                  <div class="utf-listing-badges-item">
+                                    <span class="featured">Featured</span>
+                                    <span class="for-sale">{{i.project.project_status}}</span>
+                                  </div>
+                                  <div class="utf-listing-carousel-item">
+                                    {% for j in i.img %}
+                                    <div><img src="/media/{{j.img}}" class="lozad" alt="banner_{{j.id}} {{j.project.title}}" style="height: 200px;"></div>
+                                    {% endfor %}
+                                  </div>
+                                </a>
+                                <div class="utf-listing-content">
+                                  <div class="utf-listing-title">
+                                    <h4><a href="/properties/{{i.project.slug}}">{{i.project.title|title}}</a></h4>
+                                    <span class="utf-listing-address"><i class="icon-material-outline-location-on"></i> {{i.project.city}}</span>
+                                  </div>
+                                  <ul class="utf-listing-features">
+                                    <li>
+                                        <a href="{% if i.project.contact_phone %}tel:{{i.project.contact_phone}}{% else %}#{% endif %}">
+                                            <i class="fa fa-phone"></i>
+                                            Call
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% if i.project.contact_whatsapp %}https://wa.me/{{i.project.contact_whatsapp}}{% else %}#{% endif %}" target="_blank">
+                                            <i class="fa fa-whatsapp"></i>
+                                            Whatsapp
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% if i.project.contact_email %}mailto:{{i.project.contact_email}}{% else %}#{% endif %}" target="_blank">
+                                            <i class="fa fa-envelope"></i>
+                                            Email
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#utf-signin-dialog-block" title="{{i.project.title}}" data-builder="{{i.project.builder.name}}" onclick="getThePropertyName(this)" class="popup-with-zoom-anim">
+                                            <i class="fa fa-address-book"></i>
+                                            Contact
+                                        </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Listing Item / End -->
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Widget / End -->
+                </div>
+            </div>
+            <!-- Sidebar / End -->
+            {% if project.builder %}
+            <div class="col-lg-12 col-md-12">
+                <div class="utf-desc-headline-item">
+                    <h3><i class="icon-material-outline-description"></i>{% blocktrans with name=project.builder.name %}About {{name}}{% endblocktrans %}</h3>
+                </div>
+                <div align="center">
+                    <a class="floor-pic mfp-image" href="/media/{{project.builder.img}}">
+                    <img alt="{{project.builder.name}}" src="/media/{{project.builder.img}}" style="max-height: 250px;"> </a>
+                </div>
+                {{project.builder.description|safe}}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+
+
+<!-- Sign In Popup -->
+<div id="utf-signin-dialog-block" class="pop-up-get zoom-anim-dialog mfp-hide dialog-with-tabs">
+  <div class="utf-signin-form-part">
+    <div class="utf-popup-container-part-tabs">
+      <!-- Register -->
+      <div class="utf-popup-tab-content-item" id="register">
+        <div class="utf-welcome-text-item">
+          <h3>{% trans "Fill the form, and we'll get back to you." %}</h3>
+        </div>
+        <form method="POST" action="/send-email" id="utf-register-account-form" enctype="multipart/form-data">
+            {% csrf_token %}
+		  <div class="utf-no-border">
+
+            {% render_honeypot_field "check_field" %}
+            <input type="text" name="name" placeholder="{% trans 'Your Name' %}" required/>
+          </div>
+		  <div class="utf-no-border">
+            <input type="email" name="email" placeholder="{% trans 'Email Address' %}" required/>
+          </div>
+		  <div class="utf-no-border">
+            <input type="text" name="phone" placeholder="{% trans 'Mobile Number' %}" required/>
+          </div>
+          <div class="utf-no-border">
+              <textarea name="message" id="display_message" placeholder="{% trans 'Your Message' %}" >{{message}}</textarea>
+          </div>
+          <div class="utf-no-border">
+              {% blocktrans with num1=num1 num2=num2 %}What's <span class="num1">{{num1}}</span> + <span class="num2">{{num2}}</span> ?{% endblocktrans %}
+              <input type="number" name="answer_quiz" placeholder="{% trans 'Type answer here' %}" required>
+              <input type="hidden" name="num1" value="{{num1}}">
+              <input type="hidden" value="{{num2}}" name="num2">
+              <input type="hidden" value="{{project.id}}" name="property_id">
+          </div>
+          <button class="margin-top-10 button full-width utf-button-sliding-icon ripple-effect" type="submit" form="utf-register-account-form">{% trans "Submit" %} <i class="icon-feather-chevrons-right"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Sign In Popup / End -->
+
+
+<a href=".pop-up-get" style="display: none;" id="getthepopup" class="popup-with-zoom-anim">
+    <i class="fa fa-address-book"></i>
+    {% trans "Contact" %}
+</a>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script>
+    var a = document.createElement('a');
+    a.href = "#utf-signin-dialog-block";
+    a.classList.add("popup-with-zoom-anim");
+    window.onload = function() {
+        setTimeout(function() {
+            $('#getthepopup').click();
+            console.log('Clicked')
+        }, 5000);
+    }
+
+    var messagee = "{{message}}";
+    messagee = messagee.replace(/%20/g, " ");
+    messagee = messagee.replace(/%2C/g, ",");
+    messagee = messagee.replace(/%2E/g, ".");
+    $('#display_message').val(messagee);
+
+    // Generate QR Code for DLD Permit Number
+    {% if project.dld_permit_number %}
+    document.addEventListener('DOMContentLoaded', function() {
+        const qrContainer = document.getElementById('qrcode');
+        if (qrContainer) {
+            QRCode.toCanvas(qrContainer, '{{project.dld_permit_number}}', {
+                width: 150,
+                height: 150,
+                color: {
+                    dark: '#000000',
+                    light: '#FFFFFF'
+                }
+            }, function (error) {
+                if (error) console.error(error);
+            });
+        }
+    });
+    {% endif %}
+</script>
+{% endblock %}

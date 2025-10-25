@@ -1,0 +1,48 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local development settings
+.env
+
+# Database
+*.sqlite3
+*.db
+
+# Log files
+*.log
+
+# Media files
+planet/media/
+
+# Static files
+staticfiles/
+
+# Compiled Python files
+*.pyc
+
+# PyCharm-specific files and directories
+../.idea/
+*.iml
+*.ipr
+*.iws
+
+# Dependency directories
+venv/
+env/
+__pypackages__/
+
+# User-specific files
+*.suo
+*.user
+*.sln.docstates
+
+# Mac OS files
+.DS_Store
+
+# Windows thumbnails
+Thumbs.db
+
+# Python environment
+__pyenv/

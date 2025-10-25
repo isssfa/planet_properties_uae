@@ -1,0 +1,83 @@
+{% extends 'website_base.html' %}
+{% load static %}
+{% block main %}
+
+  <!-- Titlebar -->
+    <div class="parallax titlebar" data-background="{% static 'front/images/listings-parallax.jpg' %}" data-color="rgba(48, 48, 48, 1)"
+         data-color-opacity="0.8" data-img-height="505" data-img-width="800">
+        <div id="titlebar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>
+                            Events
+                        </h2>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs">
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                                <li>Events & Campaigns</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container">
+        <div class="row sticky-wrapper">
+            <div class="col-md-12">
+
+                <!-- Listings Container -->
+                <div class="row">
+                    {% for i in events %}
+                    <div class="col-md-4">
+                        <div class="utf-listing-item">
+                            <div class="agent agents-profile agency" style="display: block; height: 420px;">
+                              <div class="utf-agent-avatar" align="center" style="margin-bottom: 10px;">
+                                  <a href="/events/{{i.slug}}">
+                                    <img src="/media/{{i.img}}" alt="{{i.title}}" style="height: 220px; width: auto;">
+                                  </a>
+                              </div>
+                              <div class="utf-agent-content">
+                                <div class="utf-agent-name" align="center">
+                                  <a href="/events/{{i.slug}}">
+                                      <h4 style="text-align: center; font-size: 18px;">{{i.title}}</h4>
+                                  </a>
+                                </div>
+                                <div class="clearfix"></div>
+                                <p style="text-align: justify;">
+                                    {{i.description|truncatechars:100}}
+                                </p>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Listings Container / End -->
+
+                <!-- Pagination -->
+                <div class="clearfix"></div>
+<!--                <div class="utf-pagination-container margin-top-20">-->
+<!--                    <nav class="pagination">-->
+<!--                        <ul>-->
+<!--                            <li><a href="#"><i class="fa fa-angle-left"></i></a></li>-->
+<!--                            <li><a class="current-page" href="#">1</a></li>-->
+<!--                            <li><a href="#">2</a></li>-->
+<!--                            <li><a href="#">3</a></li>-->
+<!--                            <li class="blank">...</li>-->
+<!--                            <li><a href="#">10</a></li>-->
+<!--                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>-->
+<!--                        </ul>-->
+<!--                    </nav>-->
+<!--                </div>-->
+                <!-- Pagination / End -->
+                <div class="margin-top-35"></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+# Ignore static files
+static/*
+staticfiles/*
+
+# Ignore media files
+media/*
+
+# Ignore virtual environment
+.venv/*
+venv/*
+env/*
+
+# Ignore migrations
+*/migrations/*
+
+# Ignore node_modules if any
+node_modules/*
+
+# Ignore compiled files
+*.pyc
+*.pyo
+*.mo
+
+# Ignore font files
+*.woff
+*.woff2
+*.ttf
+*.eot
+*.otf
+*.svg
+
+# Ignore other binary files
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.ico
+*.pdf
+*.zip

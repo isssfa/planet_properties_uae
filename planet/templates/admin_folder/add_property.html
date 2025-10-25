@@ -1,0 +1,667 @@
+{% extends "admin_folder/base.html" %}
+{% load static %}
+{% block main %}
+        <!-- page content -->
+        <div class="right_col pb-4" role="main">
+          <div class="row">
+
+            <div class="col-md-12">
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="submit-page">
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Property Basic Information</h3>
+                            <div class="content with-padding">
+                                <div class="col-md-12">
+                                    <h5>Property Title</h5>
+                                    <input class="search-field" placeholder="Property Title" onfocusout="checkIfExists(this)" name="title" type="text" value="" required/>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <h5>Property Description</h5>
+                                    <textarea cols="20" id="summary" name="description" rows="2"></textarea>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h5>Property Video</h5>
+                                    <input class="search-field" placeholder="Youtube Link" name="video_link" type="text" value=""/>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h5>Location Map</h5>
+                                    <input class="search-field" placeholder="Map Link" name="map_link" type="text" value=""/>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>RERA No.</h5>
+                                    <input class="search-field" placeholder="RERA No." name="rera_no" type="text" value=""/>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>DLD Permit Number</h5>
+                                    <input class="search-field" placeholder="DLD Permit Number" name="dld_permit_number" type="text" value=""/>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Possession</h5>
+                                    <input class="search-field" placeholder="Possession Details" name="possession" type="text" value=""/>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Property Type</h5>
+                                    <select class="utf-chosen-select-single-item" data-placeholder="Property Type"  name="property_type" required>
+                                        <option label="-Please Select-" value="" disabled selected></option>
+                                        <option value="Multi Storey Apartments">Multi Storey Apartments</option>
+                                        <option value="Flats / Builder Floor Apartments">Flats / Builder Floor Apartments </option>
+                                        <option value="Villas">Villas</option>
+                                        <option value="Row Houses">Row Houses</option>
+                                        <option value="Villaments">Villaments</option>
+                                        <option value="Plots">Plots</option>
+                                        <option value="Pent House">Pent House</option>
+                                        <option value="Independent Houses">Independent Houses</option>
+                                        <option value="Commercial">Commercial</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>New Property?</h5>
+                                    <select class="utf-chosen-select-single-item" data-placeholder="Property Type"  name="property_type_2" required>
+                                        <option label="-Please Select-" value="" disabled selected></option>
+                                        <option value="New Property">New Property</option>
+                                        <option value="Rental">Rental</option>
+                                        <option value="Resale">Resale</option>
+                                        <option value="Commercial">Commercial</option>
+                                        <option value="Land">Land</option>
+                                        <option value="Agricultural">Agricultural</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>City</h5>
+                                    <select class="utf-chosen-select-single-item" name="city" required>
+                                        <option label="-Please Select-" disabled selected></option>
+                                        {% for i in cities %}
+                                        <option value="{{i.id}}">{{i.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Location</h5>
+                                    <input class="search-field" placeholder="Location" name="location" type="text" value=""/>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Builder</h5>
+                                    <select class="select2" name="builder" required>
+                                        <option value="" disabled selected>-Please Select-</option>
+                                        {% for i in builder %}
+                                        <option value="{{i.id}}">{{i.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <h5 class="margin-top-15">Amenities</h5>
+                                    <div class="checkboxes in-row margin-bottom-20">
+                                        {% for i in amenities %}
+                                        <input id="check-{{i.id}}" name="check{{i.id}}" type="checkbox">
+                                        <label for="check-{{i.id}}">{{i.name}}</label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Highlights</h3>
+                            <div class="content with-padding">
+
+                                <div class="col-md-4">
+                                    <h5>Project Area</h5>
+                                    <div class="select-input disabled-first-option">
+                                        <input data-unit="Sq Ft" name="project_area" placeholder="Project Area" type="text" value="" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Type </h5>
+                                    <div class="select-input disabled-first-option">
+                                        <input data-unit="BHK" name="project_type" placeholder="No. of BHK" type="text" value="" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>No. of Unit</h5>
+                                    <input class="search-field" name="project_units" placeholder="No. of Unit" type="text" value="" required/>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Builtup Area</h5>
+                                    <input class="search-field" name="project_buildup" placeholder="Builtup Area" type="text" value="" required/>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Price</h5>
+                                    <input class="search-field" name="project_price" step="0.01" placeholder="Price (in AED)" type="number" value="" required/>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Status 1 (searchable)</h5>
+                                    <select name="project_status" required>
+                                        <option disabled selected value="">Select Status</option>
+                                        <option value="Ready to Move">Ready to Move</option>
+                                        <option value="Under Construction">Under Construction</option>
+                                        <option value="Pre Launch">Pre Launch</option>
+                                        <option value="Ready to Handover">Ready to Handover</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Status 2</h5>
+                                    <select name="project_status_1">
+                                        <option disabled selected value="">Select Status</option>
+                                        <option value="Ready to Move">Ready to Move</option>
+                                        <option value="Under Construction">Under Construction</option>
+                                        <option value="Pre Launch">Pre Launch</option>
+                                        <option value="Ready to Handover">Ready to Handover</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Floor Details</h3>
+                            <div class="content with-padding">
+
+                                <div class="col-md-12" id="floor_box">
+                                    <div class="col-md-12 border-bottom">
+                                        <div class="col-md-4">
+                                            <label for="floor_1">Floor Name 1</label>
+                                            <input  name="floor_1" id="floor_1" placeholder="Floor Name 1" type="text" value="">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="image_1">Image</label>
+                                            <input type="file" id="image_1" name="floor_img_1" class="uploadImage" accept=".jpg,.jpeg,.png,.webp">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="pdf_1">PDF File</label>
+                                            <input type="file" id="pdf_1" name="floor_pdf_1" class="uploadPDF" accept=".pdf">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input  name="tag_1_1" placeholder="Tag 1 - 1" type="text" value="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input  name="tag_2_1" placeholder="Tag 2 - 1" type="text" value="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input  name="tag_3_1" placeholder="Tag 3 - 1" type="text" value="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input  name="tag_4_1" placeholder="Tag 4 - 1" type="text" value="">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <textarea name="floor_dec_1" style="min-height: unset;" rows="2" placeholder=" Floor 1 Description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-2" align="center">
+                                    <button type="button" class="btn btn-secondary" onclick="addNewFloor()">Add more</button>
+                                    <button type="button" class="btn btn-danger" onclick="removeFloorLast()">Remove last</button>
+                                </div>
+                                <input type="hidden" value="1" id="num_of_floors" name="num_of_floors">
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Pricing</h3>
+                            <div class="content with-padding">
+                                <div class="col-md-12" id="pricing_box">
+                                    <div class="col-md-12 border-bottom">
+                                        <div class="col-md-3">
+                                            <input placeholder="Property 1" type="text" name="property_1">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input placeholder="Super Builtup Area 1" type="text" name="builtup_area_1">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input placeholder="Carpet Area	1" type="text" name="carpet_area_1">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input placeholder="Basic Price	1" type="text" name="basic_pricing_1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-2" align="center">
+                                    <button type="button" class="btn btn-secondary" onclick="addNewPricing()">Add more</button>
+                                    <button type="button" class="btn btn-danger" onclick="removePricing()">Remove last</button>
+                                </div>
+
+                                <input type="hidden" value="1" id="num_of_pricing" name="num_of_pricing">
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Location Advantages</h3>
+                            <div class="content with-padding">
+                                <div class="col-md-12" id="location_box">
+                                    <div class="col-md-12 border-bottom">
+                                        <div class="col-md-6">
+                                            <input placeholder="Item 1" type="text" name="title_1">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input placeholder="Distance 1" type="text" name="distance_1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-2" align="center">
+                                    <button type="button" class="btn btn-secondary" onclick="addNewLocation()">Add more</button>
+                                    <button type="button" class="btn btn-danger" onclick="removeLocation()">Remove last</button>
+                                </div>
+
+                                <input type="hidden" value="1" id="num_of_locations" name="num_of_locations">
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Property Gallery</h3>
+                            <div class="content with-padding">
+                                <div class="col-md-12 submit-section">
+                                    <div class="row">
+                                        <div class="col-md-12" align="center">
+                                            <input type="file" class="search-field uploadImage" id="file" name="file" accept=".jpg,.jpeg,.png,.webp">
+                                            <button type="button" class="btn btn-lg btn-primary" id="upload_file">Add</button>
+                                        </div>
+                                        <div class="col-md-12" id="image_display">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Property Contact Details</h3>
+                            <div class="content with-padding">
+                                <div class="col-md-4">
+                                    <h5>Email Address</h5>
+                                    <input placeholder="Email Address" type="text" name="email" value="" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Phone Number</h5>
+                                    <input placeholder="Phone Number" type="text" name="phone" value="" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Whatsapp Number</h5>
+                                    <input placeholder="Whatsapp Number including country code." type="text" name="whatsapp" value="" required>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Featured Property</h3>
+                            <div class="content with-padding">
+                                <div class="col-md-4">
+                                    <h5>Is this a featured property?</h5>
+                                    <select class="utf-chosen-select-single-item" name="is_featured" required>
+                                        <option label="-Please Select-" disabled selected></option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Upload Master Plan Image</h5>
+                                    <input type="file" name="master_plan" class="uploadImage" accept=".jpg,.jpeg,.png,.webp">
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Upload Master Plan PDF</h5>
+                                    <input type="file" name="master_plan_pdf" class="uploadPDF" accept=".pdf">
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Upload Brochure</h5>
+                                    <input type="file" name="brochure">
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Filters</h3>
+                            <div class="content with-padding">
+<!--                                <div class="col-md-4">-->
+<!--                                    <h5>BHK</h5>-->
+<!--                                    <select class="utf-chosen-select-single-item select2" multiple name="bhk" required>-->
+<!--                                        {% for i in BHK %}-->
+<!--                                        <option value="{{i}}">{{i}}</option>-->
+<!--                                        {% endfor %}-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-4">-->
+<!--                                    <h5>Location</h5>-->
+<!--                                    <select class="utf-chosen-select-single-item" name="location_direction" required>-->
+<!--                                        <option value="" selected disabled>-Please Select-</option>-->
+<!--                                        {% for i in location %}-->
+<!--                                        <option value="{{i}}">{{i}}</option>-->
+<!--                                        {% endfor %}-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-4">-->
+<!--                                    <h5>Budget</h5>-->
+<!--                                    <select class="utf-chosen-select-single-item select2" multiple name="budget" required>-->
+<!--                                        {% for i in budget %}-->
+<!--                                        <option value="{{i}}">{{i}}</option>-->
+<!--                                        {% endfor %}-->
+<!--                                    </select>-->
+<!--                                </div>-->
+                                <div class="col-md-4">
+                                    <h5>Project ID</h5>
+                                    <input type="text" name="property_id" required>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Meta Details</h3>
+                            <div class="content with-padding">
+                                <div class="col-md-12">
+                                    <h5>Meta Title</h5>
+                                    <input name="meta_title" type="text">
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Meta Keywords</h5>
+                                    <textarea name="meta_keywords"></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Meta Description</h5>
+                                    <textarea name="meta_description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="utf-centered-button button" style="background: #e33324">Submit Property</button>
+                            </div>
+                        </div>
+                        <input type="hidden" name="buffer_id" value="{{buffer_id}}">
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- /page content -->
+{% csrf_token %}
+{% endblock %}
+
+
+{% block scripts %}
+
+<script type="text/javascript">
+  var MAX_FILE_SIZE = 1000 * 1024; // 500KB
+  $(document).ready(function() {
+      $('.uploadImage').change(function() {
+          var fileInput = this;
+          var filePath = fileInput.value;
+          var allowedExtensions =  /(\.jpg|\.jpeg|\.png|\.webp)$/i;
+          if (!allowedExtensions.exec(filePath)) {
+              fileInput.setCustomValidity("Only Images (.png, .jpg, .jpeg, .webp) are accepted");
+              fileInput.reportValidity();
+              return false;
+          } else {
+              fileInput.setCustomValidity("");
+          }
+          fileSize = this.files[0].size;
+          if (fileSize > MAX_FILE_SIZE) {
+              this.setCustomValidity("File must not exceed 1 MB!");
+              this.reportValidity();
+          } else {
+              this.setCustomValidity("");
+          }
+      });
+  });
+  var MAX_FILE_SIZE_PDF = 20000 * 1024; // 20MB
+  $(document).ready(function() {
+      $('.uploadPDF').change(function() {
+          var fileInput = this;
+          var filePath = fileInput.value;
+          var allowedExtensions =  /(\.pdf)$/i;
+          if (!allowedExtensions.exec(filePath)) {
+              fileInput.setCustomValidity("Only PDF files are accepted");
+              fileInput.reportValidity();
+              return false;
+          } else {
+              fileInput.setCustomValidity("");
+          }
+          fileSize = this.files[0].size;
+          if (fileSize > MAX_FILE_SIZE_PDF) {
+              this.setCustomValidity("File must not exceed 20 MB!");
+              this.reportValidity();
+          } else {
+              this.setCustomValidity("");
+          }
+      });
+  });
+</script>
+
+<script>
+  m = 1
+  function addNewFloor() {
+    m = m + 1;
+    desc = '<div class="col-md-12 border-bottom pt-3" id="floors_'+m+'">';
+    desc += '<div class="col-md-4">';
+    desc += '<label for="floor_'+m+'">Floor Name '+m+' <span style="color: red">*</span></label>';
+    desc += '<input  name="floor_'+m+'" id="floor_'+m+'" placeholder="Floor Name '+m+'" type="text" required>';
+    desc += '</div>';
+    desc += '<div class="col-md-4">';
+    desc += '<label for="image_'+m+'">Image '+m+'</label>';
+    desc += '<input type="file" id="image_'+m+'" name="floor_img_'+m+'" class="uploadImage" accept=".jpg,.jpeg,.png,.webp">';
+    desc += '</div>';
+    desc += '<div class="col-md-4">';
+    desc += '<label for="pdf_'+m+'">PDF '+m+'</label>';
+    desc += '<input type="file" id="pdf_'+m+'" name="floor_pdf_'+m+'" class="uploadPDF" accept=".pdf">';
+    desc += '</div>';
+    desc += '<div class="col-md-3">';
+    desc += '<input  name="tag_1_'+m+'" placeholder="Tag 1 - '+m+'" type="text">';
+    desc += '</div>';
+    desc += '<div class="col-md-3">';
+    desc += '<input  name="tag_2_'+m+'" placeholder="Tag 2 - '+m+'" type="text">';
+    desc += '</div>';
+    desc += '<div class="col-md-3">';
+    desc += '<input  name="tag_3_'+m+'" placeholder="Tag 3 - '+m+'" type="text">';
+    desc += '</div>';
+    desc += '<div class="col-md-3">';
+    desc += '<input  name="tag_4_'+m+'" placeholder="Tag 4 - '+m+'" type="text">';
+    desc += '</div>';
+    desc += '<div class="col-md-12">';
+    desc += '<textarea name="floor_dec_'+m+'" style="min-height: unset;" rows="2" placeholder=" Floor '+m+' Description"></textarea>';
+    desc += '</div>';
+    $('#floor_box').append(desc);
+    $('#num_of_floors').val(m);
+  }
+
+  function removeFloorLast() {
+    if ($('#floors_'+m).html()) {
+      item = $('#floors_'+m).remove();
+      m = m - 1;
+      $('#num_of_floors').val(m);
+    }
+  }
+</script>
+<script>
+  n = 1
+  function addNewPricing() {
+    n = n + 1;
+    desc = '<div class="col-md-12 border-bottom pt-3" id="pricing_'+n+'">'
+    desc += '<div class="col-md-3">'
+    desc += '<input placeholder="Property '+n+' *" type="text" name="property_'+n+'" required>'
+    desc += '</div>'
+    desc += '<div class="col-md-3">'
+    desc += '<input placeholder="Super Builtup Area '+n+' *" type="text" name="builtup_area_'+n+'" required>'
+    desc += '</div>'
+    desc += '<div class="col-md-3">'
+    desc += '<input placeholder="Carpet Area '+n+' *" type="text" name="carpet_area_'+n+'" required>'
+    desc += '</div>'
+    desc += '<div class="col-md-3">'
+    desc += '<input placeholder="Basic Price '+n+' *" type="text" name="basic_pricing_'+n+'" required>'
+    desc += '</div>'
+    desc += '</div>'
+    $('#pricing_box').append(desc);
+    $('#num_of_pricing').val(n);
+  }
+
+  function removePricing() {
+    if ($('#pricing_'+n).html()) {
+      item = $('#pricing_'+n).remove();
+      n = n - 1;
+      $('#num_of_pricing').val(n);
+    }
+  }
+</script>
+<script>
+  l = 1
+  function addNewLocation() {
+    l = l + 1;
+    desc = '<div class="col-md-12 border-bottom pt-3" id="location_'+l+'">'
+    desc += '<div class="col-md-6">'
+    desc += '<input placeholder="Item '+l+' *" type="text" name="title_'+l+'" required>'
+    desc += '</div>'
+    desc += '<div class="col-md-6">'
+    desc += '<input placeholder="Distance '+l+' *" type="text" name="distance_'+l+'" required>'
+    desc += '</div>'
+    $('#location_box').append(desc);
+    $('#num_of_locations').val(l);
+  }
+
+  function removeLocation() {
+    if ($('#location_'+l).html()) {
+      item = $('#location_'+l).remove();
+      l = l - 1;
+      $('#num_of_locations').val(l);
+    }
+  }
+</script>
+<script>
+    function checkIfExists(e) {
+        $csrf = $('[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+          method: "POST",
+          url: "/check-property-exist",
+          mimeType: "multipart/form-data",
+          data: {
+            csrfmiddlewaretoken: $csrf,
+            title: e.value
+          },
+          success: function(res) {
+            if (res == 'no') {
+                alert('Property with same name already exists. Please change/modify property name.')
+                $('[name="title"]').css("background-color", "yellow");
+            } else {
+                $('[name="title"]').css("background-color", 'unset');
+            }
+          }
+        });
+    }
+    $('#upload_file').click(function(){
+        $csrf = $('[name="csrfmiddlewaretoken"]').val();
+        var data = new FormData();
+        data.append("file", $("input[id^='file']")[0].files[0]);
+        data.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+        data.append('buffer_id', '{{ buffer_id }}');
+        if ($("input[id^='file']")[0].files[0]) {
+            $.ajax({
+              method: "POST",
+              url: "/upload-buffer-image",
+              processData: false,
+              contentType: false,
+              mimeType: "multipart/form-data",
+              data: data,
+
+              success: function(res) {
+                var image_data = eval('(' + res + ')');
+                options = ''
+                for (var i = 0; i < image_data.length; i++ ){
+                    options += '<div class="col-md-3 p-3 border" id="image_box_'+image_data[i].id+'" align="center">';
+                    options += '<img src="/media/'+image_data[i].img+'" id="image_'+image_data[i].id+'" style="width: 180px; height:150px;">';
+                    options += '<button type="button" class="btn btn-danger" id="button_'+image_data[i].id+'" onclick="removeImage(this.id)">';
+                    options += '<i class="icon-material-outline-delete" style="font-size: 18px;"></i>';
+                    options += '</button>';
+                    options += '</div>';
+                }
+                $("#image_display").html(options);
+                $('#file').val('');
+              },
+              error:function(e){
+                  alert("something wrong "+ e) // this will alert an error
+              }
+            });
+        } else {
+            alert("Select the Image First.");
+        }
+    });
+
+
+    function removeImage(e){
+        $csrf = $('[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+          method: "POST",
+          url: "/remove-buffer-image",
+          mimeType: "multipart/form-data",
+          data: {
+            csrfmiddlewaretoken: $csrf,
+            buffer_id: '{{ buffer_id }}',
+            id: e.match(/\d+/)[0]
+          },
+          success: function(res) {
+            var image_data = eval('(' + res + ')');
+            options = ''
+            for (var i = 0; i < image_data.length; i++ ){
+                options += '<div class="col-md-3 p-3 border" id="image_box_'+image_data[i].id+'" align="center">';
+                options += '<img src="/media/'+image_data[i].img+'" id="image_'+image_data[i].id+'" style="width: 180px; height:150px;">';
+                options += '<button type="button" class="btn btn-danger" id="button_'+image_data[i].id+'" onclick="removeImage(this.id)">';
+                options += '<i class="icon-material-outline-delete" style="font-size: 18px;"></i>';
+                options += '</button>';
+                options += '</div>';
+            }
+            $("#image_display").html(options);
+            $('#file').val('');
+          },
+          error:function(e){
+              alert("something wrong "+ e) // this will alert an error
+          }
+        });
+    }
+
+</script>
+<script>
+    $(document).ready(function() {
+        $('textarea#summary').summernote({
+            height: 300,
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'website_base.html' %}
+{% load static %}
+{% block main %}
+
+  <!-- Titlebar -->
+  <div class="parallax titlebar" data-background="{% static 'front/images/listings-parallax.jpg' %}" data-color="rgba(48, 48, 48, 1)" data-color-opacity="0.8" data-img-width="800" data-img-height="505">
+    <div id="titlebar">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Log In</h2>
+            <!-- Breadcrumbs -->
+            <nav id="breadcrumbs">
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li>Log In</li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Contact -->
+  <div class="container" style="padding-bottom: 50px;">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="my-account">
+          <div class="tabs-container">
+            <!-- Login -->
+			  <div class="utf-welcome-text-item">
+				<h3>Welcome Back Sign in to Continue</h3>
+			  </div>
+              <form method="POST" enctype="multipart/form-data" class="login">
+                  {% csrf_token %}
+                <div class="form-row form-row-wide">
+                    <input type="text" class="input-text" name="username" id="username" placeholder="Username" value="" required />
+                </div>
+                <div class="form-row form-row-wide">
+                    <input class="input-text" type="password" name="password" placeholder="Password" id="password" required />
+                </div>
+				<input type="submit" class="button full-width border margin-top-10" name="login" value="Login" />
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Container / End -->
+
+{% endblock %}

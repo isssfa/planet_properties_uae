@@ -1,0 +1,80 @@
+{% extends 'website_base.html' %}
+{% load static %}
+{% block main %}
+
+  <!-- Titlebar -->
+    <div class="parallax titlebar" data-background="{% static 'front/images/listings-parallax.jpg' %}" data-color="rgba(48, 48, 48, 1)"
+         data-color-opacity="0.8" data-img-height="505" data-img-width="800">
+        <div id="titlebar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>
+                            Our Team
+                        </h2>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs">
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                                <li>Our Team</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+  <!-- Container -->
+  <div class="margin-top-65">
+	  <div class="container">
+		<div class="row">
+		  <div class="col-xl-12 col-md-12">
+			<p style="text-align: justify;">
+                We have a dedicated team of sales professionals, sales co-coordinators, office admins & home loan counsellors who are qualified & experienced in property consultation and other services mentioned. <b>By virtue of our team strength, one of our real estate professional is assigned to each of our client for any kind of assistance & follow up work from start to end of the transaction. He / She shall be the "go-to person for all your real estate requirements".</b>
+            </p>
+		  </div>
+		</div>
+	  </div>
+  </div>
+  <!-- Container / End -->
+
+  <!-- Fullwidth Section -->
+  <section class="fullwidth" style="padding-top: 0px !important;" data-background-color="#fff">
+  {% for member in team %}
+    <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+            <!-- Agency -->
+            <div class="agent agents-profile agency">
+<!--                <a href="agency-profile.html" class="utf-agent-avatar"> <img src="images/agency-01.jpg" alt=""> </a>-->
+              <div class="utf-agent-content">
+                <div class="utf-agent-name">
+                  <h4>{{member.name}}</h4>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    {% if member.img %}
+                      <div class="col-md-3" align="center">
+                          <img src="/media/{{member.img}}" style="max-height: 300px;">
+                      </div>
+                      <div class="col-md-9">
+                    {% else %}
+                      <div class="col-md-12">
+                    {% endif %}
+                        <p style="text-align: justify;">
+                            {{member.description|linebreaks|safe}}
+                        </p>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  {% endfor %}
+  </section>
+
+{% endblock %}

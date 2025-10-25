@@ -1,0 +1,75 @@
+{% extends "website_base.html" %}
+
+{% block style %}
+<style>
+    .sitemap {
+        margin-bottom: 30px;
+    }
+    .sitemap h3 {
+        margin-top: 20px;
+    }
+    .sitemap ul {
+        padding: 0;
+        margin: 0;
+    }
+    .sitemap li {
+        display: inline;
+        list-style: none;
+    }
+    .sitemap li:not(:last-child)::after {
+        content: " | ";
+        padding: 0 5px;
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+<div class="container sitemap">
+    <h1>Site Map</h1>
+
+    <!-- Static URLs -->
+    <h3>Static Pages</h3>
+    <ul>
+        {% for page in static_urls %}
+        <li><a href="{{ page.url }}">{{ page.name }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <!-- Dynamic URLs -->
+    {% if cities_urls %}
+    <h3>Cities</h3>
+    <ul>
+        {% for city in cities_urls %}
+        <li><a href="{{ city.url }}">{{ city.name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if projects_urls %}
+    <h3>Projects</h3>
+    <ul>
+        {% for project in projects_urls %}
+        <li><a href="{{ project.url }}">{{ project.name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if blogs_urls %}
+    <h3>Blogs</h3>
+    <ul>
+        {% for blog in blogs_urls %}
+        <li><a href="{{ blog.url }}">{{ blog.name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if events_urls %}
+    <h3>Events</h3>
+    <ul>
+        {% for event in events_urls %}
+        <li><a href="{{ event.url }}">{{ event.name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endblock %}

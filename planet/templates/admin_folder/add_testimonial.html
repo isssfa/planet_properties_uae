@@ -1,0 +1,186 @@
+{% extends "admin_folder/base.html" %}
+{% block main %}
+        <!-- page content -->
+        <div class="right_col pb-4" role="main">
+          <div class="row">
+            <div class="col-md-12">
+                <div class="submit-page">
+                    <!-- Section -->
+                    <div class="utf-submit-page-inner-box">
+                        <h3>Testimonials</h3>
+                        <div class="content with-padding">
+                            <div class="col-md-12" align="right">
+                                <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#add_new">Add New</button>
+                            </div>
+                            <div class="col-md-12">
+                                <table id="datatablex" class="table table-striped table-bordered" style="max-width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Designation</th>
+                                            <th>Testimonial</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Designation</th>
+                                            <th>Testimonial</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                      {% for i in testimonial %}
+                                        <tr>
+                                            <td>{{i.name}}</td>
+                                            <td>{% if i.designation %}{{i.designation}}{% else %}None{% endif %}</td>
+                                            <td>{{i.testimonial|truncatechars:50}}</td>
+                                            <td>
+                                                <div style="display: inline-flex;">
+                                                    <button class="btn btn-primary" data-toggle="modal" data-target="#edit_{{i.id}}">Edit</button>
+                                                    <form action="/delete-testimonial" method="POST" enctype="multipart/form-data">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="id" value="{{i.id}}">
+                                                        <button class="btn btn-danger" onclick="return confirmm();">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Section / End -->
+
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- /page content -->
+
+<!-- Add New -->
+<div class="modal fade" id="add_new" tabindex="-1" role="dialog" aria-labelledby="AddNew" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="AddNewBuilder">Add New Testimonial</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row">
+                  <div class="col-md-12 form-group">
+                      <label for="name">Name</label>
+                      <input type="text" class="form-control" name="name" id="name" required>
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label for="add_img">Image</label>
+                      <input type="file" id="add_img" class="uploadImage" accept=".jpg,.jpeg,.png,.webp" name="img">
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label for="designation">Designation</label>
+                      <input type="text" class="form-control" name="designation" id="designation">
+                  </div>
+                  <div class="col-md-12 form-group">
+                      <label for="add_testi">Testimonial</label>
+                      <textarea name="testimonial" id="add_testi" required></textarea>
+                  </div>
+                  <div class="col-md-12 form-group" align="center">
+                      <input type="submit" class="form-control btn-primary">
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Edit -->
+{% for i in testimonial %}
+<div class="modal fade" id="edit_{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="Edit" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="EditBuilder_{{i.id}}">Add New Testimonial</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form action="/edit-testimonial" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row">
+                  <div class="col-md-12 form-group">
+                      <label for="edit_name_{{i.id}}">Name</label>
+                      <input type="text" class="form-control" value="{{i.name}}" name="name" id="edit_name_{{i.id}}" required>
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label for="edit_img_{{i.id}}">Image
+                        {% if i.img %}
+                        (<a href="/media/{{i.img}}" target="_blank" style="color: blue; text-decoration: underline;">view</a>)
+                        {% endif %}
+                      </label>
+                      <input type="file" id="edit_img_{{i.id}}" class="uploadImage" accept=".jpg,.jpeg,.png,.webp" name="img">
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label for="edit_desi_{{i.id}}">Designation</label>
+                      <input type="text" class="form-control" value="{{i.designation}}" name="name" id="edit_desi_{{i.id}}" required>
+                  </div>
+                  <div class="col-md-12 form-group">
+                      <label for="edit_test_{{i.id}}">Testimonial</label>
+                      <textarea name="testimonial" id="edit_test_{{i.id}}">{{i.testimonial}}</textarea>
+                  </div>
+                  <div class="col-md-12 form-group" align="center">
+                      <input type="hidden" value="{{i.id}}" name="id">
+                      <input type="submit" class="form-control btn-primary">
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  var MAX_FILE_SIZE = 1000 * 1024; // 500KB
+  $(document).ready(function() {
+      $('.uploadImage').change(function() {
+          var fileInput = this;
+          var filePath = fileInput.value;
+          var allowedExtensions =  /(\.jpg|\.jpeg|\.png|\.webp)$/i;
+          if (!allowedExtensions.exec(filePath)) {
+              fileInput.setCustomValidity("Only Images (.png, .jpg, .jpeg, .webp) are accepted");
+              fileInput.reportValidity();
+              return false;
+          } else {
+              fileInput.setCustomValidity("");
+          }
+          fileSize = this.files[0].size;
+          if (fileSize > MAX_FILE_SIZE) {
+              this.setCustomValidity("File must not exceed 1 MB!");
+              this.reportValidity();
+          } else {
+              this.setCustomValidity("");
+          }
+      });
+  });
+</script>
+{% endblock %}

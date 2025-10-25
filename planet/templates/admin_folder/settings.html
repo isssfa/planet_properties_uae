@@ -1,0 +1,42 @@
+{% extends 'admin_folder/base.html' %}
+{% load static %}
+{% block main %}
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row pb-4">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h2>Change Password</h2>
+                    </div>
+                    <div class="card-body">
+                      <form method="post" action="/change-password" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          <div class="col-md-6">
+                              <div class="row">
+                                  <div class="col-md-12">
+                                      <input placeholder="Current Password" type="password" class="form-control" name="old_password" required>
+                                  </div>
+                                  <div class="col-md-12">
+                                      <input placeholder="New Password" type="password" class="form-control" name="new_password" required>
+                                  </div>
+                                  <div class="col-md-12">
+                                      <input placeholder="Confirm Password" type="password" class="form-control" name="confirm_password" required>
+                                  </div>
+                              </div>
+                              <button type="submit" class="btn btn-primary btn-lg form-control">Save changes</button>
+                          </div>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+
+{% endblock %}

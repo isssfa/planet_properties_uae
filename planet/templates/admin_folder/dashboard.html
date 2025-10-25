@@ -1,0 +1,372 @@
+{% extends "admin_folder/base.html" %}
+{% load static %}
+{% block main %}
+        <!-- page content -->
+        <div class="right_col pb-5" role="main">
+          <div class="row">
+            <div class="col-md-3 mt-3">
+              <div class="card-base">
+                <div class="card-icon">
+                  <span class="imagecard widgetCardIcon">
+                    <i class="fa fa-building"></i>
+                  </span>
+                  <div class="card-data widgetCardData">
+                    <h2 class="box-title mt-5 pt-4" style="color: #2A3F54;">Total Properties</h2>
+                    <h1>
+                      {% if properties %}
+                        {{properties}}
+                      {% else %}
+                        0
+                      {% endif %}
+                    </h1>
+                    <a href="/view-properties" class="anchor btn btn-default btn-lg" style="background: #1ABB9C; color: #fff;">
+                      View
+                    </a>
+                  </div>
+                </div>
+                <div class="space"></div>
+              </div>
+            </div>
+            <div class="col-md-3 mt-3">
+              <div class="card-base">
+                <div class="card-icon">
+                  <span class="imagecard widgetCardIcon">
+                    <img src="{% static 'assets/images/amenities.png' %}" style="height: 65px; width: 65px; margin-top: -15px;">
+                  </span>
+                  <div class="card-data widgetCardData">
+                    <h2 class="box-title mt-5 pt-4" style="color: #2A3F54;">Total Amenities</h2>
+                    <h1>
+                      {% if amenities %}
+                        {{amenities}}
+                      {% else %}
+                        0
+                      {% endif %}
+                    </h1>
+                    <a href="/add-amenities" class="anchor btn btn-default btn-lg" style="background: #1ABB9C; color: #fff;">
+                      View
+                    </a>
+                  </div>
+                </div>
+                <div class="space"></div>
+              </div>
+            </div>
+          </div>
+          {% if false %}
+          <div class="row mb-3">
+            <div class="col-md-4 mt-3">
+              <div class="card">
+                <div class="card-header">
+                  <h5>Campaign Wise Audit Report</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/campaign-reports" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="report_campaign">Campaign</label>
+                            <select required class="form-control select2" name="campaign" id="report_campaign">
+                              <option value="" selected disabled>Please Select</option>
+                              {% for i in campaigns %}
+                              <option value="{{i.id}}">{{i.name}} ({{i.type}})</option>
+                              {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                          <button class="btn btn-success form-control">Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 mt-3">
+              <div class="card">
+                <div class="card-header">
+                  <h5>Employee Wise Audit Report</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/individual-report" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="emp_id">Employee</label>
+                            <select required class="form-control select2" name="emp_id" id="emp_id">
+                              <option value="" selected disabled>Please Select</option>
+                              {% for i in profile %}
+                              <option value="{{i.emp_id}}">{{i.emp_name}} ({{i.emp_id}})</option>
+                              {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                          <button class="btn btn-success form-control">Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 mt-3">
+              <div class="card">
+                <div class="card-header">
+                  <h5>QA Wise Audit Report</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/individual-report" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="qa_emp_id">Quality Analyst</label>
+                            <select required class="form-control select2" name="emp_id" id="qa_emp_id">
+                              <option value="" selected disabled>Please Select</option>
+                              {% for i in qa %}
+                              <option value="{{i.emp_id}}">{{i.emp_name}} ({{i.emp_id}})</option>
+                              {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                          <button class="btn btn-success form-control">Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+              </div>
+            </div>
+            {% if request.user.profile.emp_desi != 'Team Leader' %}
+            <div class="col-md-4 mt-3">
+              <div class="card">
+                <div class="card-header">
+                  <h5>TL Wise Audit Report</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/individual-report" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="tl_emp_id">Team Leader</label>
+                            <select required class="form-control select2" name="emp_id" id="tl_emp_id">
+                              <option value="" selected disabled>Please Select</option>
+                              {% for i in tl_profile %}
+                              <option value="{{i.emp_id}}">{{i.emp_name}} ({{i.emp_id}})</option>
+                              {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                          <button class="btn btn-success form-control">Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+              </div>
+            </div>
+            {% if request.user.profile.emp_desi != 'Assistant Manager' %}
+            <div class="col-md-4 mt-3">
+              <div class="card">
+                <div class="card-header">
+                  <h5>AM Wise Audit Report</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/individual-report" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="am_emp_id">Assistant Manager</label>
+                            <select required class="form-control select2" name="emp_id" id="am_emp_id">
+                              <option value="" selected disabled>Please Select</option>
+                              {% for i in am_profile %}
+                              <option value="{{i.emp_id}}">{{i.emp_name}} ({{i.emp_id}})</option>
+                              {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                          <button class="btn btn-success form-control">Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% endif %}
+            <div class="col-md-4 mt-3">
+              <div class="card">
+                <div class="card-header">
+                  <h5>Employee Wise Audits</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <form action="/manager-reports/emp-range" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="report_emp">Employee</label>
+                              <select required class="form-control select2" name="emp_id" id="report_emp">
+                                <option value="" selected disabled>Please Select</option>
+                                <option value="all">All</option>
+                                {% for i in profile %}
+                                <option value="{{i.emp_id}}">{{i.emp_name}} ({{i.emp_id}})</option>
+                                {% endfor %}
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="status_emp">Status</label>
+                              <select required class="form-control select2" name="status" id="status_emp">
+                                <option value="" selected disabled>Please Select</option>
+                                <option value="all">All</option>
+                                <option value="open">Open Status</option>
+                                <option value="fatal">Fatal Audits</option>
+                                <option value="dispute">Dispute Status</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="start">Start Date</label>
+                              <input type="date" onchange="end_datefn()" name="start_date" id="start" class="form-control start">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="end">End Date</label>
+                              <input type="date"  name="end_date" id="end" class="form-control end">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <button class="btn btn-success form-control">Submit</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 mt-3">
+              <div class="card">
+                <div class="card-header">
+                  <h5>Export Report</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <form action="/export" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="report_campaign">Campaign</label>
+                              <select required class="form-control select2" name="campaign" id="export_campaign">
+                                <option value="" selected disabled>Please Select</option>
+                                {% for i in campaigns %}
+                                <option value="{{i.id}}">{{i.name}} ({{i.type}})</option>
+                                {% endfor %}
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="export_cam_start">Start Date</label>
+                              <input type="date" onchange="export_cam_end_datefn()" name="start_date" id="export_cam_start" class="form-control start" required>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="export_cam_end">End Date</label>
+                              <input type="date"  name="end_date" id="export_cam_end" class="form-control end" required>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <button class="btn btn-success form-control">Download</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- /page content -->
+{% csrf_token %}
+{% endblock %}
+
+
+{% block scripts %}
+  <script>
+    $(document).ready(function() {
+      csrf = document.querySelector("input[name='csrfmiddlewaretoken']").value;
+      $("#campaign").on("change",function(){
+        var campaign_id = $(this).val();
+        if(campaign_id) {
+          $.ajax({
+            type:'POST',
+            url:"get-emp",
+            data:{campaign:campaign_id,csrfmiddlewaretoken:csrf},
+            success:function(data) {
+              alert(data);
+              var s = '<option value="" selected disabled>Please Select</option>';
+               for (var i = 0; i < data.length; i++) {
+                   s += '<option value="'+ data[i].emp_id +'">' + data[i].emp_name + '</option>';
+               }
+              $("#emp").html(data);
+            }
+          });
+        }
+      })
+    });
+  </script>
+<script>
+  $today = new Date();
+  $today = moment($today).format("YYYY-MM-DD");
+
+  $cam_start = $("#cam_start");
+  $cam_end = $("#cam_end");
+  $cam_start.attr("max",$today)
+  $cam_end.attr("max",$today)
+  function cam_end_datefn(){
+    $cam_start = $("#cam_start").val()
+    $cam_end.attr("min",$cam_start)
+    $cam_end.attr("required","required")
+  }
+
+
+  $start = $("#start");
+  $end = $("#end");
+  $start.attr("max",$today)
+  $end.attr("max",$today)
+  function end_datefn(){
+    $start = $("#start").val()
+    $end.attr("min",$start)
+    $end.attr("required","required")
+  }
+
+  $export_cam_start = $("#export_cam_start");
+  $export_cam_end = $("#export_cam_end");
+  $export_cam_start.attr("max",$today)
+  $export_cam_end.attr("max",$today)
+  function export_cam_end_datefn(){
+    $export_cam_start = $("#export_cam_start").val()
+    $export_cam_end.attr("min",$export_cam_start)
+    $export_cam_end.attr("required","required")
+  }
+
+
+</script>
+{% endblock %}

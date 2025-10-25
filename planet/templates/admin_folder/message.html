@@ -1,0 +1,37 @@
+{% extends "admin_folder/base.html" %}
+{% block main %}
+        <!-- page content -->
+        <div class="right_col pb-4" role="main">
+          <div class="row">
+
+            <div class="col-md-12">
+                <div class="submit-page">
+                    <!-- Section -->
+                    <div class="utf-submit-page-inner-box">
+                        <h3>Message</h3>
+                        <div class="content with-padding">
+                            <div class="col-md-12">
+                                <ul>
+                                    <li>Use [[property]] to insert Property name</li>
+                                    <li>Use [[builder]] to insert Builder name</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-12">
+                                <form action="/message" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <textarea style="font-size: 18px;" name="message" class="form-control" required>{{message}}</textarea>
+                                    <center><button class="btn btn-success btn-lg">Submit</button></center>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Section / End -->
+
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- /page content -->
+
+{% endblock %}

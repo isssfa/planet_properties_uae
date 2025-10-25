@@ -1,0 +1,135 @@
+{% extends "admin_folder/base.html" %}
+
+{% block main %}
+<div class="right_col pb-4" role="main" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="submit-page">
+                <div class="utf-submit-page-inner-box">
+                    <h3>Cities</h3>
+                    <div class="content with-padding">
+                        <div class="col-md-12" align="right">
+                            <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#city_modal"
+                                    onclick="resetForm()">Add New</button>
+                        </div>
+                        <div class="col-md-12">
+                            <table id="datatablex" class="table table-striped table-bordered" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>City</th>
+                                        <th>Image</th>
+                                        <th>Meta Title</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for city in cities %}
+                                    <tr>
+                                        <td>{{ city.name }}</td>
+                                        <td align="center">
+                                            {% if city.img %}
+                                            <a href="{{ city.img.url }}" target="_blank">
+                                                <img src="{{ city.img.url }}" style="height: 50px; width: 50px;">
+                                            </a>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ city.meta_title }}</td>
+                                        <td>
+                                            <button class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#city_modal"
+                                                    onclick="populateForm({{ city.id }})">Edit</button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="city_modal" tabindex="-1" role="dialog" aria-labelledby="CityModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Manage City</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'manage_cities' %}" method="POST" enctype="multipart/form-data" id="city_form">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" id="city_id">
+
+                    <div class="row">
+                        <div class="container">
+                            <div class="form-group col-md-12">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" name="title" id="city_name" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="img">Image</label>
+                                <input type="file" class="uploadImage" name="img" id="city_img" accept=".jpg,.jpeg,.png,.webp">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="meta_title">Meta Title</label>
+                                <input type="text" name="meta_title" id="city_meta_title" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="meta_keywords">Meta Keywords</label>
+                                <textarea name="meta_keywords" id="city_meta_keywords" required></textarea>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="meta_description">Meta Description</label>
+                                <textarea rows="1" name="meta_description" id="city_meta_description" required></textarea>
+                            </div>
+                            <div class="form-group col-md-12" align="center">
+                                <button type="submit" class="btn btn-primary btn-lg">Save City</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const citiesData = {{ cities_data|safe }};
+    function resetForm() {
+        document.getElementById("city_form").reset();
+        document.getElementById("city_id").value = "";
+    }
+
+    function populateForm(cityId) {
+
+        const city = citiesData.find(c => c.id === cityId);
+        if (city) {
+            document.getElementById("city_id").value = city.id;
+            document.getElementById("city_name").value = city.name;
+            document.getElementById("city_meta_title").value = city.meta_title;
+            document.getElementById("city_meta_keywords").value = city.meta_keywords;
+            document.getElementById("city_meta_description").value = city.meta_description;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('.uploadImage').forEach(input => {
+            input.addEventListener('change', function () {
+                const file = this.files[0];
+                if (file.size > 1024 * 1024) { // 1MB
+                    alert("File size must be less than 1MB");
+                    this.value = "";
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

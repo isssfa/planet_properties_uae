@@ -1,0 +1,74 @@
+{% extends "admin_folder/base.html" %}
+{% load static %}
+{% block main %}
+        <!-- page content -->
+        <div class="right_col pb-4" role="main">
+          <div class="row">
+
+            <div class="col-md-12">
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="submit-page">
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <div class="content with-padding">
+                                <div class="col-md-4">
+                                    <h5>Call Button Number</h5>
+                                    <input type="text" maxlength="13" name="call_number" value="{{website.call_number}}" required/>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Active Listings</h5>
+                                    <input type="text" name="active_listing" value="{{website.active_listing}}" required/>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Worth Homes Sold</h5>
+                                    <input type="text" name="worth_sold" value="{{website.worth_sold}}" required/>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Happy Customers</h5>
+                                    <input type="text" name="happy_customers" value="{{website.happy_customers}}" required/>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Relationship Managers</h5>
+                                    <input type="text" name="relationship" value="{{website.relationship}}" required/>
+                                </div>
+                            </div>
+                            <div class="content with-padding">
+                                <div class="col-md-4">
+                                    <h5>Address</h5>
+                                    <textarea cols="20" name="address" rows="2" required>{{website.address}}</textarea>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Footer About</h5>
+                                    <textarea cols="20" name="footer_about" rows="2" required>{{website.footer_about}}</textarea>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Featured Description</h5>
+                                    <textarea cols="20" name="featured" rows="2" required>{{website.featured}}</textarea>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <h5>Header Schema</h5>
+                                    <textarea cols="20" name="header_script" rows="2" required>{{website.header_script}}</textarea>
+                                </div>
+                        </div>
+                        <!-- Section / End -->
+
+
+                        <div class="content with-padding">
+                            <div class="col-md-12">
+                                <input type="hidden" name="id" value="{{website.id}}">
+                                <button type="submit" class="utf-centered-button button" style="background: #e33324">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- /page content -->
+{% endblock %}

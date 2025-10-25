@@ -1,0 +1,504 @@
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-02 00:06-0500\n"
+"Language: ar\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: .\planet\settings.py:66 .\templates\website_base.html:154
+msgid "English"
+msgstr "الإنجليزية"
+
+#: .\planet\settings.py:67 .\templates\website_base.html:155
+msgid "Arabic"
+msgstr "العربية"
+
+#: .\planet_app\views.py:32
+msgid "Test"
+msgstr "اختبار"
+
+#: .\planet_app\views.py:116 .\templates\about.html:19
+#: .\templates\website_base.html:126 .\templates\website_base.html:236
+msgid "Home"
+msgstr "الرئيسية"
+
+#: .\planet_app\views.py:136 .\templates\website_base.html:243
+#: .\templates\website_base.html:248 .\templates\website_base.html:250
+msgid "Contact Us"
+msgstr "اتصل بنا"
+
+#: .\planet_app\views.py:148 .\templates\about.html:14
+#: .\templates\website_base.html:140
+msgid "About Us"
+msgstr "معلومات عنا"
+
+#: .\planet_app\views.py:161 .\templates\website_base.html:141
+#: .\templates\website_base.html:238
+msgid "Why Us"
+msgstr "لماذا نحن"
+
+#: .\planet_app\views.py:175 .\templates\website_base.html:144
+#: .\templates\website_base.html:240
+msgid "Our Team"
+msgstr "فريقنا"
+
+#: .\planet_app\views.py:190 .\templates\website_base.html:142
+#: .\templates\website_base.html:239
+msgid "Awards & Recognitions"
+msgstr "الجوائز والتقديرات"
+
+#: .\planet_app\views.py:205 .\templates\website_base.html:143
+#: .\templates\website_base.html:242
+msgid "Events & Campaigns"
+msgstr "الفعاليات والحملات"
+
+#: .\planet_app\views.py:221 .\templates\website_base.html:301
+msgid "Disclaimer & Privacy Policy"
+msgstr "إخلاء المسؤولية وسياسة الخصوصية"
+
+#: .\planet_app\views.py:260 .\templates\index.html:116
+#: .\templates\website_base.html:127 .\templates\website_base.html:241
+msgid "Properties"
+msgstr "العقارات"
+
+#: .\planet_app\views.py:399
+msgid "Search Properties"
+msgstr "ابحث عن عقارات"
+
+#: .\templates\about.html:20 .\templates\website_base.html:138
+#: .\templates\website_base.html:237
+msgid "About"
+msgstr "حول"
+
+#: .\templates\about.html:37
+msgid ""
+"Buying a house is a special feeling. It is a mixed feeling of excitement, "
+"nervousness & anxiousness. Buying a property is perhaps the single biggest "
+"investment made by a person during his lifetime. Thus, one needs to exert "
+"due caution in buying a house, lest your precious savings goes down the "
+"drain. After zeroing in on the desired property, you still would have to "
+"wade through a formidable maze of tedious legalities and endless paperwork. "
+"Therefore, in order to cruise home in style, either you have to acquaint "
+"yourself with various legal jargon's and other technicalities, devote a lot "
+"of your busy time in the lengthy & tiresome processes & do a lot of leg work "
+"roaming around several offices & banks or else you can entrust us for the "
+"same. Similar complex issues are involved in buying as well."
+msgstr ""
+"شراء منزل هو شعور مميز. إنه مزيج من الحماس والتوتر والقلق. يعد شراء عقار "
+"ربما أكبر استثمار يقوم به الشخص في حياته. لذلك، يجب توخي الحذر عند الشراء "
+"حتى لا تضيع مدخراتك الثمينة. بعد اختيار العقار المناسب، ستظل بحاجة إلى "
+"اجتياز متاهة معقدة من الإجراءات القانونية المرهقة والأوراق التي لا تنتهي. "
+"لذلك، إما أن تتعلم المصطلحات القانونية والجانب الفني وأن تخصص وقتًا كبيرًا من "
+"جدولك المزدحم وتقوم بالكثير من الزيارات للمكاتب والبنوك، أو يمكنك أن تعهد "
+"إلينا بهذه المهمة. قضايا معقدة مشابهة تدخل أيضًا في عملية الشراء."
+
+#: .\templates\about.html:51
+msgid "PLANETS PROPERTIES \"Dream, Desired Properties\"."
+msgstr "بلانتس للعقارات \"الحلم، العقارات المنشودة\"."
+
+#: .\templates\about.html:66
+msgid "FOR NRI CLIENTS"
+msgstr "للعملاء غير المقيمين"
+
+#: .\templates\about.html:82
+msgid "Vision"
+msgstr "رؤية"
+
+#: .\templates\about.html:83
+msgid "To be the"
+msgstr "أن نكون"
+
+#: .\templates\about.html:83
+msgid "Realtor of first choice"
+msgstr "الوكيل العقاري الأول المفضل"
+
+#: .\templates\about.html:83
+msgid "for anyone considering buying, or renting a property in Bangalore."
+msgstr "لأي شخص يفكر في شراء أو استئجار عقار في بنغالور."
+
+#: .\templates\about.html:96
+msgid "Mission"
+msgstr "رسالة"
+
+#: .\templates\about.html:101
+msgid "OUR CLIENTS"
+msgstr "عملاؤنا"
+
+#: .\templates\about.html:102
+msgid "(the most valued part of our business)"
+msgstr "(أهم جزء في أعمالنا)"
+
+#: .\templates\about.html:104
+msgid ""
+"Our mission is to provide an outstanding level of service to our clients, "
+"making each property transaction a hassle-free & pleasurable experience & "
+"build a loyal customer base who we believe will advertise our services by "
+"word of mouth."
+msgstr ""
+"مهمتنا هي تقديم مستوى متميز من الخدمة لعملائنا، وجعل كل معاملة عقارية تجربة "
+"سهلة وممتعة، وبناء قاعدة عملاء أوفياء نؤمن بأنهم سيسوقون خدماتنا عبر التوصية "
+"الشخصية."
+
+#: .\templates\about.html:110
+msgid "OUR TEAM"
+msgstr "فريقنا"
+
+#: .\templates\about.html:111
+msgid "(our most valuable asset)"
+msgstr "(أثمن أصولنا)"
+
+#: .\templates\about.html:113
+msgid ""
+"Our mission is to work together in an atmosphere of fun and respect towards "
+"each other by adhering to strict code of conduct & high ethics and to "
+"support each other to deliver exceptional customer service and thereby "
+"achieve our personal goals."
+msgstr ""
+"مهمتنا هي العمل معًا في بيئة يسودها الاحترام والمرح من خلال الالتزام بميثاق "
+"سلوك صارم وأخلاقيات عالية، ودعم بعضنا البعض لتقديم خدمة عملاء استثنائية، "
+"وبالتالي تحقيق أهدافنا الشخصية."
+
+#: .\templates\about.html:119
+msgid "OUR BUSINESS"
+msgstr "أعمالنا"
+
+#: .\templates\about.html:120
+msgid "(our vehicle)"
+msgstr "(وسيلتنا)"
+
+#: .\templates\about.html:122
+msgid ""
+"Our mission is to conduct business in the most professional, ethical & "
+"transparent manner. We perpetually strive to uphold strong ethical "
+"principles and clearly defined standard operating procedures with no or very "
+"minimal deviations allowing maximum productivity."
+msgstr ""
+"مهمتنا هي إدارة الأعمال بأكثر الطرق احترافية وأخلاقية وشفافية. نحن نسعى "
+"دائمًا للتمسك بمبادئ أخلاقية قوية وإجراءات تشغيل قياسية محددة بوضوح مع أدنى "
+"قدر من الانحرافات مما يسمح بأقصى قدر من الإنتاجية."
+
+#: .\templates\about.html:128
+msgid "OUR CORE VALUES"
+msgstr "قيمنا الأساسية"
+
+#: .\templates\about.html:130
+msgid ""
+"What we are and what we stand for is indicated in the acronym of <b>P L A N "
+"E T S</b>  below:"
+msgstr "من نحن وماذا نمثل موضح في الاختصار <b>PLANETS</b> أدناه:"
+
+#: .\templates\about.html:131
+msgid "Professional"
+msgstr "احترافية"
+
+#: .\templates\about.html:132
+msgid "Law-abiding"
+msgstr "ملتزم بالقانون"
+
+#: .\templates\about.html:133
+msgid "Accountable & Accessible"
+msgstr "مسؤول وسهل الوصول إليه"
+
+#: .\templates\about.html:134
+msgid "Nice and courteous"
+msgstr "لطيف ومهذب"
+
+#: .\templates\about.html:135
+msgid "Ethical & Efficient"
+msgstr "أخلاقي وفعال"
+
+#: .\templates\about.html:136
+msgid "Transparent"
+msgstr "شفاف"
+
+#: .\templates\about.html:137
+msgid "Supportive"
+msgstr "داعم"
+
+#: .\templates\index.html:25
+msgid "Best Place To Find"
+msgstr "أفضل مكان للعثور"
+
+#: .\templates\index.html:34 .\templates\index.html:35
+msgid "Select City"
+msgstr "اختر المدينة"
+
+#: .\templates\index.html:44 .\templates\index.html:54
+#: .\templates\index.html:64
+msgid "Property Type"
+msgstr "نوع العقار"
+
+#: .\templates\index.html:45
+msgid "Looking for?"
+msgstr "تبحث عن؟"
+
+#: .\templates\index.html:55
+msgid "Any Property Type"
+msgstr "أي نوع من العقارات"
+
+#: .\templates\index.html:65
+msgid "Any Builder"
+msgstr "أي مطور"
+
+#: .\templates\index.html:74 .\templates\index.html:75
+msgid "Any Status"
+msgstr "أي حالة"
+
+#: .\templates\index.html:85
+msgid "Search"
+msgstr "بحث"
+
+#: .\templates\index.html:106 .\templates\index.html:107
+msgid "Find Properties in Your City"
+msgstr "ابحث عن عقارات في مدينتك"
+
+#: .\templates\index.html:130 .\templates\index.html:131
+msgid "Most Featured Properties"
+msgstr "أكثر العقارات تميزًا"
+
+#: .\templates\index.html:130
+msgid "Featured Properties"
+msgstr "عقارات مميزة"
+
+#: .\templates\index.html:164
+msgid "Call"
+msgstr "اتصال"
+
+#: .\templates\index.html:170
+msgid "Whatsapp"
+msgstr "واتساب"
+
+#: .\templates\index.html:176
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#: .\templates\index.html:182 .\templates\website_base.html:147
+msgid "Contact"
+msgstr "اتصل"
+
+#: .\templates\index.html:203 .\templates\index.html:204
+msgid "Popular Companies"
+msgstr "الشركات الشعبية"
+
+#: .\templates\index.html:203
+msgid "Our Association"
+msgstr "جمعيتنا"
+
+#: .\templates\index.html:240
+msgid "Active Listings"
+msgstr "إعلانات نشطة"
+
+#: .\templates\index.html:247
+msgid "Happy Customers"
+msgstr "عملاء سعداء"
+
+#: .\templates\index.html:254
+msgid "Relationship Managers"
+msgstr "مديرو العلاقات"
+
+#: .\templates\index.html:269 .\templates\index.html:270
+msgid "Clients Say About Us"
+msgstr "آراء العملاء عنا"
+
+#: .\templates\index.html:269
+msgid "What Our Clients Say"
+msgstr "ماذا يقول عملاؤنا"
+
+#: .\templates\index.html:305
+msgid "Check Out"
+msgstr "اطلع على"
+
+#: .\templates\index.html:305 .\templates\index.html:306
+msgid "Events and Campaigns"
+msgstr "الفعاليات والحملات"
+
+#: .\templates\index.html:348
+msgid "Oops, nothing found!"
+msgstr "عذرًا، لم يتم العثور على شيء!"
+
+#: .\templates\index.html:351
+msgid "Dream Home"
+msgstr "منزل الأحلام"
+
+#: .\templates\index.html:351
+msgid "Apartments"
+msgstr "شقق"
+
+#: .\templates\index.html:351
+msgid "Villas"
+msgstr "فلل"
+
+#: .\templates\index.html:351
+msgid "Plots"
+msgstr "قطع أراضٍ"
+
+#: .\templates\index.html:351
+msgid "Pent House"
+msgstr "بنتهاوس"
+
+#: .\templates\index.html:351
+msgid "Independent Houses"
+msgstr "منازل مستقلة"
+
+#: .\templates\index.html:351 .\templates\website_base.html:132
+msgid "Commercial"
+msgstr "تجاري"
+
+#: .\templates\index.html:351
+msgid "Villaments"
+msgstr "فلل-شقق"
+
+#: .\templates\index.html:399
+msgid "something wrong"
+msgstr "حدث خطأ ما"
+
+#: .\templates\website_base.html:12
+msgid ""
+"Planets Properties mark the coming together of the best of minds from the "
+"Indian real estate industry, With a high level of innovative and creative "
+"ideas in real estate industry to solve buyers problems"
+msgstr ""
+"بلانتس للعقارات تمثل اجتماع أفضل العقول من قطاع العقارات الهندي، مع مستوى "
+"عالٍ من الأفكار المبتكرة والإبداعية في العقارات لحل مشكلات المشترين."
+
+#: .\templates\website_base.html:13
+msgid ""
+"Apartment, Estate Agency, Housing, Real Estate, Real Estate Broker, Real "
+"Estate Property, Single Property, Planets Properties, PlanetsProperties.com, "
+"Planet Properties, real estate bangalore, Planets Properties bangalore"
+msgstr ""
+"شقق، وكالة عقارية، مساكن، عقارات، سمسار عقارات، ملكية عقارية، عقار فردي، "
+"بلانتس للعقارات، PlanetsProperties.com، بلانت بروبرتيز، عقارات بنغالور، "
+"بلانتس للعقارات بنغالور"
+
+#: .\templates\website_base.html:15 .\templates\website_base.html:115
+#: .\templates\website_base.html:220
+msgid "Planets Properties"
+msgstr "بلانتس للعقارات"
+
+#: .\templates\website_base.html:112
+msgid "logo"
+msgstr "شعار"
+
+#: .\templates\website_base.html:114
+msgid "planets properties logo"
+msgstr "شعار بلانتس للعقارات"
+
+#: .\templates\website_base.html:129
+msgid "New Property"
+msgstr "عقار جديد"
+
+#: .\templates\website_base.html:130
+msgid "Rental"
+msgstr "إيجار"
+
+#: .\templates\website_base.html:131
+msgid "Resale"
+msgstr "إعادة بيع"
+
+#: .\templates\website_base.html:133
+msgid "Land"
+msgstr "أرض"
+
+#: .\templates\website_base.html:134
+msgid "Agricultural"
+msgstr "زراعي"
+
+#: .\templates\website_base.html:137
+msgid "Blogs"
+msgstr "المدونات"
+
+#: .\templates\website_base.html:162
+msgid "Currency"
+msgstr "العملة"
+
+#: .\templates\website_base.html:219
+msgid "Planets Properties Logo"
+msgstr "شعار بلانتس للعقارات"
+
+#: .\templates\website_base.html:226
+msgid "Cities"
+msgstr "المدن"
+
+#: .\templates\website_base.html:234
+msgid "Quick Links"
+msgstr "روابط سريعة"
+
+#: .\templates\website_base.html:244
+msgid "Sitemap"
+msgstr "خريطة الموقع"
+
+#: .\templates\website_base.html:252
+msgid "Corporate Office"
+msgstr "المكتب الرئيسي"
+
+#: .\templates\website_base.html:257
+msgid "Follow Us"
+msgstr "تابعنا"
+
+#: .\templates\website_base.html:261
+msgid "facebook"
+msgstr "فيسبوك"
+
+#: .\templates\website_base.html:266
+msgid "instagram"
+msgstr "إنستغرام"
+
+#: .\templates\website_base.html:271
+msgid "twitter"
+msgstr "تويتر"
+
+#: .\templates\website_base.html:276
+msgid "Youtube"
+msgstr "يوتيوب"
+
+#: .\templates\website_base.html:281
+msgid "Linkedin"
+msgstr "لينكدإن"
+
+#: .\templates\website_base.html:286
+msgid "Telegram"
+msgstr "تيليجرام"
+
+#: .\templates\website_base.html:306
+msgid "Copyright © 2022 PLANETS PROPERTIES All Rights Reserved."
+msgstr "حقوق النشر © 2022 بلانتس للعقارات. جميع الحقوق محفوظة."
+
+#: .\templates\website_base.html:336
+msgid "Fill the form and we'll get back to you."
+msgstr "املأ النموذج وسنعاود الاتصال بك."
+
+#: .\templates\website_base.html:342
+msgid "Your Name"
+msgstr "اسمك"
+
+#: .\templates\website_base.html:345
+msgid "Email Address"
+msgstr "عنوان البريد الإلكتروني"
+
+#: .\templates\website_base.html:348
+msgid "Mobile Number"
+msgstr "رقم الجوال"
+
+#: .\templates\website_base.html:351
+msgid "Your Message"
+msgstr "رسالتك"
+
+#: .\templates\website_base.html:351
+msgid "I'm interest in"
+msgstr "أنا مهتم بـ"
+
+#: .\templates\website_base.html:355
+msgid "What's"
+msgstr "ما هو"
+
+#: .\templates\website_base.html:356
+msgid "Type answer here"
+msgstr "اكتب الإجابة هنا"
+
+#: .\templates\website_base.html:361
+msgid "Submit"
+msgstr "إرسال"
+
+#~ msgid "Select Language"
+#~ msgstr "اختر اللغة"

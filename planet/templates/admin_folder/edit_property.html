@@ -1,0 +1,745 @@
+{% extends "admin_folder/base.html" %}
+{% load static %}
+{% block main %}
+        <!-- page content -->
+        <div class="right_col pb-4" role="main">
+          <div class="row">
+
+            <div class="col-md-12">
+                <form method="POST" action="/edit-property/{{project.id}}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="submit-page">
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Property Basic Information</h3>
+                            <div class="content with-padding">
+                                <div class="col-md-12">
+                                    <h5>Property Title</h5>
+                                    <input class="search-field" placeholder="Property Title" onfocusout="checkIfExists(this)" name="title" type="text" value="{{project.title}}" required/>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <h5>Property Description</h5>
+                                    <textarea cols="20" id="summary" name="description" rows="2">{{project.description}}</textarea>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h5>Property Video</h5>
+                                    <input class="search-field" placeholder="Youtube Link" name="video_link" type="text" value="{{project.video_link}}"/>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h5>Location Map</h5>
+                                    <input class="search-field" placeholder="Map Link" name="map_link" type="text" value="{{project.map_link}}"/>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <h5>RERA No.</h5>
+                                    <input class="search-field" placeholder="RERA No." name="rera_no" type="text" value="{{project.rera_no}}"/>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Possession</h5>
+                                    <input class="search-field" placeholder="Possession Details" name="possession" type="text" value="{{project.possession}}"/>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Property Type</h5>
+                                    <select class="utf-chosen-select-single-item" data-placeholder="Property Type"  name="property_type" required>
+                                        <option value="Multi Storey Apartments" {% if project.property_type == 'Multi Storey Apartments' %}selected{% endif %}>Multi Storey Apartments</option>
+                                        <option value="Flats / Builder Floor Apartments" {% if project.property_type == 'Flats / Builder Floor Apartments' %}selected{% endif %}>Flats / Builder Floor Apartments </option>
+                                        <option value="Villas" {% if project.property_type == 'Villas' %}selected{% endif %}>Villas</option>
+                                        <option value="Row Houses" {% if project.property_type == 'Row Houses' %}selected{% endif %}>Row Houses</option>
+                                        <option value="Villaments" {% if project.property_type == 'Villaments' %}selected{% endif %}>Villaments</option>
+                                        <option value="Plots" {% if project.property_type == 'Plots' %}selected{% endif %}>Plots</option>
+                                        <option value="Pent House" {% if project.property_type == 'Pent House' %}selected{% endif %}>Pent House</option>
+                                        <option value="Independent Houses" {% if project.property_type == 'Independent Houses' %}selected{% endif %}>Independent Houses</option>
+                                        <option value="Commercial" {% if project.property_type == 'Commercial' %}selected{% endif %}>Commercial</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>New Property?</h5>
+                                    <select class="utf-chosen-select-single-item" data-placeholder="Property Type"  name="property_type_2" required>
+                                        <option value="New Sale" {% if project.property_type_1 == 'New Sale' %}selected{% endif %}>New Sale</option>
+                                        <option value="Rental" {% if project.property_type_1 == 'Rental' %}selected{% endif %}>Rental</option>
+                                        <option value="Resale" {% if project.property_type_1 == 'Resale' %}selected{% endif %}>Resale</option>
+                                        <option value="Commercial" {% if project.property_type_1 == 'Commercial' %}selected{% endif %}>Commercial</option>
+                                        <option value="Land" {% if project.property_type_1 == 'Land' %}selected{% endif %}>Land</option>
+                                        <option value="Agricultural" {% if project.property_type_1 == 'Agricultural' %}selected{% endif %}>Agricultural</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>City</h5>
+                                    <select class="utf-chosen-select-single-item" name="city" required>
+                                        <option label="-Please Select-" disabled selected></option>
+                                        {% for i in cities %}
+                                        <option value="{{i.id}}" {% if project.city.id == i.id %}selected{% endif %}>{{i.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Location</h5>
+                                    <input class="search-field" placeholder="Location" name="location" type="text" value="{{project.location}}"/>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <h5>Builder</h5>
+                                    <select class="utf-chosen-select-single-item" name="builder" required>
+                                        <option label="-Please Select-" disabled selected></option>
+                                        {% for i in builder %}
+                                        <option value="{{i.id}}" {% if project.builder.id == i.id %}selected{% endif %}>{{i.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <h5 class="margin-top-15">Amenities</h5>
+                                    <div class="checkboxes in-row margin-bottom-20">
+                                        {% for i in amenities %}
+                                        <input id="check-{{i.id}}" name="check{{i.id}}" type="checkbox" {% if i.id in project_amenities %}checked{% endif %}>
+                                        <label for="check-{{i.id}}">{{i.name}}</label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Highlights</h3>
+                            <div class="content with-padding">
+
+                                <div class="col-md-4">
+                                    <h5>Project Area</h5>
+                                    <div class="select-input disabled-first-option">
+                                        <input data-unit="Sq Ft" name="project_area" placeholder="Project Area" type="text" value="{{project.project_area}}" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Type </h5>
+                                    <div class="select-input disabled-first-option">
+                                        <input data-unit="BHK" name="project_type" placeholder="No. of BHK" type="text" value="{{project.project_type}}" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>No. of Unit</h5>
+                                    <input class="search-field" name="project_units" placeholder="No. of Unit" type="text" value="{{project.project_units}}" required/>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Builtup Area</h5>
+                                    <input class="search-field" name="project_buildup" placeholder="Builtup Area" type="text" value="{{project.project_buildup}}" required/>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Price</h5>
+                                    <input class="search-field" name="project_price" placeholder="Price (in AED)" step="0.01" type="number" value="{{project.project_price}}" required/>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <h5>Status 1 (searchable)</h5>
+                                    <select name="project_status" required>
+                                        <option value="Ready to Move" {% if project.project_status == 'Ready to Move' %}selected{% endif %}>Ready to Move</option>
+                                        <option value="Under Construction" {% if project.project_status == 'Under Construction' %}selected{% endif %}>Under Construction</option>
+                                        <option value="Pre Launch" {% if project.project_status == 'Pre Launch' %}selected{% endif %}>Pre Launch</option>
+                                        <option value="Ready to Handover" {% if project.project_status == 'Ready to Handover' %}selected{% endif %}>Ready to Handover</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Status 2</h5>
+                                    <select name="project_status_1">
+                                        <option value="Ready to Move" {% if project.project_status_1 == 'Ready to Move' %}selected{% endif %}>Ready to Move</option>
+                                        <option value="Under Construction" {% if project.project_status_1 == 'Under Construction' %}selected{% endif %}>Under Construction</option>
+                                        <option value="Pre Launch" {% if project.project_status_1 == 'Pre Launch' %}selected{% endif %}>Pre Launch</option>
+                                        <option value="Ready to Handover" {% if project.project_status_1 == 'Ready to Handover' %}selected{% endif %}>Ready to Handover</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Floor Details</h3>
+                            <div class="content with-padding">
+                                <div class="col-md-12" id="floor_box">
+                                {% for i in floor %}
+                                    <div class="col-md-12 pt-3 border-bottom" id="floors_{{i.num}}">
+
+                                        <div class="col-md-4">
+                                            <label for="floor_{{i.num}}">Floor Name {{i.num}}</label>
+                                            <input  name="floor_{{i.num}}" id="floor_{{i.num}}" placeholder="Floor Name {{i.num}}" type="text" value="{{i.floor.name}}">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="image_{{i.num}}">Image {{i.num}}
+                                                {% if i.floor.img %}
+                                                (<a href="/media/{{i.floor.img}}" target="_blank" style="color: blue; text-decoration: underline;">view</a>)
+                                                {% endif %}
+                                            </label>
+                                            <input type="file" id="image_{{i.num}}" name="floor_img_1" class="uploadImage" accept=".jpg,.jpeg,.png,.webp">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="pdf_{{i.num}}">PDF File {{i.num}}
+                                                {% if i.floor.pdf %}
+                                                (<a href="/media/{{i.floor.pdf}}" target="_blank" style="color: blue; text-decoration: underline;">view</a>)
+                                                {% endif %}
+                                            </label>
+                                            <input type="file" id="pdf_{{i.num}}" name="floor_pdf_{{i.num}}" class="uploadPDF" accept=".pdf">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input  name="tag_1_{{i.num}}" placeholder="Tag 1 - {{i.num}}" type="text" value="{{i.floor.tag1}}">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input  name="tag_2_{{i.num}}" placeholder="Tag 2 - {{i.num}}" type="text" value="{{i.floor.tag2}}">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input  name="tag_3_{{i.num}}" placeholder="Tag 3 - {{i.num}}" type="text" value="{{i.floor.tag3}}">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input  name="tag_4_{{i.num}}" placeholder="Tag 4 - {{i.num}}" type="text" value="{{i.floor.tag4}}">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <textarea name="floor_dec_{{i.num}}" style="min-height: unset;" rows="2" placeholder=" Floor 1 Description">{{i.floor.description}}</textarea>
+                                        </div>
+                                        <input type="hidden" name="floorid_{{i.num}}" value="floor_{{i.num}}_{{i.floor.id}}">
+                                    </div>
+                                {% endfor %}
+                                </div>
+                                <div class="col-md-12 mt-2" align="center">
+                                    <button type="button" class="btn btn-secondary" onclick="addNewFloor()">Add more</button>
+                                    <button type="button" class="btn btn-danger" onclick="removeFloorLast()">Remove last</button>
+                                </div>
+                                <input type="hidden" value="{{num_of_floors}}" id="num_of_floors" name="num_of_floors">
+                                <input type="hidden" value="{{num_of_floors}}" id="prev_num_of_floors" name="prev_num_of_floors">
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Pricing</h3>
+                            <div class="content with-padding">
+                                <div class="col-md-12" id="pricing_box">
+                                    {% for i in pricing %}
+                                    <div class="col-md-12 pt-3 border-bottom" id="pricing_{{i.num}}">
+                                        <div class="col-md-3">
+                                            <input placeholder="Property 1" type="text" name="property_{{i.num}}" value="{{i.floor.property}}">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input placeholder="Super Builtup Area 1" type="text" name="builtup_area_{{i.num}}" value="{{i.floor.builtup}}">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input placeholder="Carpet Area	1" type="text" name="carpet_area_{{i.num}}" value="{{i.floor.carpet}}">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input placeholder="Basic Price	1" type="text" name="basic_pricing_{{i.num}}" value="{{i.floor.price}}">
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-12 mt-2" align="center">
+                                    <button type="button" class="btn btn-secondary" onclick="addNewPricing()">Add more</button>
+                                    <button type="button" class="btn btn-danger" onclick="removePricing()">Remove last</button>
+                                </div>
+
+                                <input type="hidden" value="{{num_of_pricing}}" id="num_of_pricing" name="num_of_pricing">
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Location Advantages</h3>
+                            <div class="content with-padding">
+                                <div class="col-md-12" id="location_box">
+                                    {% for i in locations %}
+                                    <div class="col-md-12 pt-3 border-bottom" id="location_{{i.num}}">
+                                        <div class="col-md-6">
+                                            <input placeholder="Item 1" type="text" name="title_{{i.num}}" value="{{i.floor.title}}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input placeholder="Distance 1" type="text" name="distance_{{i.num}}" value="{{i.floor.distance}}">
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-12 mt-2" align="center">
+                                    <button type="button" class="btn btn-secondary" onclick="addNewLocation()">Add more</button>
+                                    <button type="button" class="btn btn-danger" onclick="removeLocation()">Remove last</button>
+                                </div>
+
+                                <input type="hidden" value="{{num_of_locations}}" id="num_of_locations" name="num_of_locations">
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Property Gallery</h3>
+                            <div class="content with-padding">
+                                <div class="col-md-12 submit-section">
+                                    <div class="row">
+                                        <div class="col-md-12 mb-3" id="prev_image_display">
+                                            {% for i in gallery %}
+                                            <div class="col-md-3 p-3 border" id="image_box_'+image_data[i].id+'" align="center">
+                                                <img src="/media/{{i.img}}" id="image_{{i.id}}" style="width: 180px; height:150px;">
+                                                <button type="button" class="btn btn-danger" id="button_{{i.id}}" onclick="removeImagePrev(this.id)">
+                                                    <i class="icon-material-outline-delete" style="font-size: 18px;"></i>
+                                                </button>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12" align="center">
+                                            <input type="file" class="search-field" id="file" name="file" accept="image/*">
+                                            <button type="button" class="btn btn-lg btn-primary" id="upload_file">Add</button>
+                                        </div>
+                                        <div class="col-md-12" id="image_display">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Property Contact Details</h3>
+                            <div class="content with-padding">
+                                <div class="col-md-4">
+                                    <h5>Email Address</h5>
+                                    <input placeholder="Email Address" type="text" name="email" value="{{project.contact_email}}" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Phone Number</h5>
+                                    <input placeholder="Phone Number" type="text" name="phone" value="{{project.contact_phone}}" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Whatsapp Number</h5>
+                                    <input placeholder="Whatsapp Number including country code." type="text" name="whatsapp" value="{{project.contact_whatsapp}}" required>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Featured Property</h3>
+                            <div class="content with-padding">
+                                <div class="col-md-4">
+                                    <h5>Is this a featured property?</h5>
+                                    <select class="utf-chosen-select-single-item" name="is_featured" required>
+                                        <option label="-Please Select-" disabled selected></option>
+                                        <option value="Yes" {% if project.is_featured == True %}selected{% endif %}>Yes</option>
+                                        <option value="No" {% if project.is_featured == False %}selected{% endif %}>No</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Upload Master Plan Image
+                                        {% if project.master_plan %}
+                                        (<a href="/media/{{project.master_plan}}" target="_blank" style="color: blue; text-decoration: underline;">view</a>)
+                                        {% endif %}
+                                    </h5>
+                                    <input type="file" name="master_plan" class="uploadImage">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Upload Master Plan PDF
+                                        {% if project.master_plan_pdf %}
+                                        (<a href="/media/{{project.master_plan_pdf}}" target="_blank" style="color: blue; text-decoration: underline;">view</a>)
+                                        {% endif %}
+                                    </h5>
+                                    <input type="file" name="master_plan_pdf" class="uploadPDF" accept=".pdf">
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Upload Brochure
+                                        {% if project.brochure %}
+                                        (<a href="/media/{{project.brochure}}" target="_blank" style="color: blue; text-decoration: underline;">view</a>)
+                                        {% endif %}
+                                    </h5>
+                                    <input type="file" name="brochure" class="uploadPDF">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Filters</h3>
+                            <div class="content with-padding">
+<!--                                <div class="col-md-4">-->
+<!--                                    <h5>BHK</h5>-->
+<!--                                    <select class="utf-chosen-select-single-item select2" multiple name="bhk" required>-->
+<!--                                        {% for i in BHK %}-->
+<!--                                        <option value="{{i}}" {% if i in project.bhk %}selected{% endif %}>{{i}}</option>-->
+<!--                                        {% endfor %}-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-4">-->
+<!--                                    <h5>Location</h5>-->
+<!--                                    <select class="utf-chosen-select-single-item" name="location_direction" required>-->
+<!--                                        <option value="" selected disabled>-Please Select-</option>-->
+<!--                                        {% for i in location %}-->
+<!--                                        <option value="{{i}}" {% if i == project.location_direction %}selected{% endif %}>{{i}}</option>-->
+<!--                                        {% endfor %}-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-4">-->
+<!--                                    <h5>Budget</h5>-->
+<!--                                    <select class="utf-chosen-select-single-item select2" multiple name="budget" required>-->
+<!--                                        {% for i in budget %}-->
+<!--                                        <option value="{{i}}" {% if i in project.cost %}selected{% endif %}>{{i}}</option>-->
+<!--                                        {% endfor %}-->
+<!--                                    </select>-->
+<!--                                </div>-->
+                                <div class="col-md-4">
+                                    <h5>Project ID</h5>
+                                    <input type="text" name="property_id" value="{{project.property_id}}" required>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+                        <!-- Section -->
+                        <div class="utf-submit-page-inner-box">
+                            <h3>Meta Details</h3>
+                            <div class="content with-padding">
+                                <div class="col-md-12">
+                                    <h5>Meta Title</h5>
+                                    <input name="meta_title" type="text" value="{{project.meta_title}}">
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Meta Keywords</h5>
+                                    <textarea name="meta_keywords">{{project.meta_keywords}}</textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Meta Description</h5>
+                                    <textarea name="meta_description">{{project.meta_description}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section / End -->
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="utf-centered-button button" style="background: #e33324">Submit Property</button>
+                            </div>
+                        </div>
+                        <input type="hidden" name="buffer_id" value="{{buffer_id}}">
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- /page content -->
+{% csrf_token %}
+{% csrf_token %}
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+  var MAX_FILE_SIZE = 1000 * 1024; // 500KB
+  $(document).ready(function() {
+      $('.uploadImage').change(function() {
+          var fileInput = this;
+          var filePath = fileInput.value;
+          var allowedExtensions =  /(\.jpg|\.jpeg|\.png|\.webp)$/i;
+          if (!allowedExtensions.exec(filePath)) {
+              fileInput.setCustomValidity("Only Images (.png, .jpg, .jpeg, .webp) are accepted");
+              fileInput.reportValidity();
+              return false;
+          } else {
+              fileInput.setCustomValidity("");
+          }
+          fileSize = this.files[0].size;
+          if (fileSize > MAX_FILE_SIZE) {
+              this.setCustomValidity("File must not exceed 1 MB!");
+              this.reportValidity();
+          } else {
+              this.setCustomValidity("");
+          }
+      });
+  });
+  var MAX_FILE_SIZE_PDF = 20000 * 1024; // 20MB
+  $(document).ready(function() {
+      $('.uploadPDF').change(function() {
+          var fileInput = this;
+          var filePath = fileInput.value;
+          var allowedExtensions =  /(\.pdf)$/i;
+          if (!allowedExtensions.exec(filePath)) {
+              fileInput.setCustomValidity("Only PDF files are accepted");
+              fileInput.reportValidity();
+              return false;
+          } else {
+              fileInput.setCustomValidity("");
+          }
+          fileSize = this.files[0].size;
+          if (fileSize > MAX_FILE_SIZE_PDF) {
+              this.setCustomValidity("File must not exceed 20 MB!");
+              this.reportValidity();
+          } else {
+              this.setCustomValidity("");
+          }
+      });
+  });
+</script>
+
+<script>
+  m = {{num_of_floors}};
+  function addNewFloor() {
+    m = m + 1;
+    desc = '<div class="col-md-12 border-bottom pt-3" id="floors_'+m+'">';
+    desc += '<div class="col-md-4">';
+    desc += '<label for="floor_'+m+'">Floor Name '+m+' <span style="color: red">*</span></label>';
+    desc += '<input  name="floor_'+m+'" id="floor_'+m+'" placeholder="Floor Name '+m+'" type="text" required>';
+    desc += '</div>';
+    desc += '<div class="col-md-4">';
+    desc += '<label for="image_'+m+'">Image '+m+'</label>';
+    desc += '<input type="file" id="image_'+m+'" name="floor_img_'+m+'" class="uploadImage" accept=".jpg,.jpeg,.png,.webp">';
+    desc += '</div>';
+    desc += '<div class="col-md-4">';
+    desc += '<label for="pdf_'+m+'">PDF '+m+'</label>';
+    desc += '<input type="file" id="pdf_'+m+'" name="floor_pdf_'+m+'" class="uploadPDF" accept=".pdf">';
+    desc += '</div>';
+    desc += '<div class="col-md-3">';
+    desc += '<input  name="tag_1_'+m+'" placeholder="Tag 1 - '+m+'" type="text">';
+    desc += '</div>';
+    desc += '<div class="col-md-3">';
+    desc += '<input  name="tag_2_'+m+'" placeholder="Tag 2 - '+m+'" type="text">';
+    desc += '</div>';
+    desc += '<div class="col-md-3">';
+    desc += '<input  name="tag_3_'+m+'" placeholder="Tag 3 - '+m+'" type="text">';
+    desc += '</div>';
+    desc += '<div class="col-md-3">';
+    desc += '<input  name="tag_4_'+m+'" placeholder="Tag 4 - '+m+'" type="text">';
+    desc += '</div>';
+    desc += '<div class="col-md-12">';
+    desc += '<textarea name="floor_dec_'+m+'" style="min-height: unset;" rows="2" placeholder=" Floor '+m+' Description"></textarea>';
+    desc += '</div>';
+    $('#floor_box').append(desc);
+    $('#num_of_floors').val(m);
+  }
+
+  function removeFloorLast() {
+    con = confirm("Are you sure you want to remove this?")
+    if (con == true) {
+        if ($('#floors_'+m).html()) {
+          item = $('#floors_'+m).remove();
+          m = m - 1;
+          $('#num_of_floors').val(m);
+        }
+    }
+  }
+</script>
+<script>
+  n = {{num_of_pricing}}
+  function addNewPricing() {
+    n = n + 1;
+    desc = '<div class="col-md-12 border-bottom pt-3" id="pricing_'+n+'">'
+    desc += '<div class="col-md-3">'
+    desc += '<input placeholder="Property '+n+'" type="text" name="property_'+n+'" required>'
+    desc += '</div>'
+    desc += '<div class="col-md-3">'
+    desc += '<input placeholder="Super Builtup Area '+n+'" type="text" name="builtup_area_'+n+'" required>'
+    desc += '</div>'
+    desc += '<div class="col-md-3">'
+    desc += '<input placeholder="Carpet Area '+n+'" type="text" name="carpet_area_'+n+'">'
+    desc += '</div>'
+    desc += '<div class="col-md-3">'
+    desc += '<input placeholder="Basic Price '+n+'" type="text" name="basic_pricing_'+n+'">'
+    desc += '</div>'
+    desc += '</div>'
+    $('#pricing_box').append(desc);
+    $('#num_of_pricing').val(n);
+  }
+
+  function removePricing() {
+    con = confirm("Are you sure you want to remove this?")
+    if (con == true) {
+        if ($('#pricing_'+n).html()) {
+          item = $('#pricing_'+n).remove();
+          n = n - 1;
+          $('#num_of_pricing').val(n);
+        }
+    }
+  }
+</script>
+<script>
+  l = {{num_of_locations}}
+  function addNewLocation() {
+    l = l + 1;
+    desc = '<div class="col-md-12 border-bottom pt-3" id="location_'+l+'">'
+    desc += '<div class="col-md-6">'
+    desc += '<input placeholder="Item '+l+'" type="text" name="title_'+l+'" required>'
+    desc += '</div>'
+    desc += '<div class="col-md-6">'
+    desc += '<input placeholder="Distance '+l+'" type="text" name="distance_'+l+'" required>'
+    desc += '</div>'
+    $('#location_box').append(desc);
+    $('#num_of_locations').val(l);
+  }
+
+  function removeLocation() {
+    con = confirm("Are you sure you want to remove this?")
+    if (con == true) {
+        if ($('#location_'+l).html()) {
+          item = $('#location_'+l).remove();
+          l = l - 1;
+          $('#num_of_locations').val(l);
+        }
+    }
+  }
+</script>
+<script>
+    function checkIfExists(e) {
+        $csrf = $('[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+          method: "POST",
+          url: "/check-property-exist",
+          mimeType: "multipart/form-data",
+          data: {
+            csrfmiddlewaretoken: $csrf,
+            title: e.value,
+            id: {{project.id}}
+          },
+          success: function(res) {
+            if (res == 'no') {
+                alert('Property with same name already exists. Please change/modify property name.')
+                $('[name="title"]').css("background-color", "yellow");
+            } else {
+                $('[name="title"]').css("background-color", 'unset');
+            }
+          }
+        });
+    }
+
+
+    $('#upload_file').click(function(){
+        $csrf = $('[name="csrfmiddlewaretoken"]').val();
+        var data = new FormData();
+        data.append("file", $("input[id^='file']")[0].files[0]);
+        data.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+        data.append('buffer_id', '{{ buffer_id }}');
+        if ($("input[id^='file']")[0].files[0]) {
+            $.ajax({
+              method: "POST",
+              url: "/upload-buffer-image",
+              processData: false,
+              contentType: false,
+              mimeType: "multipart/form-data",
+              data: data,
+
+              success: function(res) {
+                var image_data = eval('(' + res + ')');
+                options = ''
+                for (var i = 0; i < image_data.length; i++ ){
+                    options += '<div class="col-md-3 p-3 border" id="image_box_'+image_data[i].id+'" align="center">';
+                    options += '<img src="/media/'+image_data[i].img+'" id="image_'+image_data[i].id+'" style="width: 180px; height:150px;">';
+                    options += '<button type="button" class="btn btn-danger" id="button_'+image_data[i].id+'" onclick="removeImage(this.id)">';
+                    options += '<i class="icon-material-outline-delete" style="font-size: 18px;"></i>';
+                    options += '</button>';
+                    options += '</div>';
+                }
+                $("#image_display").html(options);
+                $('#file').val('');
+              },
+              error:function(e){
+                  alert("something wrong "+ e) // this will alert an error
+              }
+            });
+        } else {
+            alert("Select the Image First.");
+        }
+    });
+
+
+    function removeImage(e){
+        $csrf = $('[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+          method: "POST",
+          url: "/remove-buffer-image",
+          mimeType: "multipart/form-data",
+          data: {
+            csrfmiddlewaretoken: $csrf,
+            buffer_id: '{{ buffer_id }}',
+            id: e.match(/\d+/)[0]
+          },
+          success: function(res) {
+            var image_data = eval('(' + res + ')');
+            options = ''
+            for (var i = 0; i < image_data.length; i++ ){
+                options += '<div class="col-md-3 p-3 border" id="image_box_'+image_data[i].id+'" align="center">';
+                options += '<img src="/media/'+image_data[i].img+'" id="image_'+image_data[i].id+'" style="width: 180px; height:150px;">';
+                options += '<button type="button" class="btn btn-danger" id="button_'+image_data[i].id+'" onclick="removeImage(this.id)">';
+                options += '<i class="icon-material-outline-delete" style="font-size: 18px;"></i>';
+                options += '</button>';
+                options += '</div>';
+            }
+            $("#image_display").html(options);
+            $('#file').val('');
+          },
+          error:function(e){
+              alert("something wrong "+ e) // this will alert an error
+          }
+        });
+    }
+
+    function removeImagePrev(e){
+        action = confirm('Are you sure you want to delete this?');
+        if (action == true){
+            $csrf = $('[name="csrfmiddlewaretoken"]').val();
+            $.ajax({
+              method: "POST",
+              url: "/remove-previous-image",
+              mimeType: "multipart/form-data",
+              data: {
+                csrfmiddlewaretoken: $csrf,
+                project_id: '{{ project.id }}',
+                id: e.match(/\d+/)[0]
+              },
+              success: function(res) {
+                var image_data = eval('(' + res + ')');
+                options = ''
+                for (var i = 0; i < image_data.length; i++ ){
+                    options += '<div class="col-md-3 p-3 border" id="image_box_'+image_data[i].id+'" align="center">';
+                    options += '<img src="/media/'+image_data[i].img+'" id="image_'+image_data[i].id+'" style="width: 180px; height:150px;">';
+                    options += '<button type="button" class="btn btn-danger" id="button_'+image_data[i].id+'" onclick="removeImagePrev(this.id)">';
+                    options += '<i class="icon-material-outline-delete" style="font-size: 18px;"></i>';
+                    options += '</button>';
+                    options += '</div>';
+                }
+                $("#prev_image_display").html(options);
+                $('#file').val('');
+              },
+              error:function(e){
+                  alert("something wrong "+ e) // this will alert an error
+              }
+            });
+        }
+    }
+
+
+
+</script>
+<script>
+    $(document).ready(function() {
+        $('textarea#summary').summernote({
+            height: 300,
+        });
+    });
+</script>
+{% endblock %}

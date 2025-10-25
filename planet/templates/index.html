@@ -1,0 +1,406 @@
+{% extends 'website_base.html' %}
+{% load static %}
+{% load i18n %}
+{% block style %}
+<style>
+    @media (max-width: 768px) {
+        .utf-logo-carousel-item .owl-controls .owl-pagination {
+            display: none !important;
+        }
+        .carousel .owl-controls .owl-pagination {
+            display: none !important;
+        }
+    }
+</style>
+{% endblock %}
+{% block main %}
+<!-- Banner -->
+  <div class="parallax" data-background="{% static 'front/images/home-parallax-1.jpg' %}" data-color="#36383e" data-color-opacity="0.72" data-img-width="2500" data-img-height="1600">
+    <div class="utf-parallax-content-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="utf-main-search-container-area">
+              <div class="utf-banner-headline-text-part">
+				<h2>{% trans "Best Place To Find" %} <span class="typed-words"></span></h2>
+			  </div>
+                <form class="" action="/search" method="GET" enctype="multipart/form-data">
+                    <!-- Box -->
+                    <div class="utf-main-search-box-area">
+                        <!-- Row With Forms -->
+                        <div class="row with-forms">
+                            <!-- Status -->
+                            <div class="col-md-2 col-sm-6">
+                                <select class="utf-chosen-select-single-item" data-placeholder="{% trans 'Select City' %}"
+                                        title="{% trans 'Select City' %}" name="city" required>
+                                    {% for i in search_city %}
+                                    <option value="{{i.city__name}}">{{i.city__name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <!-- Property Type -->
+                            <div class="col-md-2 col-sm-6">
+                                <select name="type_2" class="utf-chosen-select-single-item" data-placeholder="{% trans 'Property Type' %}">
+                                    <option value="any">{% trans "Looking for?" %}</option>
+                                    {% for i in looking_for %}
+                                    <option value="{{i.property_type_2}}">{{i.property_type_2}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <!-- Property Type -->
+                            <div class="col-md-3 col-sm-6">
+                                <select name="type" class="utf-chosen-select-single-item" data-placeholder="{% trans 'Property Type' %}">
+                                    <option value="any">{% trans "Any Property Type" %}</option>
+                                    {% for i in search_type %}
+                                    <option value="{{i.property_type}}">{{i.property_type}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <!-- Builder -->
+                            <div class="col-md-3 col-sm-6">
+                                <select name="builder" class="chosen-select" data-placeholder="{% trans 'Property Type' %}">
+                                    <option value="any">{% trans "Any Builder" %}</option>
+                                    {% for i in search_builder %}
+                                    <option value="{{i.builder__name}}">{{i.builder__name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <!-- Status -->
+                            <div class="col-md-2 col-sm-6">
+                                <select name="status" class="utf-chosen-select-single-item" data-placeholder="{% trans 'Any Status' %}">
+                                    <option value="any">{% trans "Any Status" %}</option>
+                                    {% for i in search_status %}
+                                    <option value="{{i.project_status}}">{{i.project_status}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <!-- Main Search Input -->
+                            <div class="col-md-12" align="center">
+                                <div class="utf-main-search-input-item" style="display: block; margin-bottom: 8px;">
+                                    <button class="button"><i class="fa fa-search"></i> {% trans "Search" %}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row With Forms / End -->
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+
+
+  <section class="fullwidth" data-background-color="#fbfbfb">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">
+            <h3 class="headline">{% trans "Find Properties in Your City" %}</h3>
+            <div class="utf-headline-display-inner-item">{% trans "Find Properties in Your City" %}</div>
+          </div>
+        </div>
+        {% for i in cities %}
+        <div class="col-md-4 col-sm-6">
+          <a href="/cities/{{i.city.slug}}" class="img-box">
+            <img src="/media/{{i.city.img}}" alt="city_{{i.city.name}}" />
+            <div class="utf-cat-img-box-content visible">
+              <h4>{{i.city.name}}</h4>
+              <span>{{i.count}} {% trans "Properties" %}</span>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="fullwidth" data-background-color="#ffffff">
+	  <div class="container">
+  		<div class="row">
+  		  <div class="col-md-12">
+    			<div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">
+    			  <h3 class="headline"><span>{% trans "Most Featured Properties" %}</span> {% trans "Featured Properties" %}</h3>
+    			  <div class="utf-headline-display-inner-item">{% trans "Most Featured Properties" %}</div>
+    			  <p class="utf-slogan-text">
+                      {{website.featured}}
+                  </p>
+    			</div>
+  		  </div>
+  		  <div class="col-md-12">
+    			<div class="carousel">
+
+                    {% for i in featured %}
+                    <div class="utf-carousel-item-area">
+                      <div class="utf-listing-item">
+                        <a href="/properties/{{i.project.slug}}" class="utf-smt-listing-img-container">
+                          <div class="utf-listing-badges-item">
+                            <span class="featured">Featured</span>
+                            <span class="for-sale">{{i.project.project_status}}</span>
+                          </div>
+                          <div class="utf-listing-carousel-item-{{i.project.id}}" id="utf-listing-carousel-item-{{i.project.id}}">
+                            <div id="images-slider-{{i.project.id}}">
+                                <img src="{% static 'front/images/loading__.gif' %}" class="lozad" alt="banner_{{i.project.id}} {{i.project.title}}" style="height: 200px;">
+                            </div>
+                          </div>
+                        </a>
+                        <div class="utf-listing-content">
+                          <div class="utf-listing-title">
+                            <span class="utf-listing-price">{{i.price_display}}</span>
+                            <h4><a href="/properties/{{i.project.slug}}">{{i.project.title|title}}</a></h4>
+                            <span class="utf-listing-address"><i class="icon-material-outline-location-on"></i>{% if i.project.location %}{{i.project.location|title|truncatechars:22}}, {% endif %}{{i.project.city.name}}</span>
+						  </div>
+                          <ul class="utf-listing-features">
+                            <li>
+                                <a href="{% if i.project.contact_phone %}tel:{{i.project.contact_phone}}{% else %}#{% endif %}">
+                                    <i class="fa fa-phone"></i>
+                                    {% trans "Call" %}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% if i.project.contact_whatsapp %}https://api.whatsapp.com/send?phone={{i.project.contact_whatsapp}}&text={{message}}{% else %}#{% endif %}" title="{{i.project.title}}" data-builder="{{i.project.builder.name}}" onclick="changewhatsappURL(this)" target="_blank">
+                                    <i class="fa fa-whatsapp"></i>
+                                    {% trans "Whatsapp" %}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% if i.project.contact_email %}mailto:{{i.project.contact_email}}{% else %}#{% endif %}" target="_blank">
+                                    <i class="fa fa-envelope"></i>
+                                    {% trans "Email" %}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#utf-signin-dialog-block" title="{{i.project.title}}" data-projectid="{{i.project.id}}" data-builder="{{i.project.builder.name}}" onclick="getThePropertyName(this)" class="popup-with-zoom-anim">
+                                    <i class="fa fa-address-book"></i>
+                                    {% trans "Contact" %}
+                                </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+    			</div>
+  		  </div>
+  		</div>
+	  </div>
+  </section>
+
+  <!-- Counters Container / End -->
+  <section class="fullwidth margin-bottom-0 padding-top-60 padding-bottom-65" data-background-color="#f7f7f7">
+    <!-- Logo Carousel -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+			<div class="utf-section-headline-item centered margin-bottom-30 margin-top-10">
+			  <h3 class="headline"><span style="background-color: #ff6b6b; color: white; padding: 5px 15px; border-radius: 3px; font-size: 14px;">{% trans "Popular Companies" %}</span> {% trans "Our Association" %}</h3>
+			  <div class="utf-headline-display-inner-item">{% trans "Popular Companies" %}</div>
+			</div>
+		</div>
+        <!-- Carousel -->
+        <div class="col-md-12">
+          <div class="utf-logo-carousel-item">
+            {% if associates %}
+            {% for i in associates %}
+            <div class="item"><a href="/media/{{i.img}}" class="mfp-image"><img src="/media/{{i.img}}" alt="associates_{{i.id}}"></a></div>
+            {% endfor %}
+            {% else %}
+            <div class="item"><a href="#"><img src="{% static 'front/images/brand_logo_01.png' %}" alt="associates_1"></a></div>
+            <div class="item"><a href="#"><img src="{% static 'front/images/brand_logo_02.png' %}" alt="associates_2"></a></div>
+            <div class="item"><a href="#"><img src="{% static 'front/images/brand_logo_03.png' %}" alt="associates_3"></a></div>
+            <div class="item"><a href="#"><img src="{% static 'front/images/brand_logo_04.png' %}" alt="associates_4"></a></div>
+            <div class="item"><a href="#"><img src="{% static 'front/images/brand_logo_05.png' %}" alt="associates_5"></a></div>
+            <div class="item"><a href="#"><img src="{% static 'front/images/brand_logo_06.png' %}" alt="associates_6"></a></div>
+            <div class="item"><a href="#"><img src="{% static 'front/images/brand_logo_07.png' %}" alt="associates_7"></a></div>
+            {% endif %}
+          </div>
+        </div>
+        <!-- Carousel / End -->
+      </div>
+    </div>
+    <!-- Logo Carousel / End -->
+  </section>
+
+  <!-- Counters Container -->
+  <div class="parallax" data-background="{% static 'front/images/listings-parallax.jpg' %}" data-color="#252529" data-color-opacity="0.85" data-img-width="800" data-img-height="505">
+    <div id="counters">
+      <div class="container">
+        <div class="row">
+          <div class="counter-boxes-inside-parallax">
+            <div class="col-md-4 col-sm-6 col-xs-6">
+              <div class="counter-box" style="background-color: white; border-radius: 10px; padding: 30px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                <div class="counter-box-icon" style="color: #ff6b6b; font-size: 48px; margin-bottom: 15px;"> <i class="icon-feather-home"></i></div>
+                <div style="font-size: 36px; font-weight: bold; color: #333; margin-bottom: 10px;"><span class="counter">{{website.active_listing}}</span></div>
+                <p style="color: #666; font-size: 16px; margin: 0;">{% trans "Active Listings" %}</p>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-6">
+              <div class="counter-box" style="background-color: white; border-radius: 10px; padding: 30px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                <div class="counter-box-icon" style="color: #ff6b6b; font-size: 48px; margin-bottom: 15px;"> <i class="icon-feather-users"></i></div>
+                <div style="font-size: 36px; font-weight: bold; color: #333; margin-bottom: 10px;"><span class="counter">{{website.happy_customers}}</span></div>
+                <p style="color: #666; font-size: 16px; margin: 0;">{% trans "Happy Customers" %}</p>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-6">
+              <div class="counter-box last" style="background-color: white; border-radius: 10px; padding: 30px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                <div class="counter-box-icon" style="color: #ff6b6b; font-size: 48px; margin-bottom: 15px;"> <i class="sl sl-icon-briefcase"></i></div>
+                <div style="font-size: 36px; font-weight: bold; color: #333; margin-bottom: 10px;"><span class="counter">{{website.relationship}}</span></div>
+                <p style="color: #666; font-size: 16px; margin: 0;">{% trans "Relationship Managers" %}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="fullwidth margin-top-65 margin-bottom-0 padding-bottom-80 padding-top-75" data-background-color="#f7f7f7">
+    <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+			<div class="utf-section-headline-item centered margin-bottom-0 margin-top-0">
+			  <h3 class="headline"><span>{% trans "Clients Say About Us" %}</span> {% trans "What Our Clients Say" %}</h3>
+			  <div class="utf-headline-display-inner-item">{% trans "Clients Say About Us" %}</div>
+			</div>
+		  </div>
+		  <div class="col-md-12">
+			<div class="testimonial-carousel">
+              {% for i in testimonials %}
+			  <div class="utf-carousel-item-area">
+				<div class="utf-listing-item utf-testimonial-item-box-area">
+				   <div class="utf-testimonial-box">
+						<div class="testimonial">
+                            {{i.testimonial}}
+                        </div>
+						<div class="testimonial-author"> {% if i.img %}<img src="/media/{{i.img}}" alt="testimonial {{i.name}}">{% endif %}
+						  <h4>{{i.name}}
+                              {% if i.designation %}
+                              <span>{{i.designation}}</span>
+                              {% endif %}
+                          </h4>
+						</div>
+					</div>
+				</div>
+			  </div>
+              {% endfor %}
+			</div>
+		  </div>
+        <!-- Carousel / End -->
+      </div>
+    </div>
+  </section>
+{% if events %}
+  <section class="fullwidth margin-top-65 margin-bottom-0 padding-bottom-80 padding-top-75" data-background-color="#fff">
+    <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+			<div class="utf-section-headline-item centered margin-bottom-0 margin-top-0">
+			  <h3 class="headline"><span>{% trans "Check Out" %}</span> {% trans "Events and Campaigns" %}</h3>
+			  <div class="utf-headline-display-inner-item">{% trans "Events and Campaigns" %}</div>
+			</div>
+		  </div>
+		  <div class="col-md-12">
+			<div class="carousel">
+              {% for i in events %}
+			  <div class="utf-carousel-item-area">
+				<div class="utf-listing-item">
+                    <div class="agent agents-profile agency" style="display: block; height: 420px;">
+                      <div class="utf-agent-avatar" align="center" style="margin-bottom: 10px;">
+                          <a href="/events/{{i.slug}}">
+                            <img src="/media/{{i.img}}" alt="event {{i.title}}" style="height: 220px; width: auto;">
+                          </a>
+                      </div>
+                      <div class="utf-agent-content">
+                        <div class="utf-agent-name" align="center">
+                          <a href="/events/{{i.slug}}">
+                              <h4 style="text-align: center; font-size: 18px;">{{i.title}}</h4>
+                          </a>
+                        </div>
+                        <div class="clearfix"></div>
+                        <p style="text-align: justify;">
+                            {{i.description|truncatechars:100}}
+                        </p>
+                      </div>
+                    </div>
+				</div>
+			  </div>
+              {% endfor %}
+			</div>
+		  </div>
+        <!-- Carousel / End -->
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% csrf_token %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(".chosen-select").chosen({no_results_text: "{% trans 'Oops, nothing found!' %}"});
+
+var typed = new Typed('.typed-words', {
+	strings: ["{% trans 'Dream Home' %}", "{% trans 'Apartments' %}", "{% trans 'Villas' %}", "{% trans 'Plots' %}", "{% trans 'Pent House' %}", "{% trans 'Independent Houses' %}", "{% trans 'Commercial' %}", "{% trans 'Villaments' %}"],
+	typeSpeed: 100,
+	backSpeed: 100,
+	backDelay: 2000,
+	startDelay: 1000,
+	loop: true,
+	showCursor: true
+});
+
+{% for i in featured %}
+    $(document).ready(function(){
+        $csrf = $('[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+          method: "POST",
+          url: "/get-project-images",
+          mimeType: "multipart/form-data",
+          data: {
+            csrfmiddlewaretoken: $csrf,
+            id: {{i.project.id}}
+          },
+          success: function(res) {
+            var image_data = eval('(' + res + ')');
+            $('#utf-listing-carousel-item-{{i.project.id}}').html('<div class="owl-carousel my-carousel-images-{{i.project.id}}"></div>');
+            for(var i=0;i<image_data.length;i++){
+                $(".my-carousel-images-{{i.project.id}}").append('<div class="item"><img src="/media/'+image_data[i]+'" class="lozad" alt="banner_{{i.project.id}} {{i.project.title}}" style="height: 200px;"></div>');
+            };
+            var owl = $(".my-carousel-images-{{i.project.id}}");
+            owl.owlCarousel({
+                dots: false,
+                pagination: false,
+                autoPlay: true,
+                navigation: true,
+                slideSpeed: 800,
+                slidesToShow: 5,
+                slidesToScroll: 1,
+                arrows: true,
+                nav: true,
+                rewind: true,
+                dataLoop:true,
+                autoplayHoverPause: true,
+                adaptiveHeight: true,
+                items: 1,
+                itemsDesktop: [1239, 1],
+                itemsTablet: [991, 1],
+                itemsMobile: [767, 1]
+            });
+          },
+          error:function(e){
+              console.log("{% trans 'something wrong' %} "+ e)
+          }
+        });
+    });
+{% endfor %}
+</script>
+{% endblock %}

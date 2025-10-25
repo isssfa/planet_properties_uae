@@ -1,0 +1,142 @@
+{% extends "admin_folder/base.html" %}
+{% block main %}
+        <!-- page content -->
+        <div class="right_col pb-4" role="main">
+          <div class="row">
+
+            <div class="col-md-12">
+                <div class="submit-page">
+                    <!-- Section -->
+                    <div class="utf-submit-page-inner-box">
+                        <h3>Amenities</h3>
+                        <div class="content with-padding">
+                            <div class="col-md-12" align="right">
+                                <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#add_new">Add New</button>
+                            </div>
+                            <div class="col-md-12">
+                                <table id="datatablex" class="table table-striped" style="max-width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                      {% for i in association %}
+                                        <tr>
+                                            <td align="center">
+                                                <img src="/media/{{i.img}}" style="height: 50px; width: 50px;">
+                                            </td>
+                                            <td>
+                                                <div style="display: inline-flex;">
+                                                    <form action="/delete-associate" method="POST" enctype="multipart/form-data">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="id" value="{{i.id}}">
+                                                        <button class="btn btn-danger" onclick="return confirmm();">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Section / End -->
+
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- /page content -->
+
+<!-- Add New -->
+<div class="modal fade" id="add_new" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="AddNewAssociate">Add Associate</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row">
+                  <div class="col-md-12 form-group">
+                      <label for="img">Image</label>
+                      <input type="file" name="img" id="img" class="uploadImage" accept=".jpg,.jpeg,.png,.webp" required>
+                  </div>
+                  <div class="col-md-12 form-group" align="center">
+                      <input type="submit" class="form-control btn-primary">
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+  var MAX_FILE_SIZE = 1000 * 1024; // 500KB
+  $(document).ready(function() {
+      $('.uploadImage').change(function() {
+          var fileInput = this;
+          var filePath = fileInput.value;
+          var allowedExtensions =  /(\.jpg|\.jpeg|\.png|\.webp)$/i;
+          if (!allowedExtensions.exec(filePath)) {
+              fileInput.setCustomValidity("Only Images (.png, .jpg, .jpeg, .webp) are accepted");
+              fileInput.reportValidity();
+              return false;
+          } else {
+              fileInput.setCustomValidity("");
+          }
+          fileSize = this.files[0].size;
+          if (fileSize > MAX_FILE_SIZE) {
+              this.setCustomValidity("File must not exceed 1 MB!");
+              this.reportValidity();
+          } else {
+              this.setCustomValidity("");
+          }
+      });
+  });
+  var MAX_FILE_SIZE_PDF = 20000 * 1024; // 20MB
+  $(document).ready(function() {
+      $('.uploadPDF').change(function() {
+          var fileInput = this;
+          var filePath = fileInput.value;
+          var allowedExtensions =  /(\.pdf)$/i;
+          if (!allowedExtensions.exec(filePath)) {
+              fileInput.setCustomValidity("Only PDF files are accepted");
+              fileInput.reportValidity();
+              return false;
+          } else {
+              fileInput.setCustomValidity("");
+          }
+          fileSize = this.files[0].size;
+          if (fileSize > MAX_FILE_SIZE_PDF) {
+              this.setCustomValidity("File must not exceed 20 MB!");
+              this.reportValidity();
+          } else {
+              this.setCustomValidity("");
+          }
+      });
+  });
+</script>
+{% endblock %}

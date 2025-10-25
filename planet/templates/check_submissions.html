@@ -1,0 +1,143 @@
+{% extends 'website_base.html' %}
+{% load static %}
+{% block main %}
+
+  <!-- Titlebar -->
+    <div class="parallax titlebar" data-background="{% static 'front/images/listings-parallax.jpg' %}" data-color="rgba(48, 48, 48, 1)"
+         data-color-opacity="0.8" data-img-height="505" data-img-width="800">
+        <div id="titlebar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>
+                            Submissions
+                        </h2>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs">
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                                <li>Submissions</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+  <!-- Container -->
+  <div class="margin-top-65">
+	  <div class="container">
+		<div class="row">
+		  <div class="col-xl-12 col-md-12">
+              <table class="table table-striped table-bordered">
+                <thead style="background: #000; color: #fff;">
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>IP</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in forms %}
+                    <tr>
+                        <td>{{i.name}} <button class="btn btn-sm btn-danger" onclick="block_name('{{i.name}}');">block</button></td>
+                        <td>{{i.phone}}</td>
+                        <td>{{i.email}} <button class="btn btn-sm btn-danger" onclick="block_email('{{i.email}}');">block</button></td>
+                        <td>{{i.ip}} <button class="btn btn-sm btn-danger" onclick="block_ip('{{i.ip}}');">block</button></td>
+                        <td>{{i.message}} <button class="btn btn-sm btn-danger" onclick="block_message('{{i.message}}');">block</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+		  </div>
+		</div>
+	  </div>
+  </div>
+  <!-- Container / End -->
+{% csrf_token %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function block_name(e){
+        $csrf = $('[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+          method: "POST",
+          url: "/block-name",
+          mimeType: "multipart/form-data",
+          data: {
+            csrfmiddlewaretoken: $csrf,
+            name: e,
+          },
+          success: function(res) {
+            console.log(res);
+          }
+        });
+    }
+    function block_email(e){
+        $csrf = $('[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+          method: "POST",
+          url: "/block-email",
+          mimeType: "multipart/form-data",
+          data: {
+            csrfmiddlewaretoken: $csrf,
+            email: e,
+          },
+          success: function(res) {
+            console.log(res);
+          }
+        });
+    }
+    function block_message(e){
+        $csrf = $('[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+          method: "POST",
+          url: "/block-words",
+          mimeType: "multipart/form-data",
+          data: {
+            csrfmiddlewaretoken: $csrf,
+            message: e,
+          },
+          success: function(res) {
+            console.log(res);
+          }
+        });
+    }
+    function block_ip(e){
+        $csrf = $('[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+          method: "POST",
+          url: "/block-ip",
+          mimeType: "multipart/form-data",
+          data: {
+            csrfmiddlewaretoken: $csrf,
+            ip: e,
+          },
+          success: function(res) {
+            console.log(res);
+          }
+        });
+    }
+    function block_name(e){
+        $csrf = $('[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+          method: "POST",
+          url: "/block-name",
+          mimeType: "multipart/form-data",
+          data: {
+            csrfmiddlewaretoken: $csrf,
+            name: e,
+          },
+          success: function(res) {
+            console.log(res);
+          }
+        });
+    }
+</script>
+{% endblock %}

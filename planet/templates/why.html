@@ -1,0 +1,126 @@
+{% extends 'website_base.html' %}
+{% load static %}
+{% block main %}
+
+  <!-- Titlebar -->
+    <div class="parallax titlebar" data-background="{% static 'front/images/listings-parallax.jpg' %}" data-color="rgba(48, 48, 48, 1)"
+         data-color-opacity="0.8" data-img-height="505" data-img-width="800">
+        <div id="titlebar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>
+                            Why Us
+                        </h2>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs">
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                                <li>Why Us</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+  <!-- Contact -->
+  <div class="margin-top-65 padding-bottom-55">
+	  <div class="container">
+		<div class="row">
+		  <div class="col-xl-12 col-md-12">
+			<p style="text-align: justify;">
+                We are a RERA certified property consultancy & channel partners for A and B category builders
+                across India. We act as advisors and sales professionals, rather than mere brokers.
+                There is a massive difference between the two. A broker is one who acts as a link between the
+                buyer and the seller and takes a commission from both parties. Channel/ Marketing partners are
+                consultants who give researched insights & feedback about the real estate dynamics to the client.
+                <b>As they separate wheat from the chaff, we do due diligence and filter out and cherry pick the
+                properties that qualify our stringent criteria and offer only those properties to our clients..</b>
+                The selling services are designed but are not limited to a pre-agreed duration, for which we
+                receive recognition & remuneration from the developer for the services rendered but nothing is charged
+                from the buyer for the properties bought through Builders/ Developers.<br><br>
+
+                <b>On the other hand, the buyer or investor receives free services such as site visits, pick and drop,
+                loan assistance, post-sales services, etc.</b> This marketing technique means that the industry is
+                getting more organized and transparent. The buyer can rely on us who make the property search
+                experience more reachable and hassle-free.<br><br>
+
+                Having a channel partner as a consultant eases the processes of looking for a property a lot more
+                and also increases options for customers. The customers can engage with channel partners after
+                extensive diligence and let them play an advisory role by guiding them appropriately.
+            </p>
+		  </div>
+		</div>
+	  </div>
+  </div>
+  <!-- Container / End -->
+
+  <!-- Fullwidth Section -->
+  <section class="fullwidth" data-background-color="#fbfbfb">
+    <div class="container">
+      <div class="row">
+		<div class="col-md-12">
+			<div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">
+			  <h3 class="headline">RERA Approved</h3>
+            </div>
+		</div>
+        <div class="col-xl-12 col-md-12">
+            {{website.why_rera|safe}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fullwidth Section -->
+  <section class="fullwidth" data-background-color="#fff">
+    <div class="container">
+      <div class="row">
+		<div class="col-md-12">
+			<div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">
+			  <h3 class="headline">Discounts and Best Deals</h3>
+            </div>
+		</div>
+        <div class="col-xl-12 col-md-12">
+            {{website.why_deals|safe}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fullwidth Section -->
+  <section class="fullwidth" data-background-color="#fbfbfb">
+    <div class="container">
+      <div class="row">
+		<div class="col-md-12">
+			<div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">
+			  <h3 class="headline">Helping You to Find Best Location</h3>
+            </div>
+		</div>
+        <div class="col-xl-12 col-md-12">
+            {{website.why_location|safe}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fullwidth Section -->
+  <section class="fullwidth" data-background-color="#fff">
+    <div class="container">
+      <div class="row">
+		<div class="col-md-12">
+			<div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">
+			  <h3 class="headline">Providing End to End Real Estate Service</h3>
+            </div>
+		</div>
+        <div class="col-xl-12 col-md-12">
+            {{website.why_providing|safe}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

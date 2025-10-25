@@ -1,0 +1,145 @@
+{% extends 'website_base.html' %}
+{% load static %}
+{% load embed_video_tags %}
+{% block main %}
+
+
+    <!-- Titlebar -->
+    <div class="parallax titlebar" data-background="{% static 'front/images/listings-parallax.jpg' %}" data-color="rgba(48, 48, 48, 1)"
+         data-color-opacity="0.8" data-img-height="505" data-img-width="800">
+        <div id="titlebar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>{{title}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="margin-bottom: 50px;" >
+        <div class="row">
+            <!-- Property Description -->
+            <div class="col-lg-8 col-md-7">
+                <!-- Titlebar -->
+                <div class="property-titlebar margin-bottom-0" id="titlebar-dtl-item">
+                    <div class="property-title">
+                        <h2 style="padding-bottom: 20px;">{{events.title}}</h2>
+                        <img src="/media/{{events.img}}" alt="{{events.title}}">
+                        <div class="row">
+                            {% if events.location %}
+                            <div class="col-md-6">
+                                <h3>location: {{events.location}}</h3>
+                            </div>
+                            {% endif %}
+                            {% if events.event_date %}
+                            <div class="col-md-6">
+                                <h3>Event Date: {{events.event_date}}</h3>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-description">
+                    <div class="margin-top-35"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p style="font-size: 24px;">{{events.description|safe}}</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="margin-top-35"></div>
+                </div>
+            </div>
+            <!-- Property Description / End -->
+
+            <!-- Sidebar -->
+            <div class="col-lg-4 col-md-5">
+                <div class="sidebar">
+                    <!-- Widget -->
+                    <div class="widget utf-sidebar-widget-item">
+                        <div class="utf-boxed-list-headline-item">
+                            <h3>Featured Properties</h3>
+                        </div>
+                        <div class="utf-listing-carousel-item outer">
+                            {% for i in featured %}
+                            <!-- Listing Item -->
+                            <div class="col-md-12">
+                              <div class="utf-listing-item">
+                                <a href="/properties/{{i.project.slug}}" class="utf-smt-listing-img-container">
+                                  <div class="utf-listing-badges-item">
+                                    <span class="featured">Featured</span>
+                                    <span class="for-sale">{{i.project.project_status}}</span>
+                                  </div>
+                                  <div class="utf-listing-carousel-item">
+                                    {% for j in i.img %}
+                                    <div><img src="/media/{{j.img}}" alt="banner_{{i.project.id}} {{i.project.title}}" style="height: 200px;"></div>
+                                    {% endfor %}
+                                  </div>
+                                </a>
+                                <div class="utf-listing-content">
+                                  <div class="utf-listing-title">
+                                    <h4><a href="/properties/{{i.project.slug}}">{{i.project.title|title}}</a></h4>
+                                    <span class="utf-listing-address"><i class="icon-material-outline-location-on"></i> {{i.project.city}}</span>
+                                  </div>
+                                  <ul class="utf-listing-features">
+                                    <li>
+                                        <a href="{% if i.project.contact_phone %}tel:{{i.project.contact_phone}}{% else %}#{% endif %}">
+                                            <i class="fa fa-phone"></i>
+                                            Call
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% if i.project.contact_whatsapp %}https://wa.me/{{i.project.contact_whatsapp}}{% else %}#{% endif %}" target="_blank">
+                                            <i class="fa fa-whatsapp"></i>
+                                            Whatsapp
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% if i.project.contact_email %}mailto:{{i.project.contact_email}}{% else %}#{% endif %}" target="_blank">
+                                            <i class="fa fa-envelope"></i>
+                                            Email
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#utf-signin-dialog-block" title="{{i.project.title}}" onclick="getThePropertyName(this)" class="popup-with-zoom-anim">
+                                            <i class="fa fa-address-book"></i>
+                                            Contact
+                                        </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Listing Item / End -->
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Widget / End -->
+
+                    <!-- Widget -->
+                    <div class="widget utf-sidebar-widget-item">
+                        <div class="agent-widget">
+                            <div class="utf-boxed-list-headline-item">
+                                <h3>Contact us for more details</h3>
+                            </div>
+                            <form action="/send-email" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input name="name" placeholder="Name" type="text" required>
+                                <input name="email" placeholder="Email" type="email" required>
+                                <input name="phone" placeholder="Phone" type="text" required>
+                                <textarea name="message">I'm interest in {{project.title}}</textarea>
+                                <button class="button fullwidth margin-top-5">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Widget / End -->
+                </div>
+            </div>
+            <!-- Sidebar / End -->
+        </div>
+    </div>
+
+{% endblock %}

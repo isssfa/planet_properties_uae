@@ -1,0 +1,22 @@
+{% extends "website_base.html" %}
+
+{% block main %}
+<div class="container my-5">
+    <div class="row" style="margin-bottom: 30px; margin-top: 30px;">
+        {% for blog in blogs %}
+        <div class="col-md-4 mb-4" style="margin-bottom: 10px;">
+            <a href="{% url 'blog_detail' blog.slug %}">
+                <div class="card" style="border: 1px solid; padding: 10px;">
+                    {% if blog.img %}
+                    <img src="{{ blog.img.url }}" class="card-img-top" alt="{{ blog.title }}">
+                    {% endif %}
+                    <div class="card-body" align="center">
+                        <h4 class="card-title">{{ blog.title }}</h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

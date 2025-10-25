@@ -1,0 +1,228 @@
+{% extends 'website_base.html' %}
+{% load static %}
+{% load i18n %}
+{% block main %}
+
+  <!-- Titlebar -->
+    <div class="parallax titlebar" data-background="{% static 'front/images/listings-parallax.jpg' %}" data-color="rgba(48, 48, 48, 1)"
+         data-color-opacity="0.8" data-img-height="505" data-img-width="800">
+        <div id="titlebar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>
+                            {% if city_title %}
+                                {{city_title}}
+                            {% else %}
+                                {{title}}
+                            {% endif %}
+                        </h2>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs">
+                            <ul>
+                                <li><a href="/">{% trans "Home" %}</a></li>
+                                <li>{% trans "Properties" %}</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Search Container -->
+    <div class="utf-main-search-container-area inner-map-search-block inner-search-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="" action="/search" method="GET" enctype="multipart/form-data">
+                        <!-- Box -->
+                        <div class="utf-main-search-box-area">
+                            <!-- Row With Forms -->
+                            <div class="row with-forms">
+                                <!-- Status -->
+                                <div class="col-md-2 col-sm-6">
+                                    <select class="utf-chosen-select-single-item" data-placeholder="Select City"
+                                            title="Select City" name="city" required>
+    <!--                                    <option value="" selected disabled>Select City</option>-->
+                                        {% for i in search_city %}
+                                        <option value="{{i.city__name}}">{{i.city__name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <!-- Property Type -->
+                                <div class="col-md-2 col-sm-6">
+                                    <select name="type_2" class="utf-chosen-select-single-item" data-placeholder="Property Type">
+                                        <option value="any">Looking for?</option>
+                                        {% for i in looking_for %}
+                                        <option value="{{i.property_type_2}}">{{i.property_type_2}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <!-- Property Type -->
+                                <div class="col-md-3 col-sm-6">
+                                    <select name="type" class="utf-chosen-select-single-item" data-placeholder="Property Type">
+                                        <option value="any">Any Property Type</option>
+                                        {% for i in search_type %}
+                                        <option value="{{i.property_type}}">{{i.property_type}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <!-- Builder -->
+                                <div class="col-md-3 col-sm-6">
+                                    <select name="builder" class="chosen-select" data-placeholder="Property Type">
+                                        <option value="any">Any Builder</option>
+                                        {% for i in search_builder %}
+                                        <option value="{{i.builder__name}}">{{i.builder__name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <!-- Status -->
+                                <div class="col-md-2 col-sm-6">
+                                    <select name="status" class="utf-chosen-select-single-item" data-placeholder="Any Status">
+                                        <option value="any">Any Status</option>
+                                        {% for i in search_status %}
+                                        <option value="{{i.project_status}}">{{i.project_status}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <!-- Main Search Input -->
+                                <div class="col-md-12" align="center">
+                                    <div class="utf-main-search-input-item" style="display: block; margin-bottom: 8px;">
+                                        <button class="button"><i class="fa fa-search"></i> {% trans "Search" %}</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Row With Forms / End -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Search Container / End -->
+
+    <!-- Content -->
+    <div class="container">
+        <div class="row sticky-wrapper">
+            <div class="col-md-12">
+                <!-- Listings Container -->
+                <div class="row">
+                    {% for i in projects %}
+                    <div class="col-md-4">
+                      <div class="utf-listing-item">
+                        <a href="/properties/{{i.project.slug}}" class="utf-smt-listing-img-container">
+                          <div class="utf-listing-badges-item">
+                            {% if i.project.is_featured == True %}<span class="featured">{% trans "Featured" %}</span>{% endif %}
+                            {% if i.project.property_type_2 %}<span class="looking_for">{{i.project.property_type_2}}</span>{% endif %}
+                            <span class="for-sale">{{i.project.project_status}}</span>
+                          </div>
+                          <div class="utf-listing-carousel-item-{{i.project.id}}" id="utf-listing-carousel-item-{{i.project.id}}">
+                            <div id="images-slider-{{i.project.id}}">
+                                <img src="{% static 'front/images/loading__.gif' %}" class="lozad" alt="{% trans 'loading' %}" style="height: 200px;">
+                            </div>
+                          </div>
+                        </a>
+                        <div class="utf-listing-content">
+                          <div class="utf-listing-title">
+                            <span class="utf-listing-price">{{i.price_display}}</span>
+                            <h4><a href="/properties/{{i.project.slug}}">{{i.project.title|title}}</a></h4>
+                            <span class="utf-listing-address"><i class="icon-material-outline-location-on"></i>{% if i.project.location %}{{i.project.location|title|truncatechars:22}}, {% endif %} {{i.project.city.name}}</span>
+						  </div>
+                          <ul class="utf-listing-features">
+                            <li>
+                                <a href="{% if i.project.contact_phone %}tel:{{i.project.contact_phone}}{% else %}#{% endif %}">
+                                    <i class="fa fa-phone"></i>
+                                    {% trans "Call" %}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% if i.project.contact_whatsapp %}https://api.whatsapp.com/send?phone={{i.project.contact_whatsapp}}&text={{message}}{% else %}#{% endif %}" title="{{i.project.title}}" data-builder="{{i.project.builder.name}}" onclick="changewhatsappURL(this)" target="_blank">
+                                    <i class="fa fa-whatsapp"></i>
+                                    {% trans "Whatsapp" %}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% if i.project.contact_email %}mailto:{{i.project.contact_email}}{% else %}#{% endif %}" target="_blank">
+                                    <i class="fa fa-envelope"></i>
+                                    {% trans "Email" %}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#utf-signin-dialog-block" title="{{i.project.title}}" data-projectid="{{i.project.id}}" data-builder="{{i.project.builder.name}}" onclick="getThePropertyName(this)" class="popup-with-zoom-anim">
+                                    <i class="fa fa-address-book"></i>
+                                    {% trans "Contact" %}
+                                </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Listings Container / End -->
+
+                <!-- Pagination -->
+                <div class="clearfix"></div>
+                <div class="margin-top-35"></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(".chosen-select").chosen({no_results_text: "{% trans 'Oops, nothing found!' %}"});
+
+{% for i in projects %}
+    $(document).ready(function(){
+        $csrf = $('[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+          method: "POST",
+          url: "/get-project-images",
+          mimeType: "multipart/form-data",
+          data: {
+            csrfmiddlewaretoken: $csrf,
+            id: {{i.project.id}}
+          },
+          success: function(res) {
+            var image_data = eval('(' + res + ')');
+            $('#utf-listing-carousel-item-{{i.project.id}}').html('<div class="owl-carousel my-carousel-images-{{i.project.id}}"></div>');
+            for(var i=0;i<image_data.length;i++){
+                $(".my-carousel-images-{{i.project.id}}").append('<div class="item"><img src="/media/'+image_data[i]+'" class="lozad" alt="banner_{{i.project.id}} {{i.project.title}}" style="height: 200px;"></div>');
+            };
+            var owl = $(".my-carousel-images-{{i.project.id}}");
+            owl.owlCarousel({
+                dots: false,
+                pagination: false,
+                autoPlay: true,
+                navigation: true,
+                slideSpeed: 800,
+                slidesToShow: 5,
+                slidesToScroll: 1,
+                arrows: true,
+                nav: true,
+                rewind: true,
+                dataLoop:true,
+                autoplayHoverPause: true,
+                adaptiveHeight: true,
+                items: 1,
+                itemsDesktop: [1239, 1],
+                itemsTablet: [991, 1],
+                itemsMobile: [767, 1]
+            });
+          },
+          error:function(e){
+              console.log("something wrong "+ e) // this will alert an error
+          }
+        });
+    });
+{% endfor %}
+</script>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "website_base.html" %}
+
+{% block main %}
+<div class="container my-5" style="margin-bottom: 30px; margin-top: 30px;">
+    <h1>{{ blog.title }}</h1>
+    <p class="text-muted">{{ blog.created_on|date:"F j, Y" }}</p>
+    {% if blog.img %}
+    <img src="{{ blog.img.url }}" class="img-fluid mb-4" alt="{{ blog.title }}">
+    {% endif %}
+    <p>{{ blog.description|safe }}</p>
+</div>
+{% endblock %}

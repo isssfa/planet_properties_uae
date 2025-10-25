@@ -1,0 +1,75 @@
+{% extends 'website_base.html' %}
+{% load static %}
+
+{% block style %}
+<style>
+    .agents-profile::-webkit-scrollbar {
+        width: 5px;
+    }
+    .agents-profile::-webkit-scrollbar-track {
+      border-radius: 10px;
+    }
+    .agents-profile::-webkit-scrollbar-thumb {
+      background: red;
+      border-radius: 10px;
+    }
+    .agents-profile::-webkit-scrollbar-thumb:hover {
+      background: #b30000;
+    }
+</style>
+{% endblock %}
+{% block main %}
+
+  <!-- Titlebar -->
+    <div class="parallax titlebar" data-background="{% static 'front/images/listings-parallax.jpg' %}" data-color="rgba(48, 48, 48, 1)"
+         data-color-opacity="0.8" data-img-height="505" data-img-width="800">
+        <div id="titlebar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>
+                            Awards & Recognitions
+                        </h2>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs">
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                                <li>Awards</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+  <!-- Fullwidth Section -->
+  <section class="fullwidth" style="padding-top: 0px !important;" data-background-color="#fff">
+    <div class="container">
+      <div class="row">
+          {% for i in awards %}
+          <div class="col-md-6">
+            <div class="agent agents-profile agency" style="display: block; height: 420px; overflow-y: scroll; overflow-x: hidden;">
+              <div class="utf-agent-avatar" align="center" style="margin-bottom: 10px;">
+                  <a class="mfp-image" href="/media/{{i.img}}">
+                    <img src="/media/{{i.img}}" alt="{{i.title}}" style="height: 220px; width: auto;">
+                  </a>
+              </div>
+              <div class="utf-agent-content">
+                <div class="utf-agent-name" align="center">
+                  <h4 style="text-align: center; font-size: 18px;">{{i.title}}</h4>
+                </div>
+                <div class="clearfix"></div>
+                <p style="text-align: justify;">
+                    {{i.description}}
+                </p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
