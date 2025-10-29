@@ -42,44 +42,46 @@
     <script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
     
     
-    <!-- Google Translate Widget Styles -->
+        <!-- Google Translate Widget Styles -->
     <style>
+        /* Hide default Google Translate elements */
         #google_translate_element {
-            display: inline-block !important;
-            margin: 0 10px !important;
-            visibility: visible !important;
-            position: relative !important;
-            z-index: 9999 !important;
+            position: absolute !important;
+            left: -9999px !important;
+            width: 1px !important;
+            height: 1px !important;
+            overflow: hidden !important;
         }
-        
+
         #google_translate_element_footer {
             display: inline-block !important;
             visibility: visible !important;
             position: relative !important;
             z-index: 9999 !important;
         }
-        
-        /* Ensure Google Translate widgets are always visible */
-        .goog-te-gadget {
-            display: inline-block !important;
-            visibility: visible !important;
+
+        /* Hide Google Translate banner */
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
         }
-        
-        .goog-te-gadget-simple {
-            display: inline-block !important;
-            visibility: visible !important;
+
+        body {
+            top: 0px !important;
         }
-        
-        
+
+        .skiptranslate {
+            display: none !important;
+        }
+
         #header.cloned.sticky {
             padding-top: 50px;
         }
-        
+
         .goog-te-gadget {
             font-family: inherit !important;
             font-size: 14px !important;
         }
-        
+
         .goog-te-gadget-simple {
             background-color: transparent !important;
             border: 1px solid #ccc !important;
@@ -87,34 +89,39 @@
             border-radius: 4px !important;
             font-size: 14px !important;
         }
-        
+
         .goog-te-gadget-simple:hover {
             border-color: #e33324 !important;
         }
-        
+
         .goog-te-gadget-icon {
             display: none !important;
         }
-        
+
         .goog-te-menu-value span {
             color: #333 !important;
         }
-        
+
         .goog-te-menu-value span:hover {
             color: #e33324 !important;
         }
-        
+
         /* Footer Google Translate Styles */
         #footer #google_translate_element_footer .goog-te-gadget-simple {
             background-color: #fff !important;
         }
-        
+
         #footer #google_translate_element_footer .goog-te-menu-value span {
             color: #333 !important;
         }
-        
+
+        /* Ensure language dropdown looks consistent with currency */
+        .menu-item-has-children .dropdown-nav {
+            min-width: 120px;
+        }
+
         @media (max-width: 768px) {
-            #google_translate_element {
+            #google_translate_element_footer {
                 display: block;
                 margin: 10px 0;
                 text-align: center;
@@ -197,20 +204,21 @@
                                 </ul>
                             </li>
                             <li><a class="{% if current == 'contact' %}current{% endif %}" href="/contact-us">{% trans "Contact" %}</a></li>
+
                             <!-- Google Translate Widget in Header -->
-                            <li>
-                                <div id="google_translate_element"></div>
+                            <li class="menu-item-has-children">
+                              <a href="#">
+                                <span id="selected-language">{% trans "Language" %}: EN</span>
+                              </a>
+                              <ul class="dropdown-nav">
+                                <li>
+                                  <a href="javascript:void(0);" onclick="translateToLanguage('en');" style="padding:6px 15px; text-align:left; width:100%; display:block;">English</a>
+                                </li>
+                                <li>
+                                  <a href="javascript:void(0);" onclick="translateToLanguage('ar');" style="padding:6px 15px; text-align:left; width:100%; display:block;">العربية (Arabic)</a>
+                                </li>
+                              </ul>
                             </li>
-<!--                            <li>-->
-<!--                                <form action="{% url 'set_language' %}" method="post">-->
-<!--                                    {% csrf_token %}-->
-<!--                                    <select name="language" onchange="this.form.submit()" class="form-control">-->
-<!--                                        <option value="">Select Language</option>-->
-<!--                                        <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>{% trans "English" %}</option>-->
-<!--                                        <option value="ar" {% if LANGUAGE_CODE == 'ar' %}selected{% endif %}>{% trans "Arabic" %}</option>-->
-<!--                                    </select>-->
-<!--                                </form>-->
-<!--                            </li>-->
 
                             <li class="menu-item-has-children">
                               <a href="#">
@@ -260,6 +268,10 @@
         </div>
         <!-- Header / End -->
     </header>
+
+    <!-- Hidden Google Translate Element -->
+    <div id="google_translate_element" style="display:none;"></div>
+
     <div class="clearfix"></div>
     <!-- Header Container / End -->
 
@@ -446,36 +458,117 @@
 <script src="{% static 'front/scripts/typed.js' %}"></script>
 <script src="{% static 'front/scripts/custom_jquery.js' %}"></script>
 
+
 <!-- Google Translate Widget Script -->
 <script type="text/javascript">
+// Cookie management functions
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
+// Initialize Google Translate
 function googleTranslateElementInit() {
-  // Header translate widget
-  new google.translate.TranslateElement(
-    {
+    new google.translate.TranslateElement({
         pageLanguage: 'en',
         includedLanguages: 'en,ar',
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
         autoDisplay: false
-    },
-    'google_translate_element'
-  );
-  
-  
-  // Footer translate widget  
-  new google.translate.TranslateElement(
-    {
+    }, 'google_translate_element');
+
+    new google.translate.TranslateElement({
         pageLanguage: 'en',
         includedLanguages: 'en,ar',
         layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
         autoDisplay: false
-    },
-    'google_translate_element_footer'
-  );
-  
+    }, 'google_translate_element_footer');
+
+    // Check for saved language preference
+    setTimeout(function() {
+        var savedLang = getCookie('selectedLanguage');
+        if (savedLang) {
+            updateLanguageDisplay(savedLang);
+        } else {
+            updateLanguageDisplay('en');
+        }
+    }, 1000);
 }
 
+// Function to translate to specific language
+function translateToLanguage(lang) {
+    console.log('Translating to:', lang);
+
+    // Set the Google Translate cookie
+    if (lang === 'en') {
+        // Reset to English by erasing the cookie
+        eraseCookie('googtrans');
+        eraseCookie('googtrans', '/', window.location.hostname);
+        setCookie('googtrans', '/en/en', 1);
+        setCookie('selectedLanguage', 'en', 365);
+    } else {
+        // Set to Arabic
+        eraseCookie('googtrans');
+        eraseCookie('googtrans', '/', window.location.hostname);
+        setCookie('googtrans', '/en/' + lang, 1);
+        setCookie('selectedLanguage', lang, 365);
+    }
+
+    // Update display
+    updateLanguageDisplay(lang);
+
+    // Reload page to apply translation
+    setTimeout(function() {
+        window.location.reload();
+    }, 100);
+}
+
+// Function to update language display
+function updateLanguageDisplay(lang) {
+    var selectedLangElements = document.querySelectorAll('#selected-language');
+    selectedLangElements.forEach(function(el) {
+        if (lang === 'en') {
+            el.textContent = 'Language: EN';
+        } else if (lang === 'ar') {
+            el.textContent = 'اللغة: AR';
+        }
+    });
+}
+
+// Check current language on page load
+window.addEventListener('load', function() {
+    var googtransCookie = getCookie('googtrans');
+    var currentLang = 'en';
+
+    if (googtransCookie && googtransCookie.indexOf('/ar') > -1) {
+        currentLang = 'ar';
+    }
+
+    updateLanguageDisplay(currentLang);
+    setCookie('selectedLanguage', currentLang, 365);
+});
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 
 <script>
 
