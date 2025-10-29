@@ -263,6 +263,11 @@ header.fullwidth .container {
 	font-weight: 800;
 	color:#E33324;
 }
+@media (max-width: 992px) {
+    .logo-text{
+        font-size: 15px;
+    }
+}
 .header-widget {
 	text-align: right;
 }
