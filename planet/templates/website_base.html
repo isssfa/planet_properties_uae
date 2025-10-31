@@ -120,11 +120,37 @@
             min-width: 120px;
         }
 
+        /* Move Google Translate loading spinner to bottom right */
+        #goog-gt-tt {
+            position: fixed !important;
+            top: auto !important;
+            left: auto !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            z-index: 999999 !important;
+        }
+
+        /* Alternative selector for the loading overlay */
+        .goog-te-spinner-pos {
+            position: fixed !important;
+            top: auto !important;
+            left: auto !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            z-index: 999999 !important;
+        }
+
         @media (max-width: 768px) {
             #google_translate_element_footer {
                 display: block;
                 margin: 10px 0;
                 text-align: center;
+            }
+            /* Adjust spinner position on mobile */
+            #goog-gt-tt,
+            .goog-te-spinner-pos {
+                bottom: 80px !important;
+                right: 10px !important;
             }
         }
     </style>
@@ -171,7 +197,7 @@
                             <img alt="{{project.builder.name}} {% trans 'logo' %}" src="/media/{{project.builder.img}}">
                             {% else %}
                             <img alt="{% trans 'Prime Planets Properties logo' %}" src="{% static 'assets/images/prime_logo.jpg' %}">
-                            <span class="logo-text">{% trans 'Prime Planets Properties' %}</span>
+                            <span class="logo-text">{% trans 'Prime Planets Properties' %}<p class="header-p" style="margin: -30px 0 0 52px;">ORN: 52305</p></span>
                             {% endif %}
                         </a>
                     </div>
@@ -286,7 +312,7 @@
 
             <a href="/">
                 <img alt="{% trans 'Prime Planets Properties Logo' %}" style="height: 100px;" src="{% static 'assets/images/logo.jpg' %}">
-                <span class="logo-text" style="font-size: 24px;">{% trans 'Prime Planets Properties' %}</span>
+                <span class="logo-text" style="font-size: 24px;">{% trans 'Prime Planets Properties' %}<p style="margin: -40px 0 0 75px;">ORN: 52305</p></span>
             </a>
 <!--          <a href="index.html"><img class="footer-logo" src="{% static 'front/images/footer_logo.png' %}" alt=""></a>-->
           <p>{{website.footer_about|safe}}</p>

@@ -177,7 +177,7 @@ img.footer-logo {
 }
 #header {
 	position: relative;
-	z-index: 999;
+	z-index: 9999;
 	padding: 25px 0 14px 0;
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.12);
 }
@@ -265,7 +265,10 @@ header.fullwidth .container {
 }
 @media (max-width: 992px) {
     .logo-text{
-        font-size: 15px;
+        font-size: 17px !important;;
+    }
+    .logo-text .header-p{
+        margin: -26px 0 0 45px !important;;
     }
 }
 .header-widget {
@@ -14270,7 +14273,7 @@ section.fullwidth .blog-post {
 	left:0;
 	top:-1px;
 	margin:0;
-	width:220px;
+	width:250px;
 	margin-left: 65px;
 }
 #logo .logo-text{
