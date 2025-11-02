@@ -145,7 +145,7 @@
                             <!-- Builder -->
                             <div class="col-md-3 col-sm-6">
                                 <select name="builder" class="chosen-select" data-placeholder="{% trans 'Property Type' %}">
-                                    <option value="any">{% trans "Any Builder" %}</option>
+                                    <option value="any">{% trans "Any Developer" %}</option>
                                     {% for i in search_builder %}
                                     <option value="{{i.builder__name}}">{{i.builder__name}}</option>
                                     {% endfor %}
@@ -490,7 +490,7 @@
 $(".chosen-select").chosen({no_results_text: "{% trans 'Oops, nothing found!' %}"});
 
 var typed = new Typed('.typed-words', {
-	strings: ["{% trans 'Dream Home' %}", "{% trans 'Apartments' %}", "{% trans 'Villas' %}", "{% trans 'Plots' %}", "{% trans 'Pent House' %}", "{% trans 'Independent Houses' %}", "{% trans 'Commercial' %}", "{% trans 'Villaments' %}"],
+	strings: ["{% trans 'Flats' %}", "{% trans 'Villas' %}", "{% trans 'Plots' %}", "{% trans 'Rent House' %}", "{% trans 'Town Houses' %}", "{% trans 'Duplex' %}", "{% trans 'Bungalow' %}", "{% trans 'Bulk Sale Units' %}", "{% trans 'Office Spaces' %}", "{% trans 'Retail' %}", "{% trans 'Warehouse' %}", "{% trans 'Shops' %}", "{% trans 'Land' %}"],
 	typeSpeed: 100,
 	backSpeed: 100,
 	backDelay: 2000,

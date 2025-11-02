@@ -403,7 +403,7 @@
             {% if project.builder %}
             <div class="col-lg-12 col-md-12">
                 <div class="utf-desc-headline-item">
-                    <h3><i class="icon-material-outline-description"></i>{% blocktrans with name=project.builder.name %}About {{name}}{% endblocktrans %}</h3>
+                    <h3><i class="icon-material-outline-description"></i>{% blocktrans with name=project.builder.name %}About <span translate="no">{{name}}</span>{% endblocktrans %}</h3>
                 </div>
                 <div align="center">
                     <a class="floor-pic mfp-image" href="/media/{{project.builder.img}}">

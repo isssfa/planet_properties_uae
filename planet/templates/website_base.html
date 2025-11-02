@@ -73,10 +73,6 @@
             display: none !important;
         }
 
-        #header.cloned.sticky {
-            padding-top: 50px;
-        }
-
         .goog-te-gadget {
             font-family: inherit !important;
             font-size: 14px !important;
@@ -196,8 +192,13 @@
                             {% if project.builder %}
                             <img alt="{{project.builder.name}} {% trans 'logo' %}" src="/media/{{project.builder.img}}">
                             {% else %}
-                            <img alt="{% trans 'Prime Planets Properties logo' %}" src="{% static 'assets/images/prime_logo.jpg' %}">
-                            <span class="logo-text">{% trans 'Prime Planets Properties' %}<p class="header-p" style="margin: -30px 0 0 52px;">ORN: 52305</p></span>
+                            <img id="site-logo" translate="no" alt="{% trans 'Prime Planets Properties logo' %}" src="{% static 'assets/images/prime_logo_en.jpg' %}">
+                            <span class="logo-text" translate="no">
+                                <span  class="custom-translate" data-en="Prime Planets Properties LLC" data-ar="برايم بلانيتس بروبرتيز ذ.م.م">
+                                    {% trans 'Prime Planets Properties LLC' %}
+                                </span>
+                                <p class="header-p" style="margin: -30px 0 0 52px;" translate="no">ORN: 52305</p>
+                            </span>
                             {% endif %}
                         </a>
                     </div>
@@ -311,8 +312,13 @@
 	    <div class="col-md-4 col-sm-12 col-xs-12">
 
             <a href="/">
-                <img alt="{% trans 'Prime Planets Properties Logo' %}" style="height: 100px;" src="{% static 'assets/images/logo.jpg' %}">
-                <span class="logo-text" style="font-size: 24px;">{% trans 'Prime Planets Properties' %}<p style="margin: -40px 0 0 75px;">ORN: 52305</p></span>
+                <img id="footer-site-logo" style="height: 100px;" translate="no" alt="{% trans 'Prime Planets Properties logo' %}" src="{% static 'assets/images/prime_logo_en.jpg' %}">
+                <span class="logo-text" style="font-size: 20px;" translate="no">
+                    <span  class="custom-translate" data-en="Prime Planets Properties LLC" data-ar="برايم بلانيتس بروبرتيز ذ.م.م">
+                        {% trans 'Prime Planets Properties LLC' %}
+                    </span>
+                    <p class="header-p" style="margin: -40px 0 0 75px;" translate="no">ORN: 52305</p>
+                </span>
             </a>
 <!--          <a href="index.html"><img class="footer-logo" src="{% static 'front/images/footer_logo.png' %}" alt=""></a>-->
           <p>{{website.footer_about|safe}}</p>
@@ -571,11 +577,35 @@ function translateToLanguage(lang) {
 // Function to update language display
 function updateLanguageDisplay(lang) {
     var selectedLangElements = document.querySelectorAll('#selected-language');
+    var logo = document.getElementById('site-logo');
+    var footer_logo = document.getElementById('footer-site-logo');
+
     selectedLangElements.forEach(function(el) {
         if (lang === 'en') {
             el.textContent = 'Language: EN';
         } else if (lang === 'ar') {
             el.textContent = 'اللغة: AR';
+        }
+    });
+    if (logo) {
+        logo.src = (lang === 'ar')
+            ? "{% static 'assets/images/prime_logo_ar.jpg' %}"
+            : "{% static 'assets/images/prime_logo_en.jpg' %}";
+    }
+    if (footer_logo) {
+        footer_logo.src = (lang === 'ar')
+            ? "{% static 'assets/images/prime_logo_ar.jpg' %}"
+            : "{% static 'assets/images/prime_logo_en.jpg' %}";
+    }
+    applyCustomTranslations(lang);
+}
+
+function applyCustomTranslations(lang) {
+    var customElements = document.querySelectorAll('.custom-translate');
+    customElements.forEach(function(el) {
+        var customText = el.getAttribute('data-' + lang);
+        if (customText) {
+            el.textContent = customText;
         }
     });
 }
