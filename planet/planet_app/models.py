@@ -320,3 +320,19 @@ class Brokers(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Videos(models.Model):
+    title = models.CharField(max_length=200)
+    thumbnail = models.ImageField(upload_to='videos/thumbnails')
+    video = models.FileField(upload_to='videos', help_text="Upload video file")
+    created_on = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['-created_on']
+        verbose_name = 'Video'
+        verbose_name_plural = 'Videos'
+
+    def __str__(self):
+        return self.title

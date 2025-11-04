@@ -29,11 +29,13 @@
         position: relative;
         overflow: hidden;
         cursor: pointer;
+        height: 250px;
     }
 
     .video-thumbnail img {
         width: 100%;
-        height: auto;
+        height: 100%;
+        object-fit: cover;
         display: block;
         transition: transform 0.3s ease;
     }
@@ -86,13 +88,75 @@
         font-weight: 600;
     }
 
-    /* Magnific Popup Video Styles */
-    .mfp-iframe-holder .mfp-content {
-        max-width: 900px;
+    /* Video Lightbox Styles */
+    #video-lightbox {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.95);
+        z-index: 999999;
+        display: none;
+        align-items: center;
+        justify-content: center;
     }
 
-    .mfp-iframe-scaler iframe {
+    #video-lightbox.active {
+        display: flex;
+        animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .video-lightbox-content {
+        position: relative;
+        width: 90%;
+        max-width: 1000px;
+    }
+
+    #close-video {
+        position: absolute;
+        top: -50px;
+        right: 0;
+        background: rgba(255,255,255,0.2);
+        border: 2px solid #fff;
+        color: #fff;
+        font-size: 30px;
+        cursor: pointer;
+        z-index: 1000000;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        line-height: 35px;
+        padding: 0;
+        transition: all 0.3s;
+    }
+
+    #close-video:hover {
+        background: rgba(227,51,36,0.9);
+        transform: rotate(90deg);
+    }
+
+    .video-wrapper {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
         background: #000;
+        border-radius: 8px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+
+    .video-wrapper video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 </style>
 {% endblock %}
@@ -190,55 +254,57 @@
             <div class="utf-headline-display-inner-item">{% trans "Watch, Compare & Choose" %}</div>
           </div>
         </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="video-container">
-            <a href="https://youtu.be/8xFFZdqtrvs?si=H9XSQa8Lno4FMEY8" class="video-popup">
-              <div class="video-thumbnail">
-                <img src="{% static 'assets/images/picture.jpg' %}" alt="{% trans 'Video 1' %}" class="img-responsive">
-                <div class="play-button-overlay">
-                  <i class="fa fa-play-circle"></i>
-                </div>
-                <div class="video-title">
-                  <h4>{% trans "Property Tour" %}</h4>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="video-container">
-            <a href="https://www.youtube.com/watch?v=K4TOrB7at0Y" class="video-popup">
-              <div class="video-thumbnail">
-                <img src="{% static 'assets/images/picture.jpg' %}" alt="{% trans 'Video 2' %}" class="img-responsive">
-                <div class="play-button-overlay">
-                  <i class="fa fa-play-circle"></i>
-                </div>
-                <div class="video-title">
-                  <h4>{% trans "Client Testimonials" %}</h4>
+        <div class="col-md-12">
+          <div class="video-carousel">
+            {% if videos %}
+              {% for video in videos %}
+              <div class="utf-carousel-item-area">
+                <div class="video-container">
+                  <div class="video-thumbnail video-trigger" data-video-src="/media/{{ video.video }}" data-video-title="{{ video.title }}">
+                    <img src="/media/{{ video.thumbnail }}" alt="{{ video.title }}" class="img-responsive">
+                    <div class="play-button-overlay">
+                      <i class="fa fa-play-circle"></i>
+                    </div>
+                    <div class="video-title">
+                      <h4>{{ video.title }}</h4>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="video-container">
-            <a href="https://www.youtube.com/watch?v=K4TOrB7at0Y" class="video-popup">
-              <div class="video-thumbnail">
-                <img src="{% static 'assets/images/picture.jpg' %}" alt="{% trans 'Video 3' %}" class="img-responsive">
-                <div class="play-button-overlay">
-                  <i class="fa fa-play-circle"></i>
-                </div>
-                <div class="video-title">
-                  <h4>{% trans "About Us" %}</h4>
+              {% endfor %}
+            {% else %}
+              <div class="utf-carousel-item-area">
+                <div class="video-container">
+                  <div class="video-thumbnail video-trigger" data-video-src="{% static 'assets/videos/sample.mp4' %}" data-video-title="{% trans 'Sample Video' %}">
+                    <img src="{% static 'assets/images/picture.jpg' %}" alt="{% trans 'Video 1' %}" class="img-responsive">
+                    <div class="play-button-overlay">
+                      <i class="fa fa-play-circle"></i>
+                    </div>
+                    <div class="video-title">
+                      <h4>{% trans "Property Tour" %}</h4>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </a>
+            {% endif %}
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Video Lightbox -->
+  <div id="video-lightbox">
+    <div class="video-lightbox-content">
+      <button id="close-video">&times;</button>
+      <div class="video-wrapper">
+        <video id="lightbox-video" controls>
+          <source src="" type="video/mp4">
+          {% trans "Your browser does not support the video tag." %}
+        </video>
+      </div>
+    </div>
+  </div>
 
   <section class="fullwidth" data-background-color="#fbfbfb">
     <div class="container">
@@ -387,14 +453,14 @@
               <div class="counter-box" style="background-color: white; border-radius: 10px; padding: 30px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
                 <div class="counter-box-icon" style="color: #ff6b6b; font-size: 48px; margin-bottom: 15px;"> <i class="icon-feather-users"></i></div>
                 <div style="font-size: 36px; font-weight: bold; color: #333; margin-bottom: 10px;"><span class="counter">{{website.happy_customers}}</span></div>
-                <p style="color: #666; font-size: 16px; margin: 0;">{% trans "Happy Customers" %}</p>
+                <p style="color: #666; font-size: 16px; margin: 0;">{% trans "Happy Customers Around the World" %}</p>
               </div>
             </div>
             <div class="col-md-4 col-sm-6 col-xs-6">
               <div class="counter-box last" style="background-color: white; border-radius: 10px; padding: 30px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
                 <div class="counter-box-icon" style="color: #ff6b6b; font-size: 48px; margin-bottom: 15px;"> <i class="sl sl-icon-briefcase"></i></div>
                 <div style="font-size: 36px; font-weight: bold; color: #333; margin-bottom: 10px;"><span class="counter">{{website.relationship}}</span></div>
-                <p style="color: #666; font-size: 16px; margin: 0;">{% trans "Relationship Managers" %}</p>
+                <p style="color: #666; font-size: 16px; margin: 0;">{% trans "Our Agents" %}</p>
               </div>
             </div>
           </div>
@@ -543,117 +609,104 @@ var typed = new Typed('.typed-words', {
         });
     });
 {% endfor %}
+
+// Initialize Video Carousel
 $(document).ready(function() {
-    // Custom video lightbox - handles all YouTube URL formats
-
-    $('.video-popup').off('click').on('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        var videoUrl = $(this).attr('href');
-        console.log('Clicked video URL:', videoUrl);
-
-        if (!videoUrl) {
-            console.error('No video URL found');
-            return;
-        }
-
-        var videoId = null;
-
-        // Extract video ID from different YouTube URL formats
-        // Format: youtube.com/watch?v=VIDEO_ID
-        if (videoUrl.indexOf('youtube.com/watch?v=') > -1) {
-            var match = videoUrl.match(/[?&]v=([^&]+)/);
-            if (match) {
-                videoId = match[1];
+    $('.video-carousel').owlCarousel({
+        dots: true,
+        pagination: true,
+        autoPlay: 5000,
+        navigation: true,
+        slideSpeed: 800,
+        arrows: true,
+        nav: true,
+        loop: true,
+        autoplayHoverPause: true,
+        items: 3,
+        itemsDesktop: [1239, 3],
+        itemsDesktopSmall: [991, 2],
+        itemsTablet: [767, 2],
+        itemsMobile: [479, 1],
+        responsive: {
+            0: {
+                items: 1
+            },
+            480: {
+                items: 1
+            },
+            768: {
+                items: 2
+            },
+            992: {
+                items: 2
+            },
+            1024: {
+                items: 3
+            },
+            1240: {
+                items: 3
             }
-        }
-        // Format: youtu.be/VIDEO_ID or youtu.be/VIDEO_ID?si=...
-        else if (videoUrl.indexOf('youtu.be/') > -1) {
-            var parts = videoUrl.split('youtu.be/')[1];
-            // Remove everything after ? or &
-            videoId = parts.split(/[?&]/)[0];
-        }
-        // Format: youtube.com/embed/VIDEO_ID
-        else if (videoUrl.indexOf('youtube.com/embed/') > -1) {
-            var parts = videoUrl.split('youtube.com/embed/')[1];
-            videoId = parts.split(/[?&]/)[0];
-        }
-
-        console.log('Extracted video ID:', videoId);
-
-        if (videoId && videoId.length > 0) {
-            var embedUrl = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0&modestbranding=1';
-            console.log('Embed URL:', embedUrl);
-
-            // Remove any existing lightbox
-            $('#video-lightbox').remove();
-
-            // Create lightbox HTML
-            var lightboxHtml = '<div id="video-lightbox" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:999999; display:flex; align-items:center; justify-content:center; animation: fadeIn 0.3s;">' +
-                '<div style="position:relative; width:90%; max-width:1000px;">' +
-                '<button id="close-video" style="position:absolute; top:-50px; right:0; background:rgba(255,255,255,0.2); border:2px solid #fff; color:#fff; font-size:30px; cursor:pointer; z-index:1000000; width:40px; height:40px; border-radius:50%; line-height:35px; padding:0; transition:all 0.3s;">&times;</button>' +
-                '<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; background:#000; border-radius:8px; box-shadow:0 10px 40px rgba(0,0,0,0.5);">' +
-                '<iframe src="' + embedUrl + '" style="position:absolute; top:0; left:0; width:100%; height:100%;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>' +
-                '</div>' +
-                '</div>' +
-                '</div>';
-
-            $('body').append(lightboxHtml);
-
-            // Add CSS animation if not already added
-            if (!$('#video-animation-style').length) {
-                $('<style id="video-animation-style">').text('@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }').appendTo('head');
-            }
-
-            // Close on button click
-            $('#close-video').on('click', function(e) {
-                e.stopPropagation();
-                closeVideoLightbox();
-            });
-
-            // Close on background click
-            $('#video-lightbox').on('click', function(e) {
-                if (e.target.id === 'video-lightbox') {
-                    closeVideoLightbox();
-                }
-            });
-
-            // Close on ESC key
-            $(document).on('keyup.videolightbox', function(e) {
-                if (e.keyCode === 27) {
-                    closeVideoLightbox();
-                }
-            });
-
-            // Hover effect for close button
-            $('#close-video').hover(
-                function() {
-                    $(this).css({
-                        'background': 'rgba(227,51,36,0.9)',
-                        'transform': 'rotate(90deg)'
-                    });
-                },
-                function() {
-                    $(this).css({
-                        'background': 'rgba(255,255,255,0.2)',
-                        'transform': 'rotate(0deg)'
-                    });
-                }
-            );
-
-        } else {
-            console.error('Could not extract video ID from URL:', videoUrl);
-            alert('Invalid video URL. Please check the video link.');
         }
     });
 
+    // Video lightbox functionality
+    $('.video-trigger').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var videoSrc = $(this).attr('data-video-src');
+        var videoTitle = $(this).attr('data-video-title');
+
+        console.log('Opening video:', videoSrc);
+
+        if (!videoSrc) {
+            console.error('No video source found');
+            return;
+        }
+
+        // Set video source
+        var video = $('#lightbox-video')[0];
+        $('#lightbox-video source').attr('src', videoSrc);
+        video.load();
+
+        // Show lightbox
+        $('#video-lightbox').addClass('active');
+
+        // Play video
+        video.play();
+
+        // Prevent body scroll
+        $('body').css('overflow', 'hidden');
+    });
+
+    // Close video lightbox
     function closeVideoLightbox() {
-        $('#video-lightbox').fadeOut(300, function() {
-            $(this).remove();
-        });
-        $(document).off('keyup.videolightbox');
+        var video = $('#lightbox-video')[0];
+        video.pause();
+        video.currentTime = 0;
+        $('#video-lightbox').removeClass('active');
+        $('body').css('overflow', 'auto');
     }
+
+    // Close on button click
+    $('#close-video').on('click', function(e) {
+        e.stopPropagation();
+        closeVideoLightbox();
+    });
+
+    // Close on background click
+    $('#video-lightbox').on('click', function(e) {
+        if (e.target.id === 'video-lightbox') {
+            closeVideoLightbox();
+        }
+    });
+
+    // Close on ESC key
+    $(document).on('keyup', function(e) {
+        if (e.keyCode === 27 && $('#video-lightbox').hasClass('active')) {
+            closeVideoLightbox();
+        }
+    });
 });
 </script>
 {% endblock %}

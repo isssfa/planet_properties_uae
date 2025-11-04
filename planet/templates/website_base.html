@@ -212,12 +212,8 @@
                             <li><a class="{% if current == 'home' %}current{% endif %}" href="/">{% trans "Home" %}</a></li>
                             <li><a class="{% if current == 'properties' %}current{% endif %}" href="/properties/">{% trans "Properties" %}</a>
                                 <ul>
-                                    <li><a href="/search?city=any&builder=any&type=any&type_2=New+Property&status=any">{% trans "New Property" %}</a></li>
-                                    <li><a href="/search?city=any&builder=any&type=any&type_2=Rental&status=any">{% trans "Rental" %}</a></li>
-                                    <li><a href="/search?city=any&builder=any&type=any&type_2=Resale&status=any">{% trans "Resale" %}</a></li>
                                     <li><a href="/search?city=any&builder=any&type=any&type_2=Commercial&status=any">{% trans "Commercial" %}</a></li>
-                                    <li><a href="/search?city=any&builder=any&type=any&type_2=Land&status=any">{% trans "Land" %}</a></li>
-                                    <li><a href="/search?city=any&builder=any&type=any&type_2=Agricultural&status=any">{% trans "Agricultural" %}</a></li>
+                                    <li><a href="/search?city=any&builder=any&type=any&type_2=Residential&status=any">{% trans "Residential" %}</a></li>
                                 </ul>
                             </li>
                             <li><a class="{% if current == 'blogs' %}current{% endif %}" href="/blogs">{% trans "Blogs" %}</a></li>
@@ -357,6 +353,9 @@
                     <div class="col-md-12" align="center" style="display: block;">
                         <h3>{% trans "Follow Us" %}</h3>
                     </div>
+                    <div class="col-md-1">
+
+                    </div>
                     <div class="col-md-2 col-xs-2">
                         <a href="https://www.facebook.com/profile.php?id=61577605014592" target="_blank">
                             <img alt="{% trans 'facebook' %}" src="{% static 'front/images/facebook_circle_color-512.webp' %}" style="height: 25px; width: 25px;">
@@ -382,11 +381,11 @@
                             <img alt="{% trans 'Linkedin' %}" src="{% static 'front/images/LinkedIn_logo_initials.png' %}" style="height: 25px; width: 25px;">
                         </a>
                     </div>
-<!--                    <div class="col-md-2 col-xs-2">-->
-<!--                        <a href="http://t.me/planets_properties" target="_blank">-->
-<!--                            <img alt="{% trans 'Telegram' %}" src="{% static 'front/images/Telegram_logo.svg.webp' %}" style="height: 25px; width: 25px;">-->
-<!--                        </a>-->
-<!--                    </div>-->
+                    <div class="col-md-2 col-xs-2">
+                        <a href="https://www.pinterest.com/PRIMEPLANETSPROPERTIESLLC/" target="_blank">
+                            <img alt="{% trans 'Pinterest' %}" src="{% static 'front/images/pinterest-logo.png' %}" style="height: 25px; width: 25px;">
+                        </a>
+                    </div>
                 </div>
         </div>
       </div>

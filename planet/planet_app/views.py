@@ -104,7 +104,7 @@ def Index(request):
         project_count=Count('projectdetails')
     ).all()
     cities = [{'city': i, 'count': i.project_count} for i in cities_with_count]
-
+    videos = Videos.objects.all()[:10]
     # Get search filters
     search_filters = get_search_filters()
 
@@ -128,6 +128,7 @@ def Index(request):
         'message': message,
         'page_description': _(meta_data.description),
         'page_keywords': _(meta_data.keywords),
+        'videos': videos,
         **get_common_context(request),
         **search_filters,
     }

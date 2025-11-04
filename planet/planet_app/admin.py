@@ -35,6 +35,11 @@ class PagesSearch(ImportExportModelAdmin):
     search_fields = ['id', 'name']
     list_display = ['id', 'name', 'img']
 
+class VideosSearch(admin.ModelAdmin):
+    search_fields = ['id', 'title']
+    list_display = ['id', 'title', 'thumbnail', 'created_on', 'is_active']
+    list_filter = ['is_active', 'created_on']
+
 
 class BlogSearch(admin.ModelAdmin):
     search_fields = ['id', 'name']
@@ -62,3 +67,4 @@ admin.site.register(BlockedWord)
 admin.site.register(ContactForm, ContactFormSearch)
 # admin.site.register(Pages, PagesSearch)
 admin.site.register(Blog, BlogSearch)
+admin.site.register(Videos, VideosSearch)
