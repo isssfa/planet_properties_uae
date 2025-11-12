@@ -105,7 +105,8 @@ class ProjectDetails(models.Model):
     builder = models.ForeignKey(Builder, on_delete=models.SET_NULL, null=True, blank=True)
     title = models.TextField(unique=True)
     description = models.TextField()
-    video_link = EmbedVideoField(null=True, blank=True)
+    # video_link = EmbedVideoField(null=True, blank=True)
+    video_link = models.TextField(null=True, blank=True)
     map_link = models.TextField(null=True, blank=True)
     project_area = models.CharField(max_length=300)
     project_type = models.CharField(max_length=300)
@@ -126,6 +127,7 @@ class ProjectDetails(models.Model):
 
     rera_no = models.CharField(max_length=300, blank=True, null=True)
     dld_permit_number = models.CharField(max_length=300, blank=True, null=True, help_text="DLD Permit Number")
+    dld_qr_code = models.ImageField(upload_to='properties/dld_qr/', blank=True, null=True)
     possession = models.TextField(blank=True, null=True)
     property_type = models.CharField(max_length=300, blank=True, null=True)
     property_type_2 = models.CharField(max_length=300, default="New Property")
@@ -137,6 +139,7 @@ class ProjectDetails(models.Model):
     meta_description = models.TextField(null=True, blank=True)
     meta_keywords = models.TextField(null=True, blank=True)
     meta_title = models.TextField(null=True, blank=True)
+
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)

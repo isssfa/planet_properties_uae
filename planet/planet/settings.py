@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'honeypot',
 ]
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -58,6 +59,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+EMBED_VIDEO_BACKENDS = (
+    'embed_video.backends.VimeoBackend',
+    'embed_video.backends.SoundCloudBackend',
+    'planet_app.backends.YoutubeBackend',
+)
 
 # Internationalization
 LANGUAGE_CODE = 'en'

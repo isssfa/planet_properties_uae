@@ -50,7 +50,7 @@
                                 <h2 translate="no">{{project.title}}</h2>
                             </div>
                             <div class="col-md-4" align="center">
-                                <img alt="{% trans 'planets properties logo' %}" class="planets-logo-single" src="{% static 'assets/images/planets_properties_logo.png' %}">
+                                <img alt="{% trans 'planets properties logo' %}" class="planets-logo-single" src="{% static 'assets/images/prime_logo_en.jpg' %}">
                             </div>
                         </div>
                     </div>
@@ -94,11 +94,7 @@
                             <p style="padding: 0px; margin: 0px; word-wrap: break-word;">{% trans "RERA No" %}: {{project.rera_no}}</p>
                         {% endif %}
                         {% if project.dld_permit_number %}
-                            <div style="background-color: white; border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin: 10px 0; text-align: center;">
-                                <p style="margin: 0 0 10px 0; color: #666; font-size: 14px;">{% trans "DLD Permit Number" %} <i class="fa fa-info-circle" style="color: #007bff;"></i></p>
-                                <p style="margin: 0 0 15px 0; font-size: 18px; font-weight: bold; color: #000;">{{project.dld_permit_number}}</p>
-                                <div id="qrcode" style="display: flex; justify-content: center; align-items: center;"></div>
-                            </div>
+                            <p style="padding: 0px; margin: 0px; word-wrap: break-word;">{% trans "DLD Permit Number" %}: {{project.dld_permit_number}}</p>
                         {% endif %}
                         {% if project.possession %}
                             <p style="padding: 0px; margin: 0px;">{{project.possession}}</p>
@@ -141,7 +137,7 @@
                         <li>{% trans "Type" %}: <span>{{project.project_type}}</span></li>
                         <li>{% trans "No. of Unit" %}: <span>{{project.project_units}}</span></li>
                         <li>{% trans "Builtup Area" %}: <span>{{project.project_buildup}}</span></li>
-                        <li>{% trans "Price" %}: <span>₹ {{project.project_price}}</span></li>
+                        <li>{% trans "Price" %}: <span>{{project_price_display}}</span></li>
                         <li>{% trans "Status" %}: <span>{{project.project_status}}{% if project.project_status_1 %}<br>{{project.project_status_1}}{% endif %}</span></li>
                     </ul>
 
@@ -244,9 +240,7 @@
                         <h3><i class="icon-feather-video"></i> {% trans "Property Video" %}</h3>
                     </div>
                     <div class="responsive-iframe">
-                        {% video project.video_link as my_video %}
-                            <iframe src="{{ my_video.url }}" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
-                        {% endvideo %}
+                        {{project.video_link|safe}}
                     </div>
                     {% endif %}
 
@@ -283,6 +277,15 @@
                                     {% endfor %}
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+
+                    <div class="utf-desc-headline-item">
+                        <h3><i class="fa fa-qrcode"></i>{% trans "DLD Permit" %}: {{project.dld_permit_number}}</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" align="center">
+                            <img src="/media/{{project.dld_qr_code}}">
                         </div>
                     </div>
 
@@ -484,23 +487,6 @@
     messagee = messagee.replace(/%2E/g, ".");
     $('#display_message').val(messagee);
 
-    // Generate QR Code for DLD Permit Number
-    {% if project.dld_permit_number %}
-    document.addEventListener('DOMContentLoaded', function() {
-        const qrContainer = document.getElementById('qrcode');
-        if (qrContainer) {
-            QRCode.toCanvas(qrContainer, '{{project.dld_permit_number}}', {
-                width: 150,
-                height: 150,
-                color: {
-                    dark: '#000000',
-                    light: '#FFFFFF'
-                }
-            }, function (error) {
-                if (error) console.error(error);
-            });
-        }
-    });
-    {% endif %}
+
 </script>
 {% endblock %}

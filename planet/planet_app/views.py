@@ -966,15 +966,16 @@ def add_property(request):
 
         rera_no = request.POST.get('rera_no')
         dld_permit_number = request.POST.get('dld_permit_number')
+        dld_qr_code = request.FILES.get('dld_qr_code')
         possession = request.POST.get('possession')
         property_type = request.POST.get('property_type')
-
         city_id = request.POST.get('city')
         city = Cities.objects.get(id=city_id)
         builder_id = request.POST.get('builder')
         meta_title = request.POST.get('meta_title')
         meta_keywords = request.POST.get('meta_keywords')
         meta_description = request.POST.get('meta_description')
+
 
         location = request.POST.get('location')
         if builder_id:
@@ -1010,7 +1011,7 @@ def add_property(request):
             dld_permit_number=dld_permit_number, possession=possession, property_type=property_type, master_plan_pdf=master_plan_pdf,
             brochure=brochure, project_status_1=project_status_1, property_id=property_id,
             meta_keywords=meta_keywords, meta_description=meta_description, meta_title=meta_title,
-            property_type_2=property_type_2
+            property_type_2=property_type_2, dld_qr_code=dld_qr_code
         )
 
         num_of_pricing = request.POST.get('num_of_pricing')
@@ -1063,11 +1064,15 @@ def add_property(request):
             counter += 1
             extension = str(i.img).split('.')[-1]
             new_name = os.path.join(base_dir, str('properties/' + str(buffer_id) + str(counter) + '.' + extension))
-            print(shutil.move(os.path.join(base_dir, str(i.img)), new_name))
-
-            PropertyImages.objects.create(
-                project=project, img=new_name.split('media/')[-1]
-            )
+            shutil.move(os.path.join(base_dir, str(i.img)), new_name)
+            if new_name.split('media/')[-1] == new_name:
+                PropertyImages.objects.create(
+                    project=project, img=new_name.split('media\\')[-1]
+                )
+            else:
+                PropertyImages.objects.create(
+                    project=project, img=new_name.split('media/')[-1]
+                )
         buffer_images.delete()
         messages.info(request, 'Property Added Successfully.')
         return redirect('/view-properties')
@@ -1176,6 +1181,7 @@ def edit_property_details(request, pk):
 
         rera_no = request.POST.get('rera_no')
         dld_permit_number = request.POST.get('dld_permit_number')
+        dld_qr_code = request.FILES.get('dld_qr_code')
         possession = request.POST.get('possession')
         property_type = request.POST.get('property_type')
         meta_keywords = request.POST.get('meta_keywords')
@@ -1239,6 +1245,8 @@ def edit_property_details(request, pk):
             project.master_plan_pdf = master_plan_pdf
         if brochure:
             project.brochure = brochure
+        if dld_qr_code:
+            project.dld_qr_code = dld_qr_code
         project.save()
 
         PropertyPricing.objects.filter(project=project).delete()
@@ -1318,10 +1326,14 @@ def edit_property_details(request, pk):
             extension = str(i.img).split('.')[-1]
             new_name = os.path.join(base_dir, str('properties/' + str(buffer_id) + str(counter) + '.' + extension))
             shutil.move(os.path.join(base_dir, str(i.img)), new_name)
-
-            PropertyImages.objects.create(
-                project=project, img=new_name.split('media/')[-1]
-            )
+            if new_name.split('media/')[-1] == new_name:
+                PropertyImages.objects.create(
+                    project=project, img=new_name.split('media\\')[-1]
+                )
+            else:
+                PropertyImages.objects.create(
+                    project=project, img=new_name.split('media/')[-1]
+                )
         buffer_images.delete()
 
         return redirect('/view-properties')

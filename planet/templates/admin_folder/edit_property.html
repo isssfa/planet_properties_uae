@@ -39,6 +39,12 @@
                                     <input class="search-field" placeholder="RERA No." name="rera_no" type="text" value="{{project.rera_no}}"/>
                                 </div>
 
+
+                                <div class="col-md-4">
+                                    <h5>DLD Permit Number</h5>
+                                    <input class="search-field" placeholder="DLD Permit Number" name="dld_permit_number" type="text" value="{{project.dld_permit_number}}"/>
+                                </div>
+
                                 <div class="col-md-4">
                                     <h5>Possession</h5>
                                     <input class="search-field" placeholder="Possession Details" name="possession" type="text" value="{{project.possession}}"/>
@@ -95,6 +101,14 @@
                                         <option value="{{i.id}}" {% if project.builder.id == i.id %}selected{% endif %}>{{i.name}}</option>
                                         {% endfor %}
                                     </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>DLD QR Code
+                                    {% if project.dld_qr_code %}
+                                    (<a href="/media/{{project.dld_qr_code}}" target="_blank" style="color: blue; text-decoration: underline;">view</a>)
+                                    {% endif %}</h5>
+                                    <input type="file" id="dld_qr_code" name="dld_qr_code" class="uploadImage" accept=".jpg,.jpeg,.png,.webp">
                                 </div>
 
                                 <div class="col-md-12">

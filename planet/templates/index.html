@@ -315,17 +315,21 @@
             <div class="utf-headline-display-inner-item">{% trans "Find Properties in Your City" %}</div>
           </div>
         </div>
-        {% for i in cities %}
-        <div class="col-md-4 col-sm-6">
-          <a href="/cities/{{i.city.slug}}" class="img-box">
-            <img src="/media/{{i.city.img}}" alt="city_{{i.city.name}}" />
-            <div class="utf-cat-img-box-content visible">
-              <h4>{{i.city.name}}</h4>
-              <span>{{i.count}} {% trans "Properties" %}</span>
+        <div class="col-md-12">
+          <div class="cities-carousel">
+            {% for i in cities %}
+            <div class="utf-carousel-item-area">
+              <a href="/cities/{{i.city.slug}}" class="img-box">
+                <img src="/media/{{i.city.img}}" alt="city_{{i.city.name}}" />
+                <div class="utf-cat-img-box-content visible">
+                  <h4>{{i.city.name}}</h4>
+                  <span>{{i.count}} {% trans "Properties" %}</span>
+                </div>
+              </a>
             </div>
-          </a>
+            {% endfor %}
+          </div>
         </div>
-        {% endfor %}
       </div>
     </div>
   </section>
@@ -616,6 +620,44 @@ $(document).ready(function() {
         dots: true,
         pagination: true,
         autoPlay: 5000,
+        navigation: true,
+        slideSpeed: 800,
+        arrows: true,
+        nav: true,
+        loop: true,
+        autoplayHoverPause: true,
+        items: 3,
+        itemsDesktop: [1239, 3],
+        itemsDesktopSmall: [991, 2],
+        itemsTablet: [767, 2],
+        itemsMobile: [479, 1],
+        responsive: {
+            0: {
+                items: 1
+            },
+            480: {
+                items: 1
+            },
+            768: {
+                items: 2
+            },
+            992: {
+                items: 2
+            },
+            1024: {
+                items: 3
+            },
+            1240: {
+                items: 3
+            }
+        }
+    });
+
+    // Initialize Cities Carousel
+    $('.cities-carousel').owlCarousel({
+        dots: true,
+        pagination: true,
+        autoPlay: 4000,
         navigation: true,
         slideSpeed: 800,
         arrows: true,
