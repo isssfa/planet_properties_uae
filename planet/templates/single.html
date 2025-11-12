@@ -280,15 +280,16 @@
                         </div>
                     </div>
 
+                    {% if project.dld_qr_code %}
                     <div class="utf-desc-headline-item">
-                        <h3><i class="fa fa-qrcode"></i>{% trans "DLD Permit" %}: {{project.dld_permit_number}}</h3>
+                        <h3><i class="fa fa-qrcode"></i>{% trans "DLD Permit" %}{% if project.dld_permit_number %}: {{project.dld_permit_number}} {% endif %}</h3>
                     </div>
                     <div class="row">
                         <div class="col-md-12" align="center">
                             <img src="/media/{{project.dld_qr_code}}">
                         </div>
                     </div>
-
+                    {% endif %}
                     <div class="clearfix"></div>
                     <div class="margin-top-35"></div>
                 </div>
