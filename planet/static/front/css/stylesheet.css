@@ -265,10 +265,13 @@ header.fullwidth .container {
 }
 @media (max-width: 992px) {
     .logo-text{
-        font-size: 14px !important;;
+        font-size: 14px !important;
     }
     .logo-text .header-p{
-        margin: -26px 0 0 45px !important;;
+        margin: -26px 0 0 45px !important;
+    }
+    .logo-text .footer-p{
+        margin: -45px 0 0 79px !important;
     }
 }
 .header-widget {

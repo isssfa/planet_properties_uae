@@ -115,7 +115,8 @@ def Index(request):
     brokers = Brokers.objects.filter(is_active=True)
     message = get_whatsapp_message()
     meta_data = get_meta_data(_("Home"))
-
+    test = dict(**get_common_context(request))
+    print(test['website'].happy_customers)
     data = {
         'current': 'home',
         'title': _(meta_data.title),
