@@ -53,6 +53,10 @@ urlpatterns = [
     path('edit-builder', edit_builder),
     path('delete-builder', delete_builder),
 
+    path('manage-brokers', manage_brokers),
+    path('edit-broker', edit_broker),
+    path('delete-broker', delete_broker),
+
     path('add-events', add_events),
     path('edit-events', edit_events),
     path('delete-events', delete_events),

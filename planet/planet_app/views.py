@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.mail import EmailMessage
 from django.db import IntegrityError
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, get_object_or_404
@@ -307,7 +307,7 @@ def single_property(request, pro_name):
 
     # Optimize with select_related and prefetch_related
     project = get_object_or_404(
-        ProjectDetails.objects.select_related('city', 'builder'),
+        ProjectDetails.objects.select_related('city', 'builder', 'broker'),
         slug=pro_name
     )
 
@@ -333,6 +333,12 @@ def single_property(request, pro_name):
 
     # Convert the main project price
     price_info = display_price_for_project(project, request)
+
+    broker_whatsapp_href = None
+    if project.broker and project.broker.whatsapp_number:
+        wa_digits = ''.join(c for c in str(project.broker.whatsapp_number) if c.isdigit())
+        if wa_digits:
+            broker_whatsapp_href = f'https://wa.me/{wa_digits}'
 
     # Convert pricing
     pricing_converted = []
@@ -364,6 +370,7 @@ def single_property(request, pro_name):
         'page_description': project.meta_description,
         'page_keywords': project.meta_keywords,
         'project_price_display': price_info['price_display'],
+        'broker_whatsapp_href': broker_whatsapp_href,
         **get_common_context(request),
     }
     return render(request, 'single.html', data)
@@ -764,6 +771,70 @@ def delete_builder(request):
 
 
 @login_required
+def manage_brokers(request):
+    if request.method == 'POST':
+        name = request.POST.get('name', '').strip()
+        brn = request.POST.get('brn', '').strip() or None
+        media_permit = request.POST.get('media_permit', '').strip() or None
+        whatsapp_number = request.POST.get('whatsapp_number', '').strip() or None
+        picture = request.FILES.get('picture')
+        is_active = request.POST.get('is_active') == 'on'
+        if not name:
+            messages.error(request, 'Broker name is required.')
+            return redirect('/manage-brokers')
+        Brokers.objects.create(
+            name=name,
+            brn=brn,
+            media_permit=media_permit,
+            whatsapp_number=whatsapp_number,
+            picture=picture,
+            is_active=is_active,
+        )
+        messages.success(request, 'Broker added successfully.')
+        return redirect('/manage-brokers')
+    brokers = Brokers.objects.all()
+    return render(request, 'admin_folder/manage_brokers.html', {'brokers': brokers})
+
+
+@login_required
+def edit_broker(request):
+    if request.method != 'POST':
+        messages.info(request, 'Invalid Request!')
+        return redirect('/manage-brokers')
+    pk = request.POST.get('id')
+    name = request.POST.get('name', '').strip()
+    brn = request.POST.get('brn', '').strip() or None
+    media_permit = request.POST.get('media_permit', '').strip() or None
+    whatsapp_number = request.POST.get('whatsapp_number', '').strip() or None
+    picture = request.FILES.get('picture')
+    is_active = request.POST.get('is_active') == 'on'
+    if not pk or not name:
+        messages.error(request, 'Invalid broker data.')
+        return redirect('/manage-brokers')
+    b = Brokers.objects.get(id=pk)
+    b.name = name
+    b.brn = brn
+    b.media_permit = media_permit
+    b.whatsapp_number = whatsapp_number
+    b.is_active = is_active
+    if picture:
+        b.picture = picture
+    b.save()
+    messages.success(request, 'Broker saved successfully.')
+    return redirect('/manage-brokers')
+
+
+@login_required
+def delete_broker(request):
+    if request.method == 'POST':
+        pk = request.POST['id']
+        Brokers.objects.get(id=pk).delete()
+        return redirect('/manage-brokers')
+    messages.info(request, 'Invalid Request!')
+    return redirect('/manage-brokers')
+
+
+@login_required
 def add_events(request):
     if request.method == 'POST':
         title = request.POST['title']
@@ -983,6 +1054,12 @@ def add_property(request):
         else:
             builder = None
 
+        broker_id = request.POST.get('broker')
+        if broker_id:
+            broker = Brokers.objects.get(id=broker_id)
+        else:
+            broker = None
+
         project_area = request.POST.get('project_area')
         project_type = request.POST.get('project_type')
         property_type_2 = request.POST.get('property_type_2')
@@ -1007,7 +1084,7 @@ def add_property(request):
             project_area=project_area, project_type=project_type, project_units=project_units,
             project_buildup=project_buildup, project_price=project_price, project_status=project_status,
             contact_email=email, contact_phone=phone, contact_whatsapp=whatsapp, is_featured=is_featured,
-            city=city, builder=builder, master_plan=master_plan, location=location, rera_no=rera_no,
+            city=city, builder=builder, broker=broker, master_plan=master_plan, location=location, rera_no=rera_no,
             dld_permit_number=dld_permit_number, possession=possession, property_type=property_type, master_plan_pdf=master_plan_pdf,
             brochure=brochure, project_status_1=project_status_1, property_id=property_id,
             meta_keywords=meta_keywords, meta_description=meta_description, meta_title=meta_title,
@@ -1080,8 +1157,10 @@ def add_property(request):
         buffer_id = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
         amenities = Amenities.objects.all()
         builder = Builder.objects.all()
+        brokers = Brokers.objects.filter(is_active=True).order_by('name')
         cities = Cities.objects.all()
-        data = {'amenities': amenities, 'buffer_id': buffer_id, 'builder': builder, 'cities': cities,
+        data = {'amenities': amenities, 'buffer_id': buffer_id, 'builder': builder, 'brokers': brokers,
+                'cities': cities,
                 "BHK": [i[0] for i in ProjectDetails.BHK_Choices],
                 "location": [i[0] for i in ProjectDetails.Location_Choices],
                 "budget": [i[0] for i in ProjectDetails.Cost_choices]}
@@ -1129,7 +1208,7 @@ def check_property_exist(request):
 def edit_property(request):
     if request.method == 'POST':
         pro_id = request.POST['id']
-        project = ProjectDetails.objects.get(id=pro_id)
+        project = ProjectDetails.objects.select_related('broker', 'builder', 'city').get(id=pro_id)
         buffer_id = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
         project_amenities = [i.amenity.id for i in PropertyAmenities.objects.filter(project=project)]
         floor_num = 0
@@ -1149,6 +1228,10 @@ def edit_property(request):
             locations.append({'floor': i, 'num': loc_num})
         gallery = PropertyImages.objects.filter(project=project)
         builder = Builder.objects.all()
+        broker_q = Q(is_active=True)
+        if project.broker_id:
+            broker_q |= Q(pk=project.broker_id)
+        brokers = Brokers.objects.filter(broker_q).distinct().order_by('name')
         cities = Cities.objects.all()
         amenities = Amenities.objects.all()
         num_of_floors = len(floor)
@@ -1156,7 +1239,7 @@ def edit_property(request):
         num_of_locations = len(locations)
         data = {'project_amenities': project_amenities, 'buffer_id': buffer_id, 'project': project,
                 'floor': floor, 'pricing': pricing, 'locations': locations, 'num_of_pricing': num_of_pricing,
-                'gallery': gallery, 'builder': builder, 'cities': cities, 'num_of_locations': num_of_locations,
+                'gallery': gallery, 'builder': builder, 'brokers': brokers, 'cities': cities, 'num_of_locations': num_of_locations,
                 'amenities': amenities, 'num_of_floors': num_of_floors,
                 "BHK": [i[0] for i in ProjectDetails.BHK_Choices],
                 "location": [i[0] for i in ProjectDetails.Location_Choices],
@@ -1192,6 +1275,13 @@ def edit_property_details(request, pk):
             builder = Builder.objects.get(id=builder_id)
         else:
             builder = None
+
+        broker_id = request.POST.get('broker')
+        if broker_id:
+            broker = Brokers.objects.get(id=broker_id)
+        else:
+            broker = None
+
         video_link = request.POST.get('video_link')
         map_link = request.POST.get('map_link')
         project_area = request.POST.get('project_area')
@@ -1233,6 +1323,7 @@ def edit_property_details(request, pk):
         project.is_featured = is_featured
         project.city = city
         project.builder = builder
+        project.broker = broker
         project.location = location
         project.property_id = property_id
         # meta details

@@ -99,6 +99,16 @@
                                 </div>
 
                                 <div class="col-md-4">
+                                    <h5>Broker (listing agent)</h5>
+                                    <select class="select2" name="broker">
+                                        <option value="" selected>— None —</option>
+                                        {% for b in brokers %}
+                                        <option value="{{ b.id }}">{{ b.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
                                     <h5>DLD QR Code</h5>
                                     <input type="file" id="dld_qr_code" name="dld_qr_code" class="uploadImage" accept=".jpg,.jpeg,.png,.webp">
                                 </div>

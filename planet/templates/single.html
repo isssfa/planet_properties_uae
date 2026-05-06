@@ -33,6 +33,204 @@
         }
     }
 
+    .broker-sidebar-card {
+        border: 1px solid #e8e8e8;
+        border-radius: 8px;
+        padding: 16px;
+        background: #fafafa;
+    }
+    .broker-sidebar-card .broker-avatar {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #fff;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    }
+    .broker-sidebar-card .broker-name {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0 0 4px 0;
+    }
+    /* Broker details modal — scoped so theme CSS does not flatten layout */
+    #broker-details-modal .modal-dialog {
+        max-width: 440px;
+        margin: 1.75rem auto;
+    }
+    #broker-details-modal .modal-content {
+        border: none;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18), 0 0 1px rgba(0, 0, 0, 0.08);
+    }
+    #broker-details-modal .broker-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 18px 20px;
+        background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+        border: none;
+        border-radius: 0;
+        color: #fff;
+    }
+    #broker-details-modal .broker-modal-header .modal-title {
+        margin: 0;
+        font-size: 1.125rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: #fff;
+        flex: 1;
+    }
+    #broker-details-modal .broker-modal-close {
+        flex-shrink: 0;
+        float: none !important;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        margin: 0 !important;
+        border: none;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff !important;
+        font-size: 22px;
+        line-height: 1;
+        opacity: 1 !important;
+        text-shadow: none;
+        transition: background 0.2s, transform 0.15s;
+    }
+    #broker-details-modal .broker-modal-close:hover {
+        background: rgba(255, 255, 255, 0.22);
+        transform: scale(1.05);
+    }
+    #broker-details-modal .broker-modal-body {
+        padding: 0;
+        background: #f4f6f8;
+    }
+    #broker-details-modal .broker-modal-hero {
+        background: #fff;
+        padding: 28px 24px 24px;
+        text-align: center;
+        border-bottom: 1px solid #e8ecf0;
+    }
+    #broker-details-modal .broker-modal-avatar-wrap {
+        display: inline-block;
+        position: relative;
+        margin-bottom: 16px;
+    }
+    #broker-details-modal .broker-modal-avatar-wrap::after {
+        content: "";
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        border: 2px solid rgba(227, 51, 36, 0.35);
+        pointer-events: none;
+    }
+    #broker-details-modal .broker-modal-avatar {
+        width: 108px;
+        height: 108px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+    #broker-details-modal .broker-modal-avatar-placeholder {
+        width: 108px;
+        height: 108px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(145deg, #e8ecf0, #dde3ea);
+        color: #7a8699;
+        font-size: 42px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+    #broker-details-modal .broker-modal-name {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: #1a1a2e;
+        margin: 0 0 6px 0;
+        line-height: 1.25;
+    }
+    #broker-details-modal .broker-modal-role {
+        font-size: 0.8125rem;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 600;
+        margin: 0 0 18px 0;
+    }
+    #broker-details-modal .broker-modal-wa {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 12px 28px;
+        border-radius: 999px;
+        font-size: 0.9375rem;
+        font-weight: 700;
+        color: #fff !important;
+        background: #25d366;
+        border: none;
+        box-shadow: 0 4px 14px rgba(37, 211, 102, 0.45);
+        text-decoration: none !important;
+        transition: transform 0.15s, box-shadow 0.2s;
+    }
+    #broker-details-modal .broker-modal-wa:hover {
+        color: #fff !important;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+    }
+    #broker-details-modal .broker-modal-wa i {
+        font-size: 1.25rem;
+    }
+    #broker-details-modal .broker-modal-section {
+        padding: 20px 24px 24px;
+    }
+    #broker-details-modal .broker-modal-section-title {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #8898a8;
+        margin: 0 0 14px 0;
+    }
+    #broker-details-modal .broker-modal-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 14px 16px;
+        margin-bottom: 10px;
+        background: #fff;
+        border-radius: 12px;
+        border: 1px solid #e8ecf0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    #broker-details-modal .broker-modal-row:last-child {
+        margin-bottom: 0;
+    }
+    #broker-details-modal .broker-modal-label {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: #5c6c7c;
+        max-width: 52%;
+        line-height: 1.35;
+    }
+    #broker-details-modal .broker-modal-value {
+        font-size: 0.9375rem;
+        font-weight: 700;
+        color: #1a1a2e;
+        text-align: right;
+        word-break: break-word;
+        font-variant-numeric: tabular-nums;
+    }
+    #broker-details-modal .broker-modal-value.muted {
+        font-weight: 500;
+        color: #adb5bd;
+    }
+
 </style>
 {% endblock %}
 {% block main %}
@@ -315,6 +513,36 @@
                     <!-- Widget / End -->
                     {% endif %}
 
+                    {% if project.broker %}
+                    <div class="widget utf-sidebar-widget-item">
+                        <div class="utf-boxed-list-headline-item">
+                            <h3>{% trans "Listed by" %}</h3>
+                        </div>
+                        <div class="broker-sidebar-card">
+                            <div style="display:flex;gap:14px;align-items:flex-start;">
+                                <div style="flex-shrink:0;text-align:center;">
+                                    {% if project.broker.picture %}
+                                    <img class="broker-avatar" src="/media/{{ project.broker.picture }}" alt="{{ project.broker.name }}">
+                                    {% else %}
+                                    <div class="broker-avatar" style="display:flex;align-items:center;justify-content:center;background:#ddd;color:#666;font-size:28px;">
+                                        <i class="sl sl-icon-user"></i>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div style="flex:1;min-width:0;">
+                                    <p class="broker-name" translate="no">{{ project.broker.name }}</p>
+                                    {% if project.broker.brn %}
+                                    <p style="margin:0;font-size:12px;color:#666;">{% trans "BRN" %}: <span translate="no">{{ project.broker.brn }}</span></p>
+                                    {% endif %}
+                                    <button type="button" class="button margin-top-10" style="padding: 8px 14px; font-size: 13px;" data-toggle="modal" data-target="#broker-details-modal">
+                                        {% trans "Broker details" %}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
                     <!-- Widget -->
                     <div class="widget utf-sidebar-widget-item">
                         <div class="agent-widget">
@@ -421,6 +649,46 @@
 
 
 
+
+{% if project.broker %}
+<div class="modal fade" id="broker-details-modal" tabindex="-1" role="dialog" aria-labelledby="broker-details-title">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header broker-modal-header">
+        <h4 class="modal-title" id="broker-details-title">{% trans "Broker details" %}</h4>
+        <button type="button" class="close broker-modal-close" data-dismiss="modal" aria-label="{% trans 'Close' %}"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body broker-modal-body">
+        <div class="broker-modal-hero">
+          <div class="broker-modal-avatar-wrap">
+            {% if project.broker.picture %}
+            <img class="broker-modal-avatar" src="/media/{{ project.broker.picture }}" alt="{{ project.broker.name }}">
+            {% else %}
+            <div class="broker-modal-avatar-placeholder" aria-hidden="true"><i class="sl sl-icon-user"></i></div>
+            {% endif %}
+          </div>
+          <p class="broker-modal-name" translate="no">{{ project.broker.name }}</p>
+          <p class="broker-modal-role">{% trans "Listing agent" %}</p>
+          {% if broker_whatsapp_href %}
+          <a href="{{ broker_whatsapp_href }}" class="broker-modal-wa" target="_blank" rel="noopener noreferrer"><i class="fa fa-whatsapp"></i> {% trans "Chat on WhatsApp" %}</a>
+          {% endif %}
+        </div>
+        <div class="broker-modal-section">
+          <p class="broker-modal-section-title">{% trans "Registration & permits" %}</p>
+          <div class="broker-modal-row">
+            <span class="broker-modal-label">{% trans "Broker registration number (BRN)" %}</span>
+            <span class="broker-modal-value {% if not project.broker.brn %}muted{% endif %}" translate="no">{% if project.broker.brn %}{{ project.broker.brn }}{% else %}{% trans "Not provided" %}{% endif %}</span>
+          </div>
+          <div class="broker-modal-row">
+            <span class="broker-modal-label">{% trans "Media permit" %}</span>
+            <span class="broker-modal-value {% if not project.broker.media_permit %}muted{% endif %}" translate="no">{% if project.broker.media_permit %}{{ project.broker.media_permit }}{% else %}{% trans "Not provided" %}{% endif %}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
 
 <!-- Sign In Popup -->
 <div id="utf-signin-dialog-block" class="pop-up-get zoom-anim-dialog mfp-hide dialog-with-tabs">

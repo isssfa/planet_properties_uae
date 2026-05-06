@@ -96,9 +96,19 @@
                                 <div class="col-md-4">
                                     <h5>Builder</h5>
                                     <select class="utf-chosen-select-single-item" name="builder" required>
-                                        <option label="-Please Select-" disabled selected></option>
+                                        <option label="-Please Select-" disabled {% if not project.builder %}selected{% endif %}></option>
                                         {% for i in builder %}
-                                        <option value="{{i.id}}" {% if project.builder.id == i.id %}selected{% endif %}>{{i.name}}</option>
+                                        <option value="{{i.id}}" {% if project.builder and project.builder.id == i.id %}selected{% endif %}>{{i.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5>Broker (listing agent)</h5>
+                                    <select class="utf-chosen-select-single-item" name="broker">
+                                        <option value="">— None —</option>
+                                        {% for b in brokers %}
+                                        <option value="{{ b.id }}" {% if project.broker and project.broker.id == b.id %}selected{% endif %}>{{ b.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>

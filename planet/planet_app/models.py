@@ -103,6 +103,13 @@ class ProjectDetails(models.Model):
     slug = models.SlugField(max_length=300, null=True, blank=True, unique=True)
     city = models.ForeignKey(Cities, on_delete=models.SET_NULL, null=True, blank=True)
     builder = models.ForeignKey(Builder, on_delete=models.SET_NULL, null=True, blank=True)
+    broker = models.ForeignKey(
+        "Brokers",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="properties",
+    )
     title = models.TextField(unique=True)
     description = models.TextField()
     # video_link = EmbedVideoField(null=True, blank=True)
@@ -319,7 +326,18 @@ class Brokers(models.Model):
     picture = models.ImageField(upload_to='brokers/', blank=True, null=True)
     whatsapp_number = models.CharField(max_length=20, blank=True, null=True)
     brn = models.CharField(max_length=100, blank=True, null=True, help_text="Broker Registration Number")
+    media_permit = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="Trakheesi / advertising media permit number",
+    )
     is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = "Broker"
+        verbose_name_plural = "Brokers"
 
     def __str__(self):
         return self.name
