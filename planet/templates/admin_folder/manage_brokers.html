@@ -1,0 +1,180 @@
+{% extends "admin_folder/base.html" %}
+{% block main %}
+        <div class="right_col pb-4" role="main">
+          <div class="row">
+            <div class="col-md-12">
+                <div class="submit-page">
+                    <div class="utf-submit-page-inner-box">
+                        <h3>Brokers</h3>
+                        <p class="text-muted">Listing agent details (photo, BRN, media permit) shown on property pages when a broker is assigned to a property.</p>
+                        <div class="content with-padding">
+                            <div class="col-md-12" align="right">
+                                <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#add_broker_modal">Add broker</button>
+                            </div>
+                            <div class="col-md-12">
+                                <table id="datatablex" class="table table-striped table-bordered" style="max-width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>BRN</th>
+                                            <th>Media permit</th>
+                                            <th>Active</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for b in brokers %}
+                                        <tr>
+                                            <td><strong>{{ b.name }}</strong></td>
+                                            <td>{{ b.brn|default:"—" }}</td>
+                                            <td>{{ b.media_permit|default:"—" }}</td>
+                                            <td>{% if b.is_active %}Yes{% else %}No{% endif %}</td>
+                                            <td>
+                                                <div style="display: inline-flex;">
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit_broker_{{ b.id }}">Edit</button>
+                                                    <form action="/delete-broker" method="POST" style="margin-left: 6px;">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="id" value="{{ b.id }}">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirmm();">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+<div class="modal fade" id="add_broker_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add broker</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+          <form action="/manage-brokers" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row">
+                  <div class="col-md-6 form-group">
+                      <label for="add_name">Name</label>
+                      <input type="text" class="form-control" name="name" id="add_name" required>
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label for="add_picture">Photo</label>
+                      <input type="file" id="add_picture" class="uploadImage" accept=".jpg,.jpeg,.png,.webp" name="picture">
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label for="add_brn">Broker registration number (BRN)</label>
+                      <input type="text" class="form-control" name="brn" id="add_brn" placeholder="e.g. 12345">
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label for="add_media">Media permit</label>
+                      <input type="text" class="form-control" name="media_permit" id="add_media" placeholder="Trakheesi / permit number">
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label for="add_wa">WhatsApp (digits, with country code)</label>
+                      <input type="text" class="form-control" name="whatsapp_number" id="add_wa" placeholder="9715xxxxxxxx">
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label><input type="checkbox" name="is_active" checked> Active (show in property form dropdown)</label>
+                  </div>
+                  <div class="col-md-12 form-group" align="center">
+                      <input type="submit" class="form-control btn-primary" value="Save">
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% for b in brokers %}
+<div class="modal fade" id="edit_broker_{{ b.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit broker</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+          <form action="/edit-broker" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type="hidden" name="id" value="{{ b.id }}">
+              <div class="row">
+                  <div class="col-md-6 form-group">
+                      <label for="edit_name_{{ b.id }}">Name</label>
+                      <input type="text" class="form-control" name="name" id="edit_name_{{ b.id }}" value="{{ b.name }}" required>
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label for="edit_picture_{{ b.id }}">Photo
+                        {% if b.picture %}(<a href="/media/{{ b.picture }}" target="_blank">view</a>){% endif %}
+                      </label>
+                      <input type="file" id="edit_picture_{{ b.id }}" class="uploadImage" accept=".jpg,.jpeg,.png,.webp" name="picture">
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label for="edit_brn_{{ b.id }}">BRN</label>
+                      <input type="text" class="form-control" name="brn" id="edit_brn_{{ b.id }}" value="{{ b.brn|default:'' }}">
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label for="edit_media_{{ b.id }}">Media permit</label>
+                      <input type="text" class="form-control" name="media_permit" id="edit_media_{{ b.id }}" value="{{ b.media_permit|default:'' }}">
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label for="edit_wa_{{ b.id }}">WhatsApp</label>
+                      <input type="text" class="form-control" name="whatsapp_number" id="edit_wa_{{ b.id }}" value="{{ b.whatsapp_number|default:'' }}">
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label><input type="checkbox" name="is_active" {% if b.is_active %}checked{% endif %}> Active</label>
+                  </div>
+                  <div class="col-md-12 form-group" align="center">
+                      <input type="submit" class="form-control btn-primary" value="Save">
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  var MAX_FILE_SIZE = 1000 * 1024;
+  $(document).ready(function() {
+      $('.uploadImage').change(function() {
+          var fileInput = this;
+          var filePath = fileInput.value;
+          if (!filePath) { fileInput.setCustomValidity(""); return; }
+          var allowedExtensions =  /(\.jpg|\.jpeg|\.png|\.webp)$/i;
+          if (!allowedExtensions.exec(filePath)) {
+              fileInput.setCustomValidity("Only Images (.png, .jpg, .jpeg, .webp) are accepted");
+              fileInput.reportValidity();
+              return false;
+          }
+          fileInput.setCustomValidity("");
+          var fileSize = this.files[0].size;
+          if (fileSize > MAX_FILE_SIZE) {
+              this.setCustomValidity("File must not exceed 1 MB!");
+              this.reportValidity();
+          } else {
+              this.setCustomValidity("");
+          }
+      });
+  });
+</script>
+{% endblock %}
