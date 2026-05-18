@@ -1066,6 +1066,7 @@ def add_property(request):
         project_units = request.POST.get('project_units')
         project_buildup = request.POST.get('project_buildup')
         project_price = request.POST.get('project_price')
+        project_price_text = request.POST.get('project_price_text') or None
         project_status = request.POST.get('project_status')
         project_status_1 = request.POST.get('project_status_1')
 
@@ -1082,7 +1083,8 @@ def add_property(request):
         project = ProjectDetails.objects.create(
             title=title, description=description, video_link=video_link, map_link=map_link,
             project_area=project_area, project_type=project_type, project_units=project_units,
-            project_buildup=project_buildup, project_price=project_price, project_status=project_status,
+            project_buildup=project_buildup, project_price=project_price,
+            project_price_text=project_price_text, project_status=project_status,
             contact_email=email, contact_phone=phone, contact_whatsapp=whatsapp, is_featured=is_featured,
             city=city, builder=builder, broker=broker, master_plan=master_plan, location=location, rera_no=rera_no,
             dld_permit_number=dld_permit_number, possession=possession, property_type=property_type, master_plan_pdf=master_plan_pdf,
@@ -1290,6 +1292,7 @@ def edit_property_details(request, pk):
         project_units = request.POST.get('project_units')
         project_buildup = request.POST.get('project_buildup')
         project_price = request.POST.get('project_price')
+        project_price_text = request.POST.get('project_price_text') or None
         project_status = request.POST.get('project_status')
         project_status_1 = request.POST.get('project_status_1')
         email = request.POST.get('email')
@@ -1315,6 +1318,7 @@ def edit_property_details(request, pk):
         project.project_units = project_units
         project.project_buildup = project_buildup
         project.project_price = project_price
+        project.project_price_text = project_price_text
         project.project_status = project_status
         project.project_status_1 = project_status_1
         project.contact_email = email

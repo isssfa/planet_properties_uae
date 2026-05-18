@@ -157,7 +157,10 @@
 
                                 <div class="col-md-4">
                                     <h5>Price</h5>
-                                    <input class="search-field" name="project_price" step="0.01" placeholder="Price (in AED)" type="number" value="" required/>
+                                    <div style="display: flex; gap: 10px;">
+                                        <input class="search-field" name="project_price" step="0.01" placeholder="Price (in AED)" type="number" value="" required style="flex: 1;"/>
+                                        <input class="search-field" name="project_price_text" maxlength="30" placeholder="Price text" type="text" value="" style="flex: 1;"/>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-4">

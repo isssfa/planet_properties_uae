@@ -287,6 +287,9 @@
                 <div class="property-titlebar margin-bottom-0" id="titlebar-dtl-item">
                     <div class="property-title">
                         <div class="property-pricing">{{project_price_display}}</div>
+                        {% if project.project_price_text %}
+                        <div class="property-pricing-text">{{project.project_price_text}}</div>
+                        {% endif %}
                         <h2>{{project.title}} <span class="property-badge-sale">{{project.project_status}}</span>{% if project.project_status_1 %}<span class="property-badge-sale">{{project.project_status_1}}</span>{% endif %}</h2>
                         {% if project.rera_no %}
                             <p style="padding: 0px; margin: 0px; word-wrap: break-word;">{% trans "RERA No" %}: {{project.rera_no}}</p>
@@ -367,7 +370,7 @@
                                         <td>{{i.obj.property}}</td>
                                         <td>{{i.obj.builtup}}</td>
                                         <td>{{i.obj.carpet}}</td>
-                                        <td>{{i.price_display}}</td>
+                                        <td>{{i.obj.price}}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>

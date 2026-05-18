@@ -43,6 +43,7 @@ class ProjectDetailsTranslationOptions(TranslationOptions):
         'project_units',    # e.g., "500 Total Units"
         'project_buildup',  # e.g., "2000 sq ft"
         'project_price',    # If it's descriptive text (e.g., "Starting from...")
+        'project_price_text',
         'project_status',   # e.g., "Ready to Move"
         'project_status_1', # e.g., "Under Construction"
         'location',         # Detailed text description of the location

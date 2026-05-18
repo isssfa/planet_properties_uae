@@ -120,6 +120,7 @@ class ProjectDetails(models.Model):
     project_units = models.CharField(max_length=300)
     project_buildup = models.CharField(max_length=300)
     project_price = models.CharField(max_length=300)
+    project_price_text = models.CharField(max_length=30, null=True, blank=True)
     project_currency = models.CharField(max_length=10, choices=[("usd", "USD"),("aed", "AED"),("inr", "INR"),("eur", "EUR")], default="aed")
     project_status = models.CharField(max_length=300)
     project_status_1 = models.CharField(max_length=300, null=True, blank=True)

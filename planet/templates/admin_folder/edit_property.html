@@ -165,7 +165,10 @@
 
                                 <div class="col-md-4">
                                     <h5>Price</h5>
-                                    <input class="search-field" name="project_price" placeholder="Price (in AED)" step="0.01" type="number" value="{{project.project_price}}" required/>
+                                    <div style="display: flex; gap: 10px;">
+                                        <input class="search-field" name="project_price" placeholder="Price (in AED)" step="0.01" type="number" value="{{project.project_price}}" required style="flex: 1;"/>
+                                        <input class="search-field" name="project_price_text" maxlength="30" placeholder="Price text" type="text" value="{{project.project_price_text|default:''}}" style="flex: 1;"/>
+                                    </div>
                                 </div>
 
 
