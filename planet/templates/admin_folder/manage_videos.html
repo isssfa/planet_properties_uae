@@ -1,0 +1,194 @@
+{% extends "admin_folder/base.html" %}
+{% block main %}
+        <div class="right_col pb-4" role="main">
+          <div class="row">
+            <div class="col-md-12">
+                <div class="submit-page">
+                    <div class="utf-submit-page-inner-box">
+                        <h3>Homepage Videos</h3>
+                        <p class="text-muted">Manage videos shown in the &ldquo;Watch, Compare &amp; Choose&rdquo; carousel on the home page.</p>
+                        <div class="content with-padding">
+                            <div class="col-md-12" align="right">
+                                <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#add_video_modal">Add video</button>
+                            </div>
+                            <div class="col-md-12">
+                                <table id="datatablex" class="table table-striped table-bordered" style="max-width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Thumbnail</th>
+                                            <th>Created</th>
+                                            <th>Active</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for v in videos %}
+                                        <tr>
+                                            <td><strong>{{ v.title }}</strong></td>
+                                            <td>
+                                                {% if v.thumbnail %}
+                                                <a href="/media/{{ v.thumbnail }}" target="_blank">
+                                                    <img src="/media/{{ v.thumbnail }}" alt="{{ v.title }}" style="max-height: 48px; max-width: 80px;">
+                                                </a>
+                                                {% else %}—{% endif %}
+                                            </td>
+                                            <td>{{ v.created_on|date:"M d, Y H:i" }}</td>
+                                            <td>{% if v.is_active %}Yes{% else %}No{% endif %}</td>
+                                            <td>
+                                                <div style="display: inline-flex;">
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit_video_{{ v.id }}">Edit</button>
+                                                    <form action="/delete-video" method="POST" style="margin-left: 6px;">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="id" value="{{ v.id }}">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirmm();">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                      {% empty %}
+                                        <tr>
+                                            <td colspan="5" class="text-center text-muted">No videos yet.</td>
+                                        </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+<div class="modal fade" id="add_video_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add video</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+          <form action="/manage-videos" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row">
+                  <div class="col-md-12 form-group">
+                      <label for="add_title">Title</label>
+                      <input type="text" class="form-control" name="title" id="add_title" maxlength="200" required>
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label for="add_thumbnail">Thumbnail</label>
+                      <input type="file" id="add_thumbnail" class="uploadImage" accept=".jpg,.jpeg,.png,.webp" name="thumbnail" required>
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label for="add_video">Video file</label>
+                      <input type="file" id="add_video" class="uploadVideo" accept=".mp4,.webm,.mov,.avi,.mkv" name="video" required>
+                  </div>
+                  <div class="col-md-12 form-group">
+                      <label><input type="checkbox" name="is_active" checked> Active (show on home page)</label>
+                  </div>
+                  <div class="col-md-12 form-group" align="center">
+                      <input type="submit" class="form-control btn-primary" value="Save">
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% for v in videos %}
+<div class="modal fade" id="edit_video_{{ v.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit video</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+          <form action="/edit-video" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type="hidden" name="id" value="{{ v.id }}">
+              <div class="row">
+                  <div class="col-md-12 form-group">
+                      <label for="edit_title_{{ v.id }}">Title</label>
+                      <input type="text" class="form-control" name="title" id="edit_title_{{ v.id }}" value="{{ v.title }}" maxlength="200" required>
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label for="edit_thumbnail_{{ v.id }}">Thumbnail
+                        {% if v.thumbnail %}(<a href="/media/{{ v.thumbnail }}" target="_blank">view</a>){% endif %}
+                      </label>
+                      <input type="file" id="edit_thumbnail_{{ v.id }}" class="uploadImage" accept=".jpg,.jpeg,.png,.webp" name="thumbnail">
+                  </div>
+                  <div class="col-md-6 form-group">
+                      <label for="edit_video_{{ v.id }}">Video file
+                        {% if v.video %}(<a href="/media/{{ v.video }}" target="_blank">view</a>){% endif %}
+                      </label>
+                      <input type="file" id="edit_video_{{ v.id }}" class="uploadVideo" accept=".mp4,.webm,.mov,.avi,.mkv" name="video">
+                  </div>
+                  <div class="col-md-12 form-group">
+                      <label><input type="checkbox" name="is_active" {% if v.is_active %}checked{% endif %}> Active (show on home page)</label>
+                  </div>
+                  <div class="col-md-12 form-group" align="center">
+                      <input type="submit" class="form-control btn-primary" value="Save">
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  var MAX_IMAGE_SIZE = 1000 * 1024;
+  var MAX_VIDEO_SIZE = 100 * 1024 * 1024;
+  $(document).ready(function() {
+      $('.uploadImage').change(function() {
+          var fileInput = this;
+          var filePath = fileInput.value;
+          if (!filePath) { fileInput.setCustomValidity(""); return; }
+          var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.webp)$/i;
+          if (!allowedExtensions.exec(filePath)) {
+              fileInput.setCustomValidity("Only images (.png, .jpg, .jpeg, .webp) are accepted");
+              fileInput.reportValidity();
+              return false;
+          }
+          fileInput.setCustomValidity("");
+          if (this.files[0].size > MAX_IMAGE_SIZE) {
+              this.setCustomValidity("Thumbnail must not exceed 1 MB!");
+              this.reportValidity();
+          } else {
+              this.setCustomValidity("");
+          }
+      });
+      $('.uploadVideo').change(function() {
+          var fileInput = this;
+          var filePath = fileInput.value;
+          if (!filePath) { fileInput.setCustomValidity(""); return; }
+          var allowedExtensions = /(\.mp4|\.webm|\.mov|\.avi|\.mkv)$/i;
+          if (!allowedExtensions.exec(filePath)) {
+              fileInput.setCustomValidity("Only video files (.mp4, .webm, .mov, .avi, .mkv) are accepted");
+              fileInput.reportValidity();
+              return false;
+          }
+          fileInput.setCustomValidity("");
+          if (this.files[0].size > MAX_VIDEO_SIZE) {
+              this.setCustomValidity("Video must not exceed 100 MB!");
+              this.reportValidity();
+          } else {
+              this.setCustomValidity("");
+          }
+      });
+  });
+</script>
+{% endblock %}

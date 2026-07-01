@@ -57,6 +57,10 @@ urlpatterns = [
     path('edit-broker', edit_broker),
     path('delete-broker', delete_broker),
 
+    path('manage-videos', manage_videos, name='manage_videos'),
+    path('edit-video', edit_video),
+    path('delete-video', delete_video),
+
     path('add-events', add_events),
     path('edit-events', edit_events),
     path('delete-events', delete_events),

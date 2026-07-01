@@ -104,7 +104,7 @@ def Index(request):
         project_count=Count('projectdetails')
     ).all()
     cities = [{'city': i, 'count': i.project_count} for i in cities_with_count]
-    videos = Videos.objects.all()[:10]
+    videos = Videos.objects.filter(is_active=True)[:10]
     # Get search filters
     search_filters = get_search_filters()
 
@@ -832,6 +832,64 @@ def delete_broker(request):
         return redirect('/manage-brokers')
     messages.info(request, 'Invalid Request!')
     return redirect('/manage-brokers')
+
+
+@login_required
+def manage_videos(request):
+    if request.method == 'POST':
+        title = request.POST.get('title', '').strip()
+        thumbnail = request.FILES.get('thumbnail')
+        video = request.FILES.get('video')
+        is_active = request.POST.get('is_active') == 'on'
+        if not title or not thumbnail or not video:
+            messages.error(request, 'Title, thumbnail, and video file are required.')
+            return redirect('/manage-videos')
+        Videos.objects.create(
+            title=title,
+            thumbnail=thumbnail,
+            video=video,
+            is_active=is_active,
+        )
+        messages.success(request, 'Video added successfully.')
+        return redirect('/manage-videos')
+    videos = Videos.objects.all()
+    return render(request, 'admin_folder/manage_videos.html', {'videos': videos})
+
+
+@login_required
+def edit_video(request):
+    if request.method != 'POST':
+        messages.info(request, 'Invalid Request!')
+        return redirect('/manage-videos')
+    pk = request.POST.get('id')
+    title = request.POST.get('title', '').strip()
+    thumbnail = request.FILES.get('thumbnail')
+    video = request.FILES.get('video')
+    is_active = request.POST.get('is_active') == 'on'
+    if not pk or not title:
+        messages.error(request, 'Invalid video data.')
+        return redirect('/manage-videos')
+    v = Videos.objects.get(id=pk)
+    v.title = title
+    v.is_active = is_active
+    if thumbnail:
+        v.thumbnail = thumbnail
+    if video:
+        v.video = video
+    v.save()
+    messages.success(request, 'Video saved successfully.')
+    return redirect('/manage-videos')
+
+
+@login_required
+def delete_video(request):
+    if request.method == 'POST':
+        pk = request.POST['id']
+        Videos.objects.get(id=pk).delete()
+        messages.success(request, 'Video deleted successfully.')
+        return redirect('/manage-videos')
+    messages.info(request, 'Invalid Request!')
+    return redirect('/manage-videos')
 
 
 @login_required

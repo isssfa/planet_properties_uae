@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-pjgo5#jc(=omn698d@o$z1v5-68mdnamh--bzdkg5s(jn841*l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['109.199.97.150', 'primeplanetsproperties.com', "www.primeplanetsproperties.com"]
 
@@ -159,6 +159,12 @@ MEDIA_URL = '/media/'
 # Path where media is stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# Sending Email
+EMAIL_HOST = 'smtp.office365.com'
+EMAIL_USE_TLS = 1
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'info@planetsproperties.com'
+EMAIL_HOST_PASSWORD = 'admin@123'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
