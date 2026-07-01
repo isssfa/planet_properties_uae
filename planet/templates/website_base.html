@@ -151,7 +151,9 @@
         }
     </style>
     
-    {% if website.header_script %}{{website.header_script|safe}}{% endif %}
+    {% if website.header_script and website.header_script != "None" %}
+        {{ website.header_script | safe }}
+    {% endif %}
 
 {% block style %}
 {% endblock %}
