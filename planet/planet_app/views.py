@@ -1119,6 +1119,7 @@ def add_property(request):
             broker = None
 
         project_area = request.POST.get('project_area')
+        ownership_type = request.POST.get('ownership_type')
         project_type = request.POST.get('project_type')
         property_type_2 = request.POST.get('property_type_2')
         project_units = request.POST.get('project_units')
@@ -1139,7 +1140,7 @@ def add_property(request):
 
         is_featured = True if request.POST.get('is_featured') == 'Yes' else False
         project = ProjectDetails.objects.create(
-            title=title, description=description, video_link=video_link, map_link=map_link,
+            title=title, description=description, video_link=video_link, map_link=map_link, ownership_type=ownership_type,
             project_area=project_area, project_type=project_type, project_units=project_units,
             project_buildup=project_buildup, project_price=project_price,
             project_price_text=project_price_text, project_status=project_status,
@@ -1345,6 +1346,7 @@ def edit_property_details(request, pk):
         video_link = request.POST.get('video_link')
         map_link = request.POST.get('map_link')
         project_area = request.POST.get('project_area')
+        ownership_type = request.POST.get('ownership_type')
         project_type = request.POST.get('project_type')
         property_type_2 = request.POST.get('property_type_2')
         project_units = request.POST.get('project_units')
@@ -1387,6 +1389,7 @@ def edit_property_details(request, pk):
         project.builder = builder
         project.broker = broker
         project.location = location
+        project.ownership_type = ownership_type
         project.property_id = property_id
         # meta details
         project.meta_keywords = meta_keywords
