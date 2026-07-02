@@ -317,7 +317,7 @@
                             <input name="name" placeholder="{% trans 'Name' %}" type="text" required>
                             {% render_honeypot_field "check_field" %}
                             <input name="email" placeholder="{% trans 'Email' %}" type="email" required>
-                            <input name="phone" placeholder="{% trans 'Phone' %}" type="text" required>
+                            <input name="phone" placeholder="{% trans 'Phone with country Code' %}" type="text" required>
                             <textarea name="message">{% blocktrans with title=project.title %}I'm interested in {{title}}{% endblocktrans %}</textarea>
                               <div class="utf-no-border">
                                   {% blocktrans with num1=num1 num2=num2 %}What's <span class="num1">{{num1}}</span> + <span class="num2">{{num2}}</span> ?{% endblocktrans %}
@@ -715,7 +715,7 @@
             <input type="email" name="email" placeholder="{% trans 'Email Address' %}" required/>
           </div>
 		  <div class="utf-no-border">
-            <input type="text" name="phone" placeholder="{% trans 'Mobile Number' %}" required/>
+            <input type="text" name="phone" placeholder="{% trans 'Mobile Number with country Code' %}" required/>
           </div>
           <div class="utf-no-border">
               <textarea name="message" id="display_message" placeholder="{% trans 'Your Message' %}" >{{message}}</textarea>
