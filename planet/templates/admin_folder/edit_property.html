@@ -69,6 +69,7 @@
                                 <div class="col-md-4">
                                     <h5>New Property?</h5>
                                     <select class="utf-chosen-select-single-item" data-placeholder="Property Type"  name="property_type_2" required>
+                                        <option value="Off Plan" {% if project.property_type_2 == 'Off Plan' %}selected{% endif %}>Off Plan</option>
                                         <option value="Commercial" {% if project.property_type_2 == 'Commercial' %}selected{% endif %}>Commercial</option>
                                         <option value="Commercial Rental" {% if project.property_type_2 == 'Commercial Rental' %}selected{% endif %}>Commercial Rental</option>
                                         <option value="Commercial Resale" {% if project.property_type_2 == 'Commercial Resale' %}selected{% endif %}>Commercial Resale</option>
