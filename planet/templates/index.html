@@ -365,7 +365,8 @@
                         </a>
                         <div class="utf-listing-content">
                           <div class="utf-listing-title">
-                            <span class="utf-listing-price">{{i.price_display}}</span>
+                            <span class="utf-listing-price">{{i.price_display}}</span><br>
+                            <span class="utf-listing-price">{{i.project_price_text}}</span>
                             <h4><a href="/properties/{{i.project.slug}}">{{i.project.title|title}}</a></h4>
                             <span class="utf-listing-address"><i class="icon-material-outline-location-on"></i>{% if i.project.location %}{{i.project.location|title|truncatechars:22}}, {% endif %}{{i.project.city.name}}</span>
 						  </div>
