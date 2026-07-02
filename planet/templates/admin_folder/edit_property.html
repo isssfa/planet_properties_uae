@@ -53,27 +53,24 @@
                                 <div class="col-md-4">
                                     <h5>Property Type</h5>
                                     <select class="utf-chosen-select-single-item" data-placeholder="Property Type"  name="property_type" required>
-                                        <option value="Multi Storey Apartments" {% if project.property_type == 'Multi Storey Apartments' %}selected{% endif %}>Multi Storey Apartments</option>
-                                        <option value="Flats / Builder Floor Apartments" {% if project.property_type == 'Flats / Builder Floor Apartments' %}selected{% endif %}>Flats / Builder Floor Apartments </option>
-                                        <option value="Villas" {% if project.property_type == 'Villas' %}selected{% endif %}>Villas</option>
-                                        <option value="Row Houses" {% if project.property_type == 'Row Houses' %}selected{% endif %}>Row Houses</option>
-                                        <option value="Villaments" {% if project.property_type == 'Villaments' %}selected{% endif %}>Villaments</option>
+                                        <option value="Flats" {% if project.property_type == 'Flats' %}selected{% endif %}>Flats</option>
+                                        <option value="Villas" {% if project.property_type == 'Villas' %}selected{% endif %}>Villas </option>
                                         <option value="Plots" {% if project.property_type == 'Plots' %}selected{% endif %}>Plots</option>
                                         <option value="Pent House" {% if project.property_type == 'Pent House' %}selected{% endif %}>Pent House</option>
-                                        <option value="Independent Houses" {% if project.property_type == 'Independent Houses' %}selected{% endif %}>Independent Houses</option>
-                                        <option value="Commercial" {% if project.property_type == 'Commercial' %}selected{% endif %}>Commercial</option>
+                                        <option value="Town House" {% if project.property_type == 'Town House' %}selected{% endif %}>Town House</option>
+                                        <option value="Duplex" {% if project.property_type == 'Duplex' %}selected{% endif %}>Duplex</option>
+                                        <option value="Bungalow" {% if project.property_type == 'Bungalow' %}selected{% endif %}>Bungalow</option>
+                                        <option value="Row Houses" {% if project.property_type == 'Row Houses' %}selected{% endif %}>Row Houses</option>
+                                        <option value="Bulk Sale Unit" {% if project.property_type == 'Bulk Sale Unit' %}selected{% endif %}>Bulk Sale Unit</option>
+                                        <option value="Office Space" {% if project.property_type == 'Office Space' %}selected{% endif %}>Office Space</option>
                                     </select>
                                 </div>
 
                                 <div class="col-md-4">
                                     <h5>New Property?</h5>
                                     <select class="utf-chosen-select-single-item" data-placeholder="Property Type"  name="property_type_2" required>
-                                        <option value="New Sale" {% if project.property_type_1 == 'New Sale' %}selected{% endif %}>New Sale</option>
-                                        <option value="Rental" {% if project.property_type_1 == 'Rental' %}selected{% endif %}>Rental</option>
-                                        <option value="Resale" {% if project.property_type_1 == 'Resale' %}selected{% endif %}>Resale</option>
                                         <option value="Commercial" {% if project.property_type_1 == 'Commercial' %}selected{% endif %}>Commercial</option>
-                                        <option value="Land" {% if project.property_type_1 == 'Land' %}selected{% endif %}>Land</option>
-                                        <option value="Agricultural" {% if project.property_type_1 == 'Agricultural' %}selected{% endif %}>Agricultural</option>
+                                        <option value="Commercial" {% if project.property_type_1 == 'Residential' %}selected{% endif %}>Residential</option>
                                     </select>
                                 </div>
 
@@ -262,9 +259,6 @@
                                     <div class="col-md-12 pt-3 border-bottom" id="pricing_{{i.num}}">
                                         <div class="col-md-3">
                                             <input placeholder="Property 1" type="text" name="property_{{i.num}}" value="{{i.floor.property}}">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input placeholder="Super Builtup Area 1" type="text" name="builtup_area_{{i.num}}" value="{{i.floor.builtup}}">
                                         </div>
                                         <div class="col-md-3">
                                             <input placeholder="Carpet Area	1" type="text" name="carpet_area_{{i.num}}" value="{{i.floor.carpet}}">
@@ -580,9 +574,7 @@
     desc += '<div class="col-md-3">'
     desc += '<input placeholder="Property '+n+'" type="text" name="property_'+n+'" required>'
     desc += '</div>'
-    desc += '<div class="col-md-3">'
-    desc += '<input placeholder="Super Builtup Area '+n+'" type="text" name="builtup_area_'+n+'" required>'
-    desc += '</div>'
+
     desc += '<div class="col-md-3">'
     desc += '<input placeholder="Carpet Area '+n+'" type="text" name="carpet_area_'+n+'">'
     desc += '</div>'

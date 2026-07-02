@@ -288,7 +288,8 @@
                     <div class="property-title">
                         <div class="property-pricing">{{project_price_display}}</div>
                         {% if project.project_price_text %}
-                        <div class="property-pricing-text">{{project.project_price_text}}</div>
+                        <div class="property-pricing">{{project.project_price_text}}</div>
+<!--                        <div class="property-pricing-text">{{project.project_price_text}}</div>-->
                         {% endif %}
                         <h2>{{project.title}} <span class="property-badge-sale">{{project.project_status}}</span>{% if project.project_status_1 %}<span class="property-badge-sale">{{project.project_status_1}}</span>{% endif %}</h2>
                         {% if project.rera_no %}
@@ -334,10 +335,10 @@
                     </div>
 
                     <ul class="property-features margin-top-0">
-                        <li>{% trans "Project Area" %}: <span>{{project.project_area}}</span></li>
+                        {% if project.project_area %}<li>{% trans "Project Area" %}: <span>{{project.project_area}}</span></li>{% endif %}
                         <li>{% trans "Type" %}: <span>{{project.project_type}}</span></li>
                         <li>{% trans "No. of Unit" %}: <span>{{project.project_units}}</span></li>
-                        <li>{% trans "Builtup Area" %}: <span>{{project.project_buildup}}</span></li>
+                        <li>{% trans "Area" %}: <span>{{project.project_buildup}}</span></li>
                         <li>{% trans "Price" %}: <span>{{project_price_display}}</span></li>
                         <li>{% trans "Status" %}: <span>{{project.project_status}}{% if project.project_status_1 %}<br>{{project.project_status_1}}{% endif %}</span></li>
                     </ul>
@@ -359,7 +360,7 @@
                                 <thead>
                                     <tr>
                                         <th>{% trans "Property" %}</th>
-                                        <th>{% trans "Super Builtup Area" %}</th>
+<!--                                        <th>{% trans "Super Builtup Area" %}</th>-->
                                         <th>{% trans "Carpet Area" %}</th>
                                         <th>{% trans "Basic Price" %}</th>
                                     </tr>
@@ -368,7 +369,7 @@
                                     {% for i in pricing %}
                                     <tr>
                                         <td>{{i.obj.property}}</td>
-                                        <td>{{i.obj.builtup}}</td>
+<!--                                        <td>{{i.obj.builtup}}</td>-->
                                         <td>{{i.obj.carpet}}</td>
                                         <td>{{i.obj.price}}</td>
                                     </tr>

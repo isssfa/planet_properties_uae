@@ -115,7 +115,7 @@ class ProjectDetails(models.Model):
     # video_link = EmbedVideoField(null=True, blank=True)
     video_link = models.TextField(null=True, blank=True)
     map_link = models.TextField(null=True, blank=True)
-    project_area = models.CharField(max_length=300)
+    project_area = models.CharField(max_length=300, null=True, blank=True)
     project_type = models.CharField(max_length=300)
     project_units = models.CharField(max_length=300)
     project_buildup = models.CharField(max_length=300)
