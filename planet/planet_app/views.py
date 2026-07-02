@@ -482,7 +482,7 @@ def send_email(request):
                     name) + "</td></tr><tr><th>Email</th><td>" + str(
                     email) + "</td></tr><tr><th>Mobile No.</th><td>" + str(
                     phone) + "</td></tr><tr><th>Message</th><td>" + str(message) + "</td></tr></table>"
-                to = ['sales@planetsproperties.com']
+                to = ['sales@primeplanetsproperties.com']
                 email_msg = EmailMessage(subject,
                                          email_template, 'info@planetsproperties.com',
                                          to,

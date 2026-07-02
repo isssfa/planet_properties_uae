@@ -680,11 +680,11 @@
         <div class="broker-modal-section">
           <p class="broker-modal-section-title">{% trans "Registration & permits" %}</p>
           <div class="broker-modal-row">
-            <span class="broker-modal-label">{% trans "Broker registration number (BRN)" %}</span>
+            <span class="broker-modal-label" style="font-size: 12px;">{% trans "Broker registration number (BRN)" %}</span>
             <span class="broker-modal-value {% if not project.broker.brn %}muted{% endif %}" translate="no">{% if project.broker.brn %}{{ project.broker.brn }}{% else %}{% trans "Not provided" %}{% endif %}</span>
           </div>
           <div class="broker-modal-row">
-            <span class="broker-modal-label">{% trans "Media permit" %}</span>
+            <span class="broker-modal-label" style="font-size: 12px;">{% trans "Media permit" %}</span>
             <span class="broker-modal-value {% if not project.broker.media_permit %}muted{% endif %}" translate="no">{% if project.broker.media_permit %}{{ project.broker.media_permit }}{% else %}{% trans "Not provided" %}{% endif %}</span>
           </div>
         </div>
