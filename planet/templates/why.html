@@ -1,126 +1,305 @@
 {% extends 'website_base.html' %}
 {% load static %}
+{% block style %}
+<style>
+  .why-hero {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 10px;
+  }
+  .why-hero .why-subtitle {
+    font-size: 22px;
+    font-weight: 600;
+    color: #e33324;
+    margin-bottom: 24px;
+    letter-spacing: 0.3px;
+  }
+  .why-hero p,
+  .why-section p {
+    text-align: justify;
+    line-height: 1.85;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 18px;
+  }
+  .why-section {
+    padding: 10px 0 20px;
+  }
+  .why-list-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 30px;
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+  }
+  .why-list-grid li {
+    position: relative;
+    padding-left: 28px;
+    line-height: 1.7;
+    font-size: 15px;
+    color: #444;
+  }
+  .why-list-grid li::before {
+    content: "\f00c";
+    font-family: "FontAwesome";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    color: #e33324;
+    font-size: 14px;
+  }
+  .why-highlight-box {
+    background: #fff;
+    border-left: 4px solid #e33324;
+    padding: 22px 28px;
+    margin-top: 24px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+    border-radius: 0 6px 6px 0;
+  }
+  .why-highlight-box p {
+    margin-bottom: 0;
+  }
+  .why-closing {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .why-closing h3 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: #333;
+  }
+  .why-closing p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #e33324;
+    letter-spacing: 0.4px;
+    margin: 0;
+  }
+  @media (max-width: 767px) {
+    .why-list-grid {
+      grid-template-columns: 1fr;
+    }
+    .why-hero .why-subtitle {
+      font-size: 18px;
+    }
+  }
+</style>
+{% endblock %}
+
 {% block main %}
 
   <!-- Titlebar -->
-    <div class="parallax titlebar" data-background="{% static 'front/images/listings-parallax.jpg' %}" data-color="rgba(48, 48, 48, 1)"
-         data-color-opacity="0.8" data-img-height="505" data-img-width="800">
-        <div id="titlebar">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>
-                            Why Choose Prime Planets Properties LLC?
-                        </h2>
-                        <!-- Breadcrumbs -->
-                        <nav id="breadcrumbs">
-                            <ul>
-                                <li><a href="/">Home</a></li>
-                                <li>Why Us</li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
+  <div class="parallax titlebar" data-background="{% static 'assets/images/dubai_surrounding_2.jpg' %}" data-color="rgba(48, 48, 48, 1)"
+       data-color-opacity="0.8" data-img-height="505" data-img-width="800">
+    <div id="titlebar">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Why Prime Planets Properties LLC</h2>
+            <nav id="breadcrumbs">
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li>Why Us</li>
+              </ul>
+            </nav>
+          </div>
         </div>
+      </div>
     </div>
-
-
-
-  <!-- Contact -->
-  <div class="margin-top-65 padding-bottom-55">
-	  <div class="container">
-		<div class="row">
-		  <div class="col-xl-12 col-md-12">
-			<p style="text-align: justify;">
-                We are a RERA certified property consultancy & channel partners for A and B category builders
-                across India. We act as advisors and sales professionals, rather than mere brokers.
-                There is a massive difference between the two. A broker is one who acts as a link between the
-                buyer and the seller and takes a commission from both parties. Channel/ Marketing partners are
-                consultants who give researched insights & feedback about the real estate dynamics to the client.
-                <b>As they separate wheat from the chaff, we do due diligence and filter out and cherry pick the
-                properties that qualify our stringent criteria and offer only those properties to our clients..</b>
-                The selling services are designed but are not limited to a pre-agreed duration, for which we
-                receive recognition & remuneration from the developer for the services rendered but nothing is charged
-                from the buyer for the properties bought through Builders/ Developers.<br><br>
-
-                <b>On the other hand, the buyer or investor receives free services such as site visits, pick and drop,
-                loan assistance, post-sales services, etc.</b> This marketing technique means that the industry is
-                getting more organized and transparent. The buyer can rely on us who make the property search
-                experience more reachable and hassle-free.<br><br>
-
-                Having a channel partner as a consultant eases the processes of looking for a property a lot more
-                and also increases options for customers. The customers can engage with channel partners after
-                extensive diligence and let them play an advisory role by guiding them appropriately.
-            </p>
-		  </div>
-		</div>
-	  </div>
   </div>
-  <!-- Container / End -->
 
-  <!-- Fullwidth Section -->
+  <!-- Intro -->
+  <div class="margin-top-65 padding-bottom-55">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12 col-md-12">
+          <div class="why-hero">
+            <p class="why-subtitle">Your Trusted Global Real Estate Partner</p>
+            <p>
+              Prime Planets Properties LLC is a premier real estate advisory and brokerage firm headquartered in Dubai,
+              committed to delivering exceptional property solutions with integrity, expertise, and a client-first approach.
+            </p>
+            <p>
+              With our established presence in the UAE and India, we combine deep local expertise with international
+              service standards to help homeowners, investors, corporations, and NRIs make confident real estate decisions.
+            </p>
+            <p>
+              In India, we proudly operate under our trusted brand <strong>PLANETS PROPERTIES</strong>, with a strong
+              presence in Bangalore and a network of RERA-registered property consultants across Bangalore, Hyderabad,
+              and Chennai. This cross-border platform enables us to seamlessly serve clients investing in both India
+              and Dubai through one trusted real estate partner.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A Legacy of Trust & Excellence -->
   <section class="fullwidth" data-background-color="#fbfbfb">
     <div class="container">
       <div class="row">
-		<div class="col-md-12">
-			<div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">
-			  <h3 class="headline">Why Client Trust Us</h3>
-            </div>
-		</div>
-        <div class="col-xl-12 col-md-12">
-            {{website.why_rera|safe}}
+        <div class="col-md-12">
+          <div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">
+            <h3 class="headline">A Legacy of Trust &amp; Excellence</h3>
+          </div>
+        </div>
+        <div class="col-xl-10 col-xl-offset-1 col-md-12">
+          <div class="why-section">
+            <p>
+              Our reputation is built on professionalism, transparency, market knowledge, and long-term client
+              relationships. Every transaction is guided by integrity, ensuring our clients receive honest advice,
+              personalized solutions, and exceptional service from consultation to completion.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-<!--  &lt;!&ndash; Fullwidth Section &ndash;&gt;-->
-<!--  <section class="fullwidth" data-background-color="#fff">-->
-<!--    <div class="container">-->
-<!--      <div class="row">-->
-<!--		<div class="col-md-12">-->
-<!--			<div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">-->
-<!--			  <h3 class="headline">Discounts and Best Deals</h3>-->
-<!--            </div>-->
-<!--		</div>-->
-<!--        <div class="col-xl-12 col-md-12">-->
-<!--            {{website.why_deals|safe}}-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </section>-->
+  <!-- Extensive Property Portfolio -->
+  <section class="fullwidth" data-background-color="#fff">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">
+            <h3 class="headline">Extensive Property Portfolio</h3>
+          </div>
+        </div>
+        <div class="col-xl-10 col-xl-offset-1 col-md-12">
+          <div class="why-section">
+            <p>
+              We offer an extensive portfolio of carefully selected properties to meet every lifestyle and investment
+              objective, including:
+            </p>
+            <ul class="why-list-grid">
+              <li>Luxury residences</li>
+              <li>Apartments and villas</li>
+              <li>Branded residences</li>
+              <li>Commercial offices</li>
+              <li>Retail spaces</li>
+              <li>Off-plan developments</li>
+              <li>Ready properties</li>
+              <li>Plotted developments</li>
+              <li>Holiday homes</li>
+              <li>Investment properties with attractive rental returns</li>
+            </ul>
+            <div class="why-highlight-box">
+              <p>
+                Through our strong relationships with leading developers and property owners, we provide our clients with
+                exclusive opportunities and priority access to some of the most desirable projects in the market.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!--  &lt;!&ndash; Fullwidth Section &ndash;&gt;-->
-<!--  <section class="fullwidth" data-background-color="#fbfbfb">-->
-<!--    <div class="container">-->
-<!--      <div class="row">-->
-<!--		<div class="col-md-12">-->
-<!--			<div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">-->
-<!--			  <h3 class="headline">Helping You to Find Best Location</h3>-->
-<!--            </div>-->
-<!--		</div>-->
-<!--        <div class="col-xl-12 col-md-12">-->
-<!--            {{website.why_location|safe}}-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </section>-->
+  <!-- Complete Real Estate Solutions -->
+  <section class="fullwidth" data-background-color="#fbfbfb">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">
+            <h3 class="headline">Complete Real Estate Solutions</h3>
+          </div>
+        </div>
+        <div class="col-xl-10 col-xl-offset-1 col-md-12">
+          <div class="why-section">
+            <p>Our comprehensive services include:</p>
+            <ul class="why-list-grid">
+              <li>Residential &amp; Commercial Sales</li>
+              <li>Property Investment Advisory</li>
+              <li>Portfolio Management</li>
+              <li>Mortgage Assistance</li>
+              <li>Legal &amp; Documentation Support</li>
+              <li>Property Management</li>
+              <li>Leasing &amp; Resale Services</li>
+              <li>After-Sales Assistance</li>
+              <li>NRI Investment Solutions</li>
+              <li>Cross-Border Property Advisory</li>
+            </ul>
+            <div class="why-highlight-box">
+              <p>
+                Our commitment extends beyond the transaction—we remain a trusted advisor throughout your real estate journey.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!--  &lt;!&ndash; Fullwidth Section &ndash;&gt;-->
-<!--  <section class="fullwidth" data-background-color="#fff">-->
-<!--    <div class="container">-->
-<!--      <div class="row">-->
-<!--		<div class="col-md-12">-->
-<!--			<div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">-->
-<!--			  <h3 class="headline">Providing End to End Real Estate Service</h3>-->
-<!--            </div>-->
-<!--		</div>-->
-<!--        <div class="col-xl-12 col-md-12">-->
-<!--            {{website.why_providing|safe}}-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </section>-->
+  <!-- Why Clients Choose Us -->
+  <section class="fullwidth" data-background-color="#fff">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">
+            <h3 class="headline">Why Clients Choose Us</h3>
+          </div>
+        </div>
+        <div class="col-xl-10 col-xl-offset-1 col-md-12">
+          <div class="why-section">
+            <ul class="why-list-grid">
+              <li>Dubai-based international real estate company</li>
+              <li>Trusted Indian brand through PLANETS PROPERTIES</li>
+              <li>RERA-registered consultants in Bangalore, Hyderabad, and Chennai</li>
+              <li>Experienced multilingual professionals</li>
+              <li>Exclusive developer partnerships</li>
+              <li>Wide inventory across residential and commercial projects</li>
+              <li>Transparent and ethical business practices</li>
+              <li>Tailored investment strategies</li>
+              <li>End-to-end customer support</li>
+              <li>Long-term relationships built on trust and results</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dubai – A Global Investment Destination -->
+  <section class="fullwidth" data-background-color="#fbfbfb">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="utf-section-headline-item centered margin-bottom-30 margin-top-0">
+            <h3 class="headline">Dubai – A Global Investment Destination</h3>
+          </div>
+        </div>
+        <div class="col-xl-10 col-xl-offset-1 col-md-12">
+          <div class="why-section">
+            <p>
+              Dubai is recognized as one of the world's most dynamic real estate markets, offering a tax-efficient
+              environment, world-class infrastructure, investor-friendly regulations, high rental yields, and exceptional
+              lifestyle opportunities.
+            </p>
+            <p>
+              At Prime Planets Properties LLC, we connect clients to the best opportunities across Dubai while continuing
+              to serve investors in India through our trusted brand, <strong>PLANETS PROPERTIES</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing -->
+  <section class="fullwidth" data-background-color="#fff" style="padding-bottom: 60px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="why-closing">
+            <h3>Prime Planets Properties LLC</h3>
+            <p>Global Vision. Local Expertise. Trusted Relationships. Exceptional Results.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 {% endblock %}
