@@ -338,7 +338,7 @@
                         {% if project.project_area %}<li>{% trans "Project Area" %}: <span>{{project.project_area}}</span></li>{% endif %}
                         <li>{% trans "Type" %}: <span>{{project.project_type}}</span></li>
                         <li>{% trans "Ownership Type" %}: <span>{{project.ownership_type}}</span></li>
-                        <li>{% trans "No. of Unit" %}: <span>{{project.project_units}}</span></li>
+                        {% if project.project_units %}<li>{% trans "No. of Unit" %}: <span>{{project.project_units}}</span></li>{% endif %}
                         <li>{% trans "Area" %}: <span>{{project.project_buildup}}</span></li>
                         <li>{% trans "Price" %}: <span>{{project_price_display}}</span></li>
                         <li>{% trans "Status" %}: <span>{{project.project_status}}{% if project.project_status_1 %}<br>{{project.project_status_1}}{% endif %}</span></li>

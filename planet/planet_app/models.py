@@ -118,7 +118,7 @@ class ProjectDetails(models.Model):
     project_area = models.CharField(max_length=300, null=True, blank=True)
     ownership_type = models.CharField(max_length=300, null=True, blank=True)
     project_type = models.CharField(max_length=300)
-    project_units = models.CharField(max_length=300)
+    project_units = models.CharField(max_length=300, null=True, blank=True)
     project_buildup = models.CharField(max_length=300)
     project_price = models.CharField(max_length=300)
     project_price_text = models.CharField(max_length=30, null=True, blank=True)
