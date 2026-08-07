@@ -908,7 +908,7 @@ def add_events(request):
             messages.error(request, 'Events with same title already exists!')
         return redirect('/add-events')
     else:
-        events = [{'title': i.title, 'description': i.description, 'event_date': str(i.event_date),
+        events = [{'id':i.id, 'title': i.title, 'description': i.description, 'event_date': str(i.event_date),
                    'location': i.location, 'img': i.img
                    } for i in EventsAndCampaigns.objects.all()]
         data = {'events': events}
