@@ -54,6 +54,16 @@
                                     <h5>Property Type</h5>
                                     <select class="utf-chosen-select-single-item" data-placeholder="Property Type"  name="property_type" required>
                                         <option value="Flats" {% if project.property_type == 'Flats' %}selected{% endif %}>Flats</option>
+
+                                        <option value="Hotel Apartments" {% if project.property_type == 'Hotel Apartments' %}selected{% endif %}>Hotel Apartments</option>
+                                        <option value="Land" {% if project.property_type == 'Land' %}selected{% endif %}>Land</option>
+                                        <option value="Industrial Land" {% if project.property_type == 'Industrial Land' %}selected{% endif %}>Industrial Land</option>
+                                        <option value="Warehouse" {% if project.property_type == 'Warehouse' %}selected{% endif %}>Warehouse</option>
+                                        <option value="Apartments, Villas & Townhouses" {% if project.property_type == 'Apartments, Villas & Townhouses' %}selected{% endif %}>Apartments, Villas & Townhouses</option>
+                                        <option value="Villas & Townhouses" {% if project.property_type == 'Villas & Townhouses' %}selected{% endif %}>Villas & Townhouses</option>
+                                        <option value="Shops" {% if project.property_type == 'Shops' %}selected{% endif %}>Shops</option>
+                                        <option value="Apartments / Villas & Townhouses" {% if project.property_type == 'Apartments / Villas & Townhouses' %}selected{% endif %}>Apartments / Villas & Townhouses</option>
+
                                         <option value="Villas" {% if project.property_type == 'Villas' %}selected{% endif %}>Villas </option>
                                         <option value="Plots" {% if project.property_type == 'Plots' %}selected{% endif %}>Plots</option>
                                         <option value="Pent House" {% if project.property_type == 'Pent House' %}selected{% endif %}>Pent House</option>
@@ -184,10 +194,13 @@
                                 <div class="col-md-4">
                                     <h5>Status 1 (searchable)</h5>
                                     <select name="project_status" required>
-                                        <option value="Ready to Move" {% if project.project_status == 'Ready to Move' %}selected{% endif %}>Ready to Move</option>
+                                        <option value="New Property" {% if project.project_status == 'New Property' %}selected{% endif %}>New Property</option>
                                         <option value="Under Construction" {% if project.project_status == 'Under Construction' %}selected{% endif %}>Under Construction</option>
-                                        <option value="Pre Launch" {% if project.project_status == 'Pre Launch' %}selected{% endif %}>Pre Launch</option>
-                                        <option value="Ready to Handover" {% if project.project_status == 'Ready to Handover' %}selected{% endif %}>Ready to Handover</option>
+                                        <option value="Resale" {% if project.project_status == 'Resale' %}selected{% endif %}>Resale</option>
+                                        <option value="Rent" {% if project.project_status == 'Rent' %}selected{% endif %}>Rent</option>
+                                        <option value="Off Plan" {% if project.project_status == 'Off Plan' %}selected{% endif %}>Off Plan</option>
+                                        <option value="Nearing Possession" {% if project.project_status == 'Nearing Possession' %}selected{% endif %}>Nearing Possession</option>
+                                        <option value="Pre Launch / EOI" {% if project.project_status == 'Pre Launch / EOI' %}selected{% endif %}>Pre Launch / EOI</option>
                                     </select>
                                 </div>
 
