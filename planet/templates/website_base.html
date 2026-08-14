@@ -213,10 +213,13 @@
                         <ul id="responsive">
                             <li><a class="{% if current == 'home' %}current{% endif %}" href="/">{% trans "Home" %}</a></li>
                             <li><a class="{% if current == 'properties' %}current{% endif %}" href="/properties/">{% trans "Properties" %}</a>
+                                {% if looking_for %}
                                 <ul>
-                                    <li><a href="/search?city=any&builder=any&type=any&type_2=Commercial&status=any">{% trans "Commercial" %}</a></li>
-                                    <li><a href="/search?city=any&builder=any&type=any&type_2=Residential&status=any">{% trans "Residential" %}</a></li>
+                                    {% for i in looking_for %}
+                                    <li><a href="/search?city=any&builder=any&type=any&type_2={{ i.property_type_2|urlencode }}&status=any">{{ i.property_type_2 }}</a></li>
+                                    {% endfor %}
                                 </ul>
+                                {% endif %}
                             </li>
                             <li><a class="{% if current == 'blogs' %}current{% endif %}" href="/blogs/">{% trans "Blogs" %}</a></li>
                             <li><a class="{% if current == 'about' %}current{% endif %}" href="#">{% trans "About" %}</a>

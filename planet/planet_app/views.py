@@ -48,6 +48,18 @@ def get_website_content():
     return WebsiteContent.objects.select_related().first()
 
 
+def get_looking_for():
+    """Distinct property_type_2 values used in search and the Properties nav."""
+    return (
+        ProjectDetails.objects
+        .exclude(property_type_2__isnull=True)
+        .exclude(property_type_2='')
+        .values('property_type_2')
+        .distinct()
+        .order_by('property_type_2')
+    )
+
+
 def get_search_filters():
     """Get all search filters in one query set"""
     projects = ProjectDetails.objects.all()
@@ -56,7 +68,7 @@ def get_search_filters():
         'search_type': projects.values('property_type').distinct(),
         'search_status': projects.values('project_status').distinct(),
         'search_builder': projects.values('builder__name').distinct(),
-        'looking_for': projects.values('property_type_2').distinct(),
+        'looking_for': get_looking_for(),
     }
 
 
@@ -86,6 +98,7 @@ def get_common_context(request):
         'num1': get_random(),
         'num2': get_random(),
         'chosen_currency': request.session.get("currency", BASE),
+        'looking_for': get_looking_for(),
     }
 
 
@@ -508,7 +521,7 @@ def send_email(request):
 @login_required
 def show_form_submissions(request):
     forms = ContactForm.objects.all().order_by('-id')[:150]
-    data = {'forms': forms}
+    data = {'forms': forms, **get_common_context(request)}
     return render(request, 'check_submissions.html', data)
 
 
@@ -602,8 +615,7 @@ def login_function(request):
         if request.user.is_authenticated:
             return redirect('/dashboard')
         else:
-            website = WebsiteContent.objects.first()
-            data = {'current': 'login', 'title': 'Login', 'city': get_cities(), 'website': website}
+            data = {'current': 'login', 'title': 'Login', **get_common_context(request)}
             return render(request, 'login.html', data)
 
 
@@ -1700,6 +1712,7 @@ def html_sitemap(request):
         'projects_urls': projects_urls,
         'blogs_urls': blogs_urls,
         'events_urls': events_urls,
+        **get_common_context(request),
     }
 
     return render(request, 'sitemap.html', context)
@@ -1712,6 +1725,7 @@ def blog_list(request):
         'page_description': 'Explore our latest blog posts and insights.',
         'page_keywords': 'Blog, Articles, Real Estate, Updates',
         'blogs': blogs,
+        **get_common_context(request),
     }
     return render(request, 'blogs.html', context)
 
@@ -1723,6 +1737,7 @@ def blog_detail(request, slug):
         'page_description': blog.meta_description,
         'page_keywords': blog.meta_keywords,
         'blog': blog,
+        **get_common_context(request),
     }
     return render(request, 'blog_detail.html', context)
 
